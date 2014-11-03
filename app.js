@@ -19,9 +19,11 @@ app.get('/', function (req, res) {
 })
 io.sockets.on('connection', function(socket){
 	socket.on('subscribe', function(room) { //Client subscribe to a Room (recieve)
-        socket.join(room); 
+        console.log('Connection to room ' + room);
+		socket.join(room); 
     });
 	socket.on('mobileConnection',function(room){
+		console.log('Mobile Connected');
 		io.to(room).emit('mobileConnected');
 	});
 });

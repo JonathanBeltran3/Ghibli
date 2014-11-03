@@ -5,7 +5,7 @@ Model.prototype = {
 	init: function(socket) {
 		this.socket = socket
 	},
-	connectRoom(room) {
+	connectRoom: function(room) {
 		this.socket.emit('subscribe', room);
 		this.socket.emit('mobileConnection', room);
 	}
