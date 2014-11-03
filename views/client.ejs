@@ -1,0 +1,24 @@
+<% include header %>
+
+<div class="container">
+	<b><%= title %> (Partie <%= code %>)</b>
+	<div id="rooms"></div>
+</div>
+
+<form id="form-send" style="float:left;width:300px;height:250px;overflow:scroll-y;padding:10px;">
+	<div id="conversation"></div>
+	<input id="message" style="width:200px;" placeholder="Envoyer au Serveur"/>
+	<input type="button" id="send" value="Envoyer" />
+</form>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+	var socket = io.connect(),
+		room = '<%= code %>',
+		role = 'Client',
+		counterRole = 'Server';
+</script>
+
+<script src="/js/config.js"></script>
+<script src="/js/messages.js"></script>

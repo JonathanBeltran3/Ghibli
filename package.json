@@ -1,0 +1,10 @@
+{
+     "name": "Ghibli",
+     "description": "Project_wind_win",
+     "version": "0.0.1",
+     "dependencies": {
+        "express": "",
+        "socket.io": "",
+        "ejs": ""
+     }
+}

@@ -1,0 +1,13 @@
+<% include header %>
+
+<div class="container">
+	<b>Session <%= code %></b>
+	<div id="rooms"></div>
+</div>
+<script>
+	var socket = io.connect();
+	var room = '<%= code %>';
+</script>
+
+
+<% include footerMobile %>
