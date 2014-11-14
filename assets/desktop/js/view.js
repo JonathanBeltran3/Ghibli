@@ -2,7 +2,25 @@
 
 var View = function() {};
 View.prototype = {
-	showAccess: function(string) {
-		document.getElementById('links').innerHTML = '<img src="http://api.qrserver.com/v1/create-qr-code/?data=http://www.windmemory.com:8080/'+string+'&size=250x250" alt="Wind Memory QR Code" /><p>OR</p><p>http://www.windmemory.com:8080/'+string+'</p>';
+	showAccess: function(string, rootUrl) {
+		var data = {rootUrl: rootUrl, token: string};
+		var html = new EJS({url: '/links.ejs'}).render(data);
+		document.getElementById('links').innerHTML = html;
+	},
+	renderVideo: function(movie, sequence, callback) {
+		var data = {movieLink: movie.sequences[sequence].videoLink};
+		var html = new EJS({url: '/video.ejs'}).render(data);
+		document.getElementById('links').innerHTML = html;
+		callback.call(this);
+	},
+	launchVideo: function(video) {
+		this.video = video;
+		video.play();
+	},
+	waitForQTE: function(wait) {
+		var self = this;
+		this.video.playbackRate = 0.25;
+		console.log(wait);
+		setTimeout(function(){self.video.playbackRate = 1; console.log('back to normal');},wait);
 	}
 };

@@ -8,18 +8,19 @@ Controller.prototype = {
 		this.view = view;
 		this.room = room;
 		this.model.init(socket);
-		this.eventHandler();
+		this.socketListener();
 	},
 	
-	eventHandler: function() {
+	socketListener: function() {
 		var self = this;
 		
 		this.socket.on('connect', function() {
 			self.model.connectRoom(self.room);
 		});
 
-		this.socket.on('mobileConnected',function(){
-			alert('mobile connected');
+		this.socket.on('mobileConnected',function(data){
+			this.json = data;
+			console.log(this.json);
 		});
 	},
 }

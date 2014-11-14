@@ -18,5 +18,16 @@ Model.prototype = {
 		var string = this.randomString(6);
 		this.socket.emit('subscribe', string);
 		callback.call(this, string);
+	},
+	getRootUrl: function(callback){
+		// Create
+		var rootUrl = document.location.protocol+'//'+(document.location.hostname||document.location.host);
+		if ( document.location.port||false ) {
+			rootUrl += ':'+document.location.port;
+		}
+		rootUrl += '/';
+
+		// Return
+		callback.call(this, rootUrl);
 	}
 };
