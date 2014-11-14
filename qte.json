@@ -1,0 +1,65 @@
+[
+    {
+        "name": "Nausicaa and the valley of the wind",
+        "backgroundLink": "",
+        "logo": "",
+        "treasures" : {
+            "characters": "",
+            "analysis": "",
+            "fanArt": ""
+        },
+        "infos" : "",
+        "sequences": [
+            {
+                "id": 1,
+                "quote": "A God Warrior? You mean, the ones that burned the world in the Seven Days of Fire? This thing!",
+                "videoLink": "/nausicaa/nausicaa-seq1",
+                "qte": [
+                    {
+                        "time": "13",
+                        "duration": "3",
+                        "type": "tap"
+                    },
+                    {
+                        "time": "34",
+                        "duration": "3",
+                        "type": "tap"
+                    },
+                    {
+                        "time": "63",
+                        "duration": "3",
+                        "type": "swipe-right"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "quote": "The atmosphere is saturated with anger.",
+                "videoLink": "",
+                "qte": [
+                    {
+                        "time": "27",
+                        "duration": "3",
+                        "type": "swipe-down"
+                    },
+                    {
+                        "time": "35",
+                        "duration": "3",
+                        "type": "hold"
+                    },
+                    {
+                        "time": "50",
+                        "duration": "3",
+                        "type": "swipe-up"
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "quote": "After a thousand years of darkness, he will come, clad in blue and surrounded by fields of gold to restore mankind's connection of the Earth that was destroye",
+                "videoLink": "",
+                "qte": []
+            }
+        ]
+    }
+]
