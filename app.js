@@ -1,10 +1,12 @@
+"use strict";
 var express = require('express'),
     app = express(),
 	http = require('http'),
 	path = require('path'),
 	server = http.createServer(app),
 	io = require('socket.io').listen(server),
-	json = require('./qte.json');
+	json = require('./qte.json'),
+	listenQTE = 0;
    
 app.use(express.static(path.join(__dirname, './assets/desktop/views')));
 app.use(express.static(path.join(__dirname, './assets/desktop/videos/')));
@@ -23,6 +25,19 @@ io.sockets.on('connection', function(socket){
     });
 	socket.on('mobileConnection',function(room){
 		io.to(room).emit('mobileConnected', json);
+	});
+	socket.on('actionQTE', function(datas){
+		io.to(datas.room).emit('mobileActionQTE', datas.action);
+		listenQTE = 0;
+	});
+	socket.on('mobileResponseQTE', function(datas) {
+		if(listenQTE === 0) {
+			io.to(datas.room).emit('QTEDone', datas.action);
+		}
+		listenQTE++;
+	});
+	socket.on('failQTE', function(){
+		listenQTE++;
 	});
 });
 server.listen(8080);

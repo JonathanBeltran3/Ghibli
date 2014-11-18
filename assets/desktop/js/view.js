@@ -17,10 +17,8 @@ View.prototype = {
 		this.video = video;
 		video.play();
 	},
-	waitForQTE: function(wait) {
-		var self = this;
-		this.video.playbackRate = 0.25;
-		console.log(wait);
-		setTimeout(function(){self.video.playbackRate = 1; console.log('back to normal');},wait);
+	displayQTEInformations: function(action, callback) {
+		console.log(action);
+		callback.call(this);
 	}
 };

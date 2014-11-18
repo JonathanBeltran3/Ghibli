@@ -7,6 +7,8 @@ Controller.prototype = {
 		this.model = model;
 		this.view = view;
 		this.room = room;
+		this.touch = new Touch();
+		this.touch.init(this);
 		this.model.init(socket);
 		this.socketListener();
 	},
@@ -22,5 +24,15 @@ Controller.prototype = {
 			this.json = data;
 			console.log(this.json);
 		});
+		
+		this.socket.on('mobileActionQTE', function(action){
+			console.log(action);
+		});
 	},
+	
+	emitAction: function(action) {
+		this.model.emitAction(action, function() {
+		
+		});
+	}
 }
