@@ -30,7 +30,7 @@ Model.prototype = {
 		// Return
 		callback.call(this, rootUrl);
 	},
-	emitSocket(event, datas, callback) {
+	emitSocket: function(event, datas, callback) {
 		this.socket.emit(event, datas);
 		if(callback) callback.call(this);
 	}
