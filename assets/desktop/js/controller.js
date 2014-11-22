@@ -10,6 +10,7 @@ Controller.prototype = {
 		this.videoNumber = 0;
 		this.videoSequence = 0;
 		this.room = 0;
+		this.main = document.querySelector('.main');
 		this.socketListener();
 	},
 	
@@ -33,9 +34,9 @@ Controller.prototype = {
 	rollIntro: function() {
 		var self = this;
 		self.view.renderIntro(self.json[self.videoNumber], function(video){
-			console.log(video);
+			self.main.classList.add('hide-element');
 			video.play();
-			//video.onended = self.passIntro();
+			/*video.onended = self.passIntro();*/
 			self.model.emitSocket('passIntro', self.room);
 			self.addIntroListener();
 		});
@@ -43,7 +44,9 @@ Controller.prototype = {
 	},
 	
 	passIntro: function() {
-		this.dealSequences();
+		this.view.renderHomeVideo(this.json[this.videoNumber], function(){
+			console.log('rendered');
+		});
 	},
 	
 	addIntroListener: function() {
@@ -57,7 +60,6 @@ Controller.prototype = {
 	dealSequences: function(){
 		var self = this;
 		self.view.renderQuotes(self.json[self.videoNumber], self.videoSequence, function(){
-			self.quote = document.querySelector('.main');
 			self.view.renderVideo(self.json[self.videoNumber], self.videoSequence, function() {
 				self.video = document.querySelector('.video');
 				self.video.load();
@@ -70,7 +72,7 @@ Controller.prototype = {
 	fadeQuotesAndLaunchVideo: function(){
 		var self = this;
 		setTimeout(function(){
-			self.quote.classList.add('hide-element');
+			self.main.classList.add('hide-element');
 			self.view.launchVideo(self.video);
 		},3000);
 		

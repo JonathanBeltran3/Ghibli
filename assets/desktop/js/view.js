@@ -14,6 +14,12 @@ View.prototype = {
 		var video = document.querySelector('.video');
 		callback.call(this, video);
 	},
+	renderHomeVideo: function(movie, callback) {
+		var data = {filmName: movie.filmName, logo: movie.logo};
+		var html = new EJS({url: '/movieHome.ejs'}).render(data);
+		document.querySelector('.main').innerHTML = html;
+		callback.call(this);
+	},
 	renderVideo: function(movie, sequence, callback) {
 		var data = {movieLink: movie.sequences[sequence].videoLink};
 		var html = new EJS({url: '/video.ejs'}).render(data);

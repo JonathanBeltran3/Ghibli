@@ -1,8 +1,8 @@
 [
     {
         "name": "Nausicaa and the valley of the wind",
-        "backgroundLink": "",
-        "logo": "",
+        "filmName": "nausicaa",
+        "logo": "/logo/nausicaa.ejs",
         "treasures" : {
             "characters": "",
             "analysis": "",
