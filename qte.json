@@ -15,6 +15,7 @@
                 "id": 1,
                 "quote": "A God Warrior? You mean, the ones that burned the world in the Seven Days of Fire? This thing!",
                 "videoLink": "/nausicaa/nausicaa-seq1",
+                "videoDuration" : "76",
                 "qte": [
                     {
                         "time": "13",
@@ -37,6 +38,7 @@
                 "id": 2,
                 "quote": "The atmosphere is saturated with anger.",
                 "videoLink": "/nausicaa/nausicaa-seq2",
+                "videoDuration" : "79",
                 "qte": [
                     {
                         "time": "27",
@@ -59,6 +61,7 @@
                 "id": 3,
                 "quote": "After a thousand years of darkness, he will come, clad in blue and surrounded by fields of gold to restore mankind's connection of the Earth that was destroye",
                 "videoLink": "/nausicaa/nausicaa-seq3",
+                "videoDuration" : "220",
                 "qte": []
             }
         ]
