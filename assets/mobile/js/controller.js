@@ -20,19 +20,21 @@ Controller.prototype = {
 			self.model.connectRoom(self.room);
 		});
 
-		this.socket.on('mobileConnected',function(data){
+		this.socket.on('mobileConnected', function(data){
 			this.json = data;
 			console.log(this.json);
 		});
-		
+				
 		this.socket.on('mobileActionQTE', function(action){
 			console.log(action);
 		});
 	},
 	
 	emitAction: function(action) {
-		this.model.emitAction(action, function() {
-		
-		});
+		this.model.emitAction(action);
+	},
+	
+	emitSocket: function(event, datas) {
+		this.model.emitSocket(event,datas);
 	}
 }

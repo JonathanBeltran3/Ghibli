@@ -9,6 +9,7 @@
             "fanArt": ""
         },
         "infos" : "",
+		"introduction": "/nausicaa/nausicaa-intro-video",
         "sequences": [
             {
                 "id": 1,

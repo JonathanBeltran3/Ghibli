@@ -13,5 +13,10 @@ Model.prototype = {
 	emitAction: function(action, callback) {
 		var datas = {'room': this.room, 'action': action}
 		this.socket.emit('mobileResponseQTE', datas);
+	},
+	emitSocket: function(event, datas, callback) {
+		datas.room = this.room;
+		this.socket.emit(event, datas);
+		if(callback) callback.call(this);
 	}
 };

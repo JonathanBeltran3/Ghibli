@@ -6,7 +6,8 @@ var express = require('express'),
 	server = http.createServer(app),
 	io = require('socket.io').listen(server),
 	json = require('./qte.json'),
-	listenQTE = 0;
+	listenQTE = 0,
+	listenPassIntro = 0;
    
 app.use(express.static(path.join(__dirname, './assets/desktop/views')));
 app.use(express.static(path.join(__dirname, './assets/desktop/videos/')));
@@ -23,8 +24,21 @@ io.sockets.on('connection', function(socket){
 	socket.on('subscribe', function(room) { //Client subscribe to a Room (recieve)
 		socket.join(room); 
     });
-	socket.on('mobileConnection',function(room){
+	socket.on('mobileConnection', function(room){
 		io.to(room).emit('mobileConnected', json);
+	});
+	socket.on('passIntro', function(room){
+		io.to(room).emit('passIntro');
+		listenPassIntro = 1;
+		console.log(listenPassIntro);
+	});
+	socket.on('mobilePassIntro', function(datas){
+		console.log('action : ' + datas.action)
+		
+		if(listenPassIntro === 1 && datas.action === 'tap') {
+			listenPassIntro = 0;
+			io.to(datas.room).emit('mobilePassIntro');
+		}
 	});
 	socket.on('actionQTE', function(datas){
 		io.to(datas.room).emit('mobileActionQTE', datas.action);

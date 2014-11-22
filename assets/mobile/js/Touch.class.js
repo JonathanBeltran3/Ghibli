@@ -41,14 +41,18 @@ Touch.prototype = {
 		if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
 			if ( xDiff > 0 ) {
 				this.controller.emitAction('swipe-left');
+				this.controller.emitSocket('mobilePassIntro',{action: 'swipe-left'});
 			} else {
 				this.controller.emitAction('swipe-right');
+				this.controller.emitSocket('mobilePassIntro',{action: 'swipe-right'});
 			}                       
 		} else {
 			if ( yDiff > 0 ) {
 				this.controller.emitAction('swipe-up');
+				this.controller.emitSocket('mobilePassIntro',{action: 'swipe-up'});
 			} else { 
 				this.controller.emitAction('swipe-down');
+				this.controller.emitSocket('mobilePassIntro',{action: 'swipe-down'});
 			}                                                                 
 		}
 	},
@@ -57,8 +61,10 @@ Touch.prototype = {
 		var timeDiff = actualTime-this.touchTime;
 		if(timeDiff < this.singleTap) {
 			this.controller.emitAction('tap');
+			this.controller.emitSocket('mobilePassIntro',{action: 'tap'});
 		} else {
 			this.controller.emitAction('hold');
+			this.controller.emitSocket('mobilePassIntro',{action: 'hold'});
 		}
 	}
 };
