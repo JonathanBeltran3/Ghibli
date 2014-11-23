@@ -10,9 +10,14 @@ Controller.prototype = {
 		this.videoNumber = 0;
 		this.room = 0;
 		this.main = document.querySelector('.main');
+		this.eventListener();
 		this.socketListener();
 	},
-	
+	eventListener: function(){
+		var self= this;
+		
+		document.querySelector('.fullscreen-toggle').addEventListener('click', self.view.toggleFullscreen, false);
+	},
 	socketListener: function() {
 		var self = this;
 		this.socket.on('connect', function() {
@@ -69,7 +74,7 @@ Controller.prototype = {
 		self.view.renderIntro(self.json[self.videoNumber], function(video){
 			self.main.classList.add('hide-element');
 			video.play();
-			video.onended = self.passIntro();
+			video.onended = function(){self.passIntro();};
 			self.model.emitSocket('passIntro', self.room);
 			self.addIntroListener();
 		});

@@ -2,7 +2,18 @@
 
 var View = function() {};
 View.prototype = {
-	initTemplates: function(templateName, template, callback){
+	toggleFullscreen: function() {
+		if (fullScreenApi.supportsFullScreen)
+		{
+			if (fullScreenApi.isFullScreen()) {
+				fullScreenApi.cancelFullScreen(document.documentElement);
+			} else {
+				fullScreenApi.requestFullScreen(document.documentElement);
+			}
+		}
+
+	},
+	initTemplates: function(templateName, template, callback) {
 		this[templateName] = template;
 		callback.call(this);
 	},
