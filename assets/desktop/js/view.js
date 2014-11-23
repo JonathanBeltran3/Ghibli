@@ -26,6 +26,12 @@ View.prototype = {
 		document.querySelector('.video-container').innerHTML = html;
 		callback.call(this);
 	},
+	renderTimelinePart: function(movie, sequence, callback) {
+		var data = { movieDuration: movie.sequences[sequence].videoDuration, qte: movie.sequences[sequence].qte };
+		var html = new EJS({url: '/timeline-part.ejs'}).render(data);
+		document.querySelectorAll('.timeline')[sequence].innerHTML = html;
+		callback.call(this);
+	},
 	renderQuotes: function(movie, sequence, callback){
 		var data = {movieQuote: movie.sequences[sequence].quote, movieSequence: sequence+1};
 		var html = new EJS({url: '/quote.ejs'}).render(data);
