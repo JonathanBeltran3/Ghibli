@@ -8,7 +8,6 @@ Controller.prototype = {
 		this.view = view;
 		this.model.init(this.socket);
 		this.videoNumber = 0;
-		this.videoSequence = 0;
 		this.room = 0;
 		this.main = document.querySelector('.main');
 		this.socketListener();
@@ -77,17 +76,25 @@ Controller.prototype = {
 	},
 	
 	passIntro: function() {
+		var self = this;
+		
 		this.view.renderHomeVideo(this.json[this.videoNumber], function(){
-			console.log('rendered');
+			console.log('home');
+			document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
 		});
 	},
 	
 	addIntroListener: function() {
 		var self = this;
-		
 		self.socket.on('mobilePassIntro', function(){
 			self.passIntro();
 		});
+	},
+	
+	newGame: function(e){
+		e.preventDefault();
+		this.videoSequence = 0;
+		this.dealSequences();
 	},
 	
 	dealSequences: function(){

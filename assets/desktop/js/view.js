@@ -50,12 +50,13 @@ View.prototype = {
         console.log(html);
 		document.querySelector('body').innerHTML = html;
 	},
-//	renderQuotes: function(movie, sequence, callback){
-//		var data = {movieQuote: movie.sequences[sequence].quote, movieSequence: sequence+1};
-//		var html = new EJS({url: '/quote.ejs'}).render(data);
-//		document.querySelector('.main').innerHTML = html;
-//		callback.call(this);
-//	},
+	renderQuotes: function(movie, sequence, callback){
+		var data = {movieQuote: movie.sequences[sequence].quote, movieSequence: sequence+1};
+		var template  = Handlebars.compile(this.quoteTemplate);
+		var html      = template(data);
+		document.querySelector('.main').innerHTML = html;
+		callback.call(this);
+	},
 	launchVideo: function(video) {
 		console.log('launch');
 		this.video = video;
