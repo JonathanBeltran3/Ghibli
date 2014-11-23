@@ -68,7 +68,13 @@ View.prototype = {
 		video.play();
 	},
 	displayQTEInformations: function(action, callback) {
-		document.querySelector('.qte-information').innerHTML = action;
+        qteAction = document.querySelector('.qte-action'),
+		qteAction.innerHTML = action;
+        this.toggleFullscreen();
 		callback.call(this);
+	},
+	toggleQteMode: function() {
+        qteMode = document.querySelector('.qte-mode'),
+        qteMode.classList.toggle('active');
 	}
 };

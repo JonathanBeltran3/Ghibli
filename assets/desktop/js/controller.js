@@ -147,6 +147,7 @@ Controller.prototype = {
 				var timeout = setTimeout(function(){
 					self.model.emitSocket('failQTE');
 					console.log('failQTE');
+                    self.view.toggleQteMode();
 				}, wait);
 				self.addQTEListener(timeout, action);
 			});
@@ -161,6 +162,7 @@ Controller.prototype = {
 			if(action === actionMobile) {
 				clearTimeout(timeout);
 				console.log('Même action');
+                self.view.toggleQteMode();
 			} else {
 				self.model.emitSocket('failQTE');
 			}
