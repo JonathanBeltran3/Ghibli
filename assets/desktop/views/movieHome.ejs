@@ -10,20 +10,9 @@
 		</div>
 	</div>
 
-	<button class="sound">
-		SOUND
-		<svg version="1.1" id="sound" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 17.5" enable-background="new 0 0 20 17.5" xml:space="preserve">
-			<path id="enceinte" fill-rule="evenodd" clip-rule="evenodd" fill="#FFEBC0" d="M10,17.2c-1-0.9-2.9-3.1-4.9-4.9H1.6
-	c-0.9,0-1.6-0.7-1.6-1.6v-4c0-0.9,0.7-1.6,1.6-1.6H5C7.4,3,9.7,0.5,10,0.2c0.6-0.5,1,0,1,1c0,0.7,0,12.2,0,15
-	C11,17.3,10.6,17.8,10,17.2z" />
-			<g id="onde">
-				<path fill-rule="evenodd" clip-rule="evenodd" fill="#FFEBC0" d="M17.8,14.8c-1.2,1.5-2.5,0.4-1.5-0.9s2.1-2.2,2.1-5.2
-		c0-3-1.2-4.1-2.2-5.3c-0.9-1.1,0.5-2.2,1.6-0.8c1.1,1.4,2.2,3,2.2,6S18.9,13.3,17.8,14.8z" />
-				<path fill-rule="evenodd" clip-rule="evenodd" fill="#FFEBC0" d="M15.4,12.1c-1.2,1.7-2.6,0.5-1.5-0.9c1.1-1.4,0.8-3.7-0.1-5.1
-		c-0.9-1.4,0.5-2.6,1.6-0.8C16.5,7.1,16.7,10.4,15.4,12.1z" />
-			</g>
-		</svg>
-	</button>
+    <!-- include sound -->
+    <% include modules/sound %>
+
 	<nav class="menu">
 		<ul>
 			<li><a href="#" class="active menu-link">New Game</a>
@@ -46,7 +35,6 @@
 	</nav>
 
 
-	<footer class="credits">
-		© 2014 Ghibli. Content provided by Ghibli. It’s an unofficial website by students and fans of Miyazaki productions. <a href="">About us</a>
-	</footer>
+    <!-- include here footer with credits -->
+    <% include modules/credits %>
 </div>
