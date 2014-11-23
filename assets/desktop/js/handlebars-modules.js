@@ -7,11 +7,10 @@ Handlebars.registerHelper('dynPartial', function (data, options) {
 
 Handlebars.registerHelper('addingQTE', function () {
     var qtes = this.qte,
-        duration = Handlebars.escapeExpression(this.movieDuration);
+        duration = Handlebars.escapeExpression(this.videoDuration);
         var text = '';
 
     for (var i in qtes) {
-        console.log(qtes[i]);
         text += '<div class="qte" style="left: ' + (parseInt(qtes[i].time) / parseInt(duration) * 100) + '% "></div>';
     }
 

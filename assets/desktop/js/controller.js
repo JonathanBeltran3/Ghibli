@@ -44,7 +44,7 @@ Controller.prototype = {
 		self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
 		self.launchInitPartials('modules/sound.handlebars', 'sound');
 		self.launchInitPartials('modules/credits.handlebars', 'credits');
-		self.launchInitTemplate('modules/timeline-part.handlebars', 'timelinePart');
+		self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
 	},
 	launchInitTemplate: function(templatePath, templateName){
 		var self = this;

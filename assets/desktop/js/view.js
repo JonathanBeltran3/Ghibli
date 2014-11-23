@@ -36,11 +36,19 @@ View.prototype = {
 		document.querySelector('.video-container').innerHTML = html;
 		callback.call(this);
 	},
-	renderTimelinePart: function(movie, sequence) {
-		var data = { movieDuration: movie.sequences[sequence].videoDuration, qte: movie.sequences[sequence].qte };
-		var template  = Handlebars.compile(this.timelinePart);
+//	renderTimelinePart: function(movie, sequence) {
+//		var data = { movieDuration: movie.sequences[sequence].videoDuration, qte: movie.sequences[sequence].qte };
+//		var template  = Handlebars.compile(this.timelinePart);
+//		var html      = template(data);
+//		document.querySelectorAll('.timeline')[sequence].innerHTML = html;
+//	},
+	renderMoviePlaying: function(movie) {
+        console.log('coucou');
+		var data = { sequences: movie.sequences };
+		var template  = Handlebars.compile(this.moviePlaying);
 		var html      = template(data);
-		document.querySelectorAll('.timeline')[sequence].innerHTML = html;
+        console.log(html);
+		document.querySelector('body').innerHTML = html;
 	},
 //	renderQuotes: function(movie, sequence, callback){
 //		var data = {movieQuote: movie.sequences[sequence].quote, movieSequence: sequence+1};
