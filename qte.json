@@ -2,7 +2,7 @@
     {
         "name": "Nausicaa and the valley of the wind",
         "filmName": "nausicaa",
-        "logo": "/logo/nausicaa.ejs",
+        "logo": "nausicaaLogo",
         "treasures" : {
             "characters": "",
             "analysis": "",

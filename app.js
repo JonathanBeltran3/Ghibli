@@ -30,11 +30,8 @@ io.sockets.on('connection', function(socket){
 	socket.on('passIntro', function(room){
 		io.to(room).emit('passIntro');
 		listenPassIntro = 1;
-		console.log(listenPassIntro);
 	});
 	socket.on('mobilePassIntro', function(datas){
-		console.log('action : ' + datas.action)
-		
 		if(listenPassIntro === 1 && datas.action === 'tap') {
 			listenPassIntro = 0;
 			io.to(datas.room).emit('mobilePassIntro');

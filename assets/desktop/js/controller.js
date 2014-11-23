@@ -17,26 +17,61 @@ Controller.prototype = {
 	socketListener: function() {
 		var self = this;
 		this.socket.on('connect', function() {
-			self.model.createRoom(function(string){
-				self.model.getRootUrl(function(rootUrl) {
-					self.view.showAccess(string, rootUrl);
-					self.room = string;
+			self.model.ajaxLoadTemplate('links.handlebars',function(template){
+				self.view.initTemplates('linksTemplate', template, function(){
+					self.model.createRoom(function(string){
+						self.model.getRootUrl(function(rootUrl) {
+							self.view.showAccess(string, rootUrl);
+							self.room = string;
+						});
+					});
 				});
 			});
 		});
 
 		this.socket.on('mobileConnected',function(data){
 			self.json = data;
-			self.rollIntro();
+			self.loadVideoTemplates();
 		});
 	},
-	
+	loadVideoTemplates: function(){
+		var self = this;
+		self.load = 0;
+		self.numberOfLoad = 4;
+		self.launchInitTemplate('video.handlebars', 'videoTemplate');
+		self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
+		self.launchInitTemplate('movieHome.handlebars', 'movieHomeTemplate');
+		self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
+		self.launchInitPartials('modules/sound.handlebars', 'sound');
+		self.launchInitPartials('modules/credits.handlebars', 'credits');
+	},
+	launchInitTemplate: function(templatePath, templateName){
+		var self = this;
+		
+		self.model.ajaxLoadTemplate(templatePath, function(template) {
+			self.view.initTemplates(templateName, template, function(){
+				self.dealWithLoading();
+			});
+		});
+	},
+	launchInitPartials: function(partielPath, partialName){
+		var self = this;
+		self.model.ajaxLoadTemplate(partielPath, function(template) {
+			Handlebars.registerPartial(partialName, template);
+			self.dealWithLoading();
+		});
+	},
+	dealWithLoading: function(){
+		this.load += 100/this.numberOfLoad;
+		console.log(this.load);
+		if(Math.ceil(this.load) === 100) this.rollIntro();
+	},
 	rollIntro: function() {
 		var self = this;
 		self.view.renderIntro(self.json[self.videoNumber], function(video){
 			self.main.classList.add('hide-element');
 			video.play();
-			/*video.onended = self.passIntro();*/
+			video.onended = self.passIntro();
 			self.model.emitSocket('passIntro', self.room);
 			self.addIntroListener();
 		});
