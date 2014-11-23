@@ -37,20 +37,20 @@ Controller.prototype = {
 	loadVideoTemplates: function(){
 		var self = this;
 		self.load = 0;
-		self.numberOfLoad = 4;
+		self.numberOfLoad = 7;
 		self.launchInitTemplate('video.handlebars', 'videoTemplate');
 		self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
 		self.launchInitTemplate('movieHome.handlebars', 'movieHomeTemplate');
 		self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
 		self.launchInitPartials('modules/sound.handlebars', 'sound');
 		self.launchInitPartials('modules/credits.handlebars', 'credits');
+		self.launchInitTemplate('modules/timeline-part.handlebars', 'timelinePart');
 	},
 	launchInitTemplate: function(templatePath, templateName){
 		var self = this;
-		
 		self.model.ajaxLoadTemplate(templatePath, function(template) {
 			self.view.initTemplates(templateName, template, function(){
-				self.dealWithLoading();
+                self.dealWithLoading();
 			});
 		});
 	},
@@ -63,8 +63,7 @@ Controller.prototype = {
 	},
 	dealWithLoading: function(){
 		this.load += 100/this.numberOfLoad;
-		console.log(this.load);
-		if(Math.ceil(this.load) === 100) this.rollIntro();
+		if(Math.round(this.load) === 100) this.rollIntro();
 	},
 	rollIntro: function() {
 		var self = this;
@@ -75,7 +74,6 @@ Controller.prototype = {
 			self.model.emitSocket('passIntro', self.room);
 			self.addIntroListener();
 		});
-		
 	},
 	
 	passIntro: function() {
