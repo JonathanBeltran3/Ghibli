@@ -110,6 +110,7 @@ Controller.prototype = {
 	
 	passIntro: function() {
 		var self = this;
+		self.model.emitSocket('introPassed', self.room);
 		self.view.fadeIntro(self.video, function(){
 			self.view.renderHomeVideo(self.json[self.videoNumber], function(){
 				document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
@@ -119,7 +120,7 @@ Controller.prototype = {
 	
 	addIntroListener: function() {
 		var self = this;
-		self.socket.on('mobilePassIntro', function(){
+		self.socket.once('mobilePassIntro', function(){
 			self.passIntro();
 		});
 	},
@@ -186,6 +187,7 @@ Controller.prototype = {
 			self.model.emitSocket('actionQTE', datas, function() {
 				var timeout = setTimeout(function(){
 					console.log('failQTE');
+					self.model.emitSocket('failQTE', self.room);
                     self.view.toggleQteMode(self.videoSequence, i);
                     self.socket.removeAllListeners('QTEDone');
 
@@ -204,6 +206,8 @@ Controller.prototype = {
 			if(action === actionMobile) {
 				self.QTESuccess++;
                 self.view.addSuccessQTE(self.videoSequence, i);
+			} else {
+				self.model.emitSocket('failQTE', self.room);
 			}
             clearTimeout(timeout);
 			self.view.toggleQteMode(self.videoSequence, i);

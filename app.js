@@ -62,6 +62,15 @@ App.prototype = {
 				}
 				self.listenQTE = 0;
 			});
+
+			socket.on('introPassed', function(room) {
+				self.listenPassIntro = 0;
+			});
+
+			socket.on('failQTE', function(room) {
+				self.listenQTE = 0;
+				self.io.to(room).emit('failQTE');
+			});
 		});
 
 		self.server.listen(8080);
