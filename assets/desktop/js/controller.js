@@ -158,7 +158,11 @@ Controller.prototype = {
 					if(i < sequence.qte.length-1) i++;
 				}
 			}, 1000);
-		}
+		} else {
+            setTimeout(function(){
+                self.endQTEs(interval);
+            }, 10 * 1000);
+        }
 		self.video.addEventListener('timeupdate', function(){
             var progress = self.video.currentTime / self.video.duration * 100;
             self.view.updateTimelineProgress(self.videoSequence, progress);

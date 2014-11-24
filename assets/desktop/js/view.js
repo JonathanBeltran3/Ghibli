@@ -102,6 +102,7 @@ View.prototype = {
         document.querySelectorAll('.qte-shield')[seq].classList.add(status);
     },
     showBadge : function (filmName, seq, unlocked){
+        document.querySelector('.qte-badge').classList.remove('fadeInUpThenDown');
 		var data = {
             filmName: filmName,
             seq : seq + 1,
@@ -113,16 +114,18 @@ View.prototype = {
                 data.msg = 'The complete biography of the film &amp; characters.';
             break;
             case 1 :
-                data.msg = 'The complete biography of the film &amp; characters.';
+                data.msg = 'Boloboblboblb';
             break;
             case 2 :
-                data.msg = 'The complete biography of the film &amp; characters.';
+                data.msg = 'Trucucucucucucucucdlkwj<vk,';
             break;
         }
 
 		var template  = Handlebars.compile(this.badgeContent);
 		var html      = template(data);
 		document.querySelector('.qte-badge').innerHTML = html;
-		document.querySelector('.qte-badge').classList.add('animated');
+		setTimeout(function(){
+            document.querySelector('.qte-badge').classList.add('fadeInUpThenDown');
+        }, 100);
     }
 };
