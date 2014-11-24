@@ -77,6 +77,7 @@ View.prototype = {
 	toggleQteMode: function() {
 		var qteMode = document.querySelector('.qte-mode');
         qteMode.classList.toggle('active');
+        document.querySelector('.qte-progression').classList.toggle('shrinkQTECircle');
 	},
 	fadeIntro: function(video, callback){
 		var interval = setInterval(function() {
@@ -84,5 +85,8 @@ View.prototype = {
 			video.volume -= 0.1;
 		},200);
 		callback.call(this);
-	}
+	},
+    updateTimelineProgress: function (seq, progress) {
+        document.querySelectorAll('.timeline-part')[seq].style.width = progress + '%';
+    }
 };
