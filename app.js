@@ -58,12 +58,8 @@ App.prototype = {
 
 			socket.on('mobileResponseQTE', function(datas) {
 				if(self.listenQTE) {
-					console.log('emit QTEDone '+datas);
 					self.io.to(datas.room).emit('QTEDone', datas.action);
 				}
-				self.listenQTE = 0;
-			});
-			socket.on('failQTE', function(){
 				self.listenQTE = 0;
 			});
 		});
