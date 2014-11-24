@@ -194,6 +194,7 @@ Controller.prototype = {
 	
 	finishVideo: function(interval) {
 		var self = this;
+		clearInterval(interval);
 		self.saveSequence();
 
 		if(self.videoSequence < self.json[self.videoNumber].sequences.length-1) {
@@ -207,7 +208,7 @@ Controller.prototype = {
 		var QTEDone = false;
 		var sequence = self.json[self.videoNumber].sequences[self.videoSequence];
 		if(sequence.qte.length === self.QTESuccess) QTEDone = true;
-		self.model.save(self.filmName, self.videoSequence, QTEDone, function(){
+		self.model.saveSequence(self.filmName, self.videoSequence, QTEDone, function(){
 			self.getSave();
 			console.log(self.save);
 		});

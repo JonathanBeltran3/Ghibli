@@ -39,7 +39,7 @@ Model.prototype = {
 		this.save = datas;
 		callback.call(this);
 	},
-	save: function(filmName, sequence, success, callback){
+	saveSequence: function(filmName, sequence, success, callback){
 		this.save[filmName][sequence] = {qte: success};
 		localStorage.save = JSON.stringify(this.save);
 		callback.call(this);

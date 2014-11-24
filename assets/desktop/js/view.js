@@ -82,7 +82,11 @@ View.prototype = {
 	},
 	fadeIntro: function(video, callback){
 		var interval = setInterval(function() {
-			if(video.volume < 0.1) clearInterval(interval);
+			console.log(video.volume);
+			if(video.volume < 0.15) {
+				video.volume = 0;
+				clearInterval(interval);
+			}
 			video.volume -= 0.1;
 		},200);
 		callback.call(this);
