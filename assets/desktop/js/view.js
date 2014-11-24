@@ -85,5 +85,8 @@ View.prototype = {
 			video.volume -= 0.1;
 		},200);
 		callback.call(this);
-	}
+	},
+    updateTimelineProgress: function (seq, progress) {
+        document.querySelectorAll('.timeline-part')[seq].style.width = progress + '%';
+    }
 };

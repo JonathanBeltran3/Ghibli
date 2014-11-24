@@ -140,7 +140,10 @@ Controller.prototype = {
 		var sequence = self.json[self.videoNumber].sequences[self.videoSequence];
 		if(sequence.qte.length) {
 			self.video.addEventListener('timeupdate', function(){
-				if(parseInt(self.video.currentTime) === parseInt(sequence.qte[i].time)) {
+                var progress = self.video.currentTime / self.video.duration * 100;
+                console.log(self.video.currentTime);
+                self.view.updateTimelineProgress(self.videoSequence, progress);
+				if(Math.round(self.video.currentTime) === parseInt(sequence.qte[i].time)) {
 					self.dealQTEAction(parseInt(sequence.qte[i].duration)*1000, sequence.qte[i].type);
 					if(i < sequence.qte.length-1) i++;
 				}
