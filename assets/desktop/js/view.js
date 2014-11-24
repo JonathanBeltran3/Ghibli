@@ -48,6 +48,7 @@ View.prototype = {
 		callback.call(this);
 	},
 	renderMoviePlaying: function(movie) {
+        console.log('ploup');
 		var data = { sequences: movie.sequences };
 		var template  = Handlebars.compile(this.moviePlaying);
 		var html      = template(data);
@@ -57,13 +58,17 @@ View.prototype = {
 		var data = {movieQuote: movie.sequences[sequence].quote, movieSequence: sequence+1};
 		var template  = Handlebars.compile(this.quoteTemplate);
 		var html      = template(data);
-		document.querySelector('.main').innerHTML = html;
+		document.querySelector('.loader-screen').innerHTML = html;
+		document.querySelector('.loader-screen').classList.add('show-screen');
 		callback.call(this);
 	},
 	launchVideo: function(video) {
 		this.video = video;
 		video.play();
 	},
+    hideLoader: function() {
+        document.querySelector('.loader-screen').classList.remove('show-screen');
+    },
 	displayQTEInformations: function(action, seq, i, callback) {
 		var data = {};
 		var qteAction = document.querySelector('.qte-action');
@@ -93,5 +98,12 @@ View.prototype = {
 	},
     updateTimelineProgress: function (seq, progress) {
         document.querySelectorAll('.timeline-part')[seq].style.width = progress + '%';
+    },
+    addSuccessQTE: function(seq, i) {
+        document.querySelectorAll('.timeline-3-seq')[seq].querySelectorAll('.qte')[i].classList.add('success');
+    },
+    addStatusSeq: function(seq, success) {
+        var status = (success === 'success') ? 'unlocked' : 'locked';
+        document.querySelectorAll('.qte-shield')[seq].classList.add(status);
     }
 };
