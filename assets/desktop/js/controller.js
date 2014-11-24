@@ -43,7 +43,7 @@ Controller.prototype = {
 
 		this.socket.on('mobileConnected',function(data){
 			self.json = data;
-			self.filmName = data[self.videoNumber].fileName;
+			self.filmName = data[self.videoNumber].filmName;
 			self.loadVideoTemplates();
 		});
 	},
@@ -208,6 +208,7 @@ Controller.prototype = {
 		var QTEDone = false;
 		var sequence = self.json[self.videoNumber].sequences[self.videoSequence];
 		if(sequence.qte.length === self.QTESuccess) QTEDone = true;
+		console.log(self.filmName);
 		self.model.saveSequence(self.filmName, self.videoSequence, QTEDone, function(){
 			self.getSave();
 			console.log(self.save);
