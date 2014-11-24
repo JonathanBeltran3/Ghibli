@@ -61,7 +61,6 @@ View.prototype = {
 		callback.call(this);
 	},
 	launchVideo: function(video) {
-		console.log('launch');
 		this.video = video;
 		video.play();
 	},
@@ -76,9 +75,15 @@ View.prototype = {
 		callback.call(this);
 	},
 	toggleQteMode: function() {
-        console.log('toggle toggle')
 		var qteMode = document.querySelector('.qte-mode');
         qteMode.classList.toggle('active');
         document.querySelector('.qte-progression').classList.toggle('shrinkQTECircle');
+	},
+	fadeIntro: function(video, callback){
+		var interval = setInterval(function() {
+			if(video.volume < 0.1) clearInterval(interval);
+			video.volume -= 0.1;
+		},200);
+		callback.call(this);
 	}
 };

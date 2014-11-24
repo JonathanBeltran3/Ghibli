@@ -19,7 +19,7 @@ app.get('/', function (req, res) {
   res.render('index.ejs', {title: 'Wind Memory'});
 }).get('/:code/', function (req, res) {
   res.render('mobile.ejs', {title: 'Wind Memory', code: req.params.code});
-})
+});
 io.sockets.on('connection', function(socket){
 	socket.on('subscribe', function(room) { //Client subscribe to a Room (recieve)
 		socket.join(room); 
