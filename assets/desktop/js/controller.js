@@ -110,6 +110,7 @@ Controller.prototype = {
 				self.video.load();
 				self.addVideoListener();
 			});
+            self.view.renderMoviePlaying(self.json[self.videoNumber]);
 		});
 		
 	},

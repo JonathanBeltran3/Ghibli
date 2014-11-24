@@ -48,12 +48,10 @@ View.prototype = {
 		callback.call(this);
 	},
 	renderMoviePlaying: function(movie) {
-        console.log('coucou');
 		var data = { sequences: movie.sequences };
 		var template  = Handlebars.compile(this.moviePlaying);
 		var html      = template(data);
-        console.log(html);
-		document.querySelector('body').innerHTML = html;
+		document.querySelector('.main').innerHTML = html;
 	},
 	renderQuotes: function(movie, sequence, callback){
 		var data = {movieQuote: movie.sequences[sequence].quote, movieSequence: sequence+1};
