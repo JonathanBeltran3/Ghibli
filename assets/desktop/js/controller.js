@@ -51,7 +51,7 @@ Controller.prototype = {
 	loadVideoTemplates: function(){
 		var self = this;
 		self.load = 0;
-		self.numberOfLoad = 13;
+		self.numberOfLoad = 14;
 		self.launchInitTemplate('video.handlebars', 'videoTemplate');
 		self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
 		self.launchInitTemplate('movieHome.handlebars', 'movieHomeTemplate');
@@ -59,6 +59,7 @@ Controller.prototype = {
 		self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
 		self.launchInitPartials('modules/sound.handlebars', 'sound');
 		self.launchInitPartials('modules/credits.handlebars', 'credits');
+		self.launchInitTemplate('modules/badge-content.handlebars', 'badgeContent');
 
         /* gestures */
 		self.launchInitTemplate('gestures/swipe-up.handlebars', 'swipe-up');
@@ -150,18 +151,21 @@ Controller.prototype = {
 		var sequence = self.json[self.videoNumber].sequences[self.videoSequence];
 		if(sequence.qte.length) {
 			var interval = setInterval(function(){
-                var progress = self.video.currentTime / self.video.duration * 100;
-                self.view.updateTimelineProgress(self.videoSequence, progress);
+
 				if(Math.round(self.video.currentTime) === parseInt(sequence.qte[i].time)) {
-					self.dealQTEAction(parseInt(sequence.qte[i].duration)*1000, sequence.qte[i].type, i);
+					self.dealQTEAction(sequence, interval, parseInt(sequence.qte[i].duration)*1000, sequence.qte[i].type, i);
 					if(i < sequence.qte.length-1) i++;
 				}
 			}, 1000);
 		}
+		self.video.addEventListener('timeupdate', function(){
+            var progress = self.video.currentTime / self.video.duration * 100;
+            self.view.updateTimelineProgress(self.videoSequence, progress);
+        });
 		self.video.onended = function(e) { self.finishVideo(interval) };
 	},
 	
-	dealQTEAction: function(wait, action, i) {
+	dealQTEAction: function(sequence, interval, wait, action, i) {
 		var self = this;
 		self.view.displayQTEInformations(action, self.videoSequence, i, function() {
 			var datas = {'action': action, 'room': self.room};
@@ -170,14 +174,16 @@ Controller.prototype = {
 					console.log('failQTE');
                     self.view.toggleQteMode(self.videoSequence, i);
                     self.socket.removeAllListeners('QTEDone');
+
+                    if (i === sequence.qte.length-1) self.endQTEs(interval);
 				}, wait);
-				self.addQTEListener(timeout, action, i);
+				self.addQTEListener(sequence, interval, timeout, action, i);
 			});
 		});
 		
 	},
 	
-	addQTEListener: function(timeout, action, i) {
+	addQTEListener: function(sequence, interval, timeout, action, i) {
 		var self = this;
         //self.socket.addListener('QTEDone');
 		self.socket.once('QTEDone', function(actionMobile) {
@@ -187,21 +193,26 @@ Controller.prototype = {
 			}
             clearTimeout(timeout);
 			self.view.toggleQteMode(self.videoSequence, i);
+            if (i === sequence.qte.length-1) self.endQTEs(interval);
 		});
 	},
 	
-	finishVideo: function(interval) {
+	finishVideo: function() {
 		var self = this;
-		clearInterval(interval);
-		self.saveSequence();
-        self.view.addStatusSeq(self.videoSequence, false); // mettre true à la place de false si on a réussi la séquence
+
 		if(self.videoSequence < self.json[self.videoNumber].sequences.length-1) {
 			self.videoSequence++;
 			self.dealSequences();
 		}
 	},
-
-	saveSequence: function(){
+    endQTEs: function (interval) {
+        var self = this;
+		clearInterval(interval);
+		self.saveSequence(function(QTEStatus){
+            self.view.addStatusSeq(self.videoSequence, QTEStatus);
+        });
+    },
+	saveSequence: function(callback){
 		var self = this;
 		var QTEDone = false;
 		var sequence = self.json[self.videoNumber].sequences[self.videoSequence];
@@ -210,5 +221,6 @@ Controller.prototype = {
 		self.model.saveSequence(self.filmName, self.videoSequence, QTEDone, function(){
 			self.getSave();
 		});
+        callback.call(this, QTEDone);
 	}
 };

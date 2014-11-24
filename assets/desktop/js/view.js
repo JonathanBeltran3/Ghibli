@@ -48,7 +48,6 @@ View.prototype = {
 		callback.call(this);
 	},
 	renderMoviePlaying: function(movie) {
-        console.log('ploup');
 		var data = { sequences: movie.sequences };
 		var template  = Handlebars.compile(this.moviePlaying);
 		var html      = template(data);
@@ -71,11 +70,9 @@ View.prototype = {
     },
 	displayQTEInformations: function(action, seq, i, callback) {
 		var data = {};
-		var qteAction = document.querySelector('.qte-action');
 		var template  = Handlebars.compile(this[action]);
 		var html      = template(data);
-		qteAction.innerHTML = html;
-        this.toggleFullscreen();
+		document.querySelector('.qte-action').innerHTML = html;
 		this.toggleQteMode(seq, i);
 		callback.call(this);
 	},
@@ -101,7 +98,34 @@ View.prototype = {
         document.querySelectorAll('.timeline-3-seq')[seq].querySelectorAll('.qte')[i].classList.add('success');
     },
     addStatusSeq: function(seq, success) {
-        var status = (success === 'success') ? 'unlocked' : 'locked';
+        var status = (success) ? 'unlocked' : 'locked';
         document.querySelectorAll('.qte-shield')[seq].classList.add(status);
+        this.showBadge();
+    },
+    showBadge : function (){
+        var seq = 1;
+
+		var data = {
+            filmName: 'nausicaa',
+            seq : seq,
+            unlocked : false
+        };
+
+        switch(seq) {
+            case 1 :
+                data.msg = 'The complete biography of the film &amp; characters.';
+            break;
+            case 2 :
+                data.msg = 'The complete biography of the film &amp; characters.';
+            break;
+            case 3 :
+                data.msg = 'The complete biography of the film &amp; characters.';
+            break;
+        }
+
+		var template  = Handlebars.compile(this.badgeContent);
+		var html      = template(data);
+		document.querySelector('.qte-badge').innerHTML = html;
+		document.querySelector('.qte-badge').classList.add('animated');
     }
 };
