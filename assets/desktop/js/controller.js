@@ -169,6 +169,7 @@ Controller.prototype = {
 				var timeout = setTimeout(function(){
 					console.log('failQTE');
                     self.view.toggleQteMode(self.videoSequence, i);
+                    self.socket.removeAllListeners('QTEDone');
 				}, wait);
 				self.addQTEListener(timeout, action, i);
 			});
@@ -178,11 +179,11 @@ Controller.prototype = {
 	
 	addQTEListener: function(timeout, action, i) {
 		var self = this;
-		
-
-		this.socket.on('QTEDone', function(actionMobile) {
+        //self.socket.addListener('QTEDone');
+		self.socket.once('QTEDone', function(actionMobile) {
 			if(action === actionMobile) {
 				self.QTESuccess++;
+                self.view.addSuccessQTE(self.videoSequence, i);
 			}
             clearTimeout(timeout);
 			self.view.toggleQteMode(self.videoSequence, i);

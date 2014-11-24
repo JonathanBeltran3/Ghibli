@@ -80,8 +80,7 @@ View.prototype = {
 		callback.call(this);
 	},
 	toggleQteMode: function(seq, i) {
-		var qteMode = document.querySelector('.qte-mode');
-        qteMode.classList.toggle('active');
+        document.querySelector('.qte-mode').classList.toggle('active');
         document.querySelector('.qte-progression').classList.toggle('shrinkQTECircle');
         document.querySelectorAll('.timeline-3-seq')[seq].querySelectorAll('.qte')[i].classList.toggle('doing');
 	},
