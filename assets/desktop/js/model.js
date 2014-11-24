@@ -37,7 +37,7 @@ Model.prototype = {
             datas = JSON.parse(localStorage.save);
         }
 		this.save = datas;
-		callback.call(this);
+		callback.call(this, this.save);
 	},
 	saveSequence: function(filmName, sequence, success, callback){
 		if(this.save[filmName] === undefined) this.save[filmName] = [];

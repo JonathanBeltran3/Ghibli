@@ -31,10 +31,11 @@ Controller.prototype = {
 	},
 	
 	emitAction: function(action) {
+
 		this.model.emitAction(action);
 	},
 	
 	emitSocket: function(event, datas) {
-		this.model.emitSocket(event,datas);
+		this.model.emitSocket(event, datas);
 	}
 }

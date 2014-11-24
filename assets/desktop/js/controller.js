@@ -19,6 +19,7 @@ Controller.prototype = {
 		var self = this;
 		self.model.getSave(function(datas){
 			self.save = datas;
+			console.log(datas);
 		});
 	},
 	eventListener: function(){
@@ -122,6 +123,7 @@ Controller.prototype = {
 	
 	dealSequences: function(){
 		var self = this;
+		self.QTESuccess = 0;
 		self.view.renderQuotes(self.json[self.videoNumber], self.videoSequence, function(){
 			self.view.renderVideo(self.json[self.videoNumber], self.videoSequence, function() {
 				self.video = document.querySelector('.video');
@@ -150,7 +152,6 @@ Controller.prototype = {
 			var interval = setInterval(function(){
                 var progress = self.video.currentTime / self.video.duration * 100;
                 self.view.updateTimelineProgress(self.videoSequence, progress);
-				console.log(Math.round(self.video.currentTime));
 				if(Math.round(self.video.currentTime) === parseInt(sequence.qte[i].time)) {
 					self.dealQTEAction(parseInt(sequence.qte[i].duration)*1000, sequence.qte[i].type, i);
 					if(i < sequence.qte.length-1) i++;
@@ -166,7 +167,6 @@ Controller.prototype = {
 			var datas = {'action': action, 'room': self.room};
 			self.model.emitSocket('actionQTE', datas, function() {
 				var timeout = setTimeout(function(){
-					self.model.emitSocket('failQTE');
 					console.log('failQTE');
                     self.view.toggleQteMode(self.videoSequence, i);
 				}, wait);
@@ -183,8 +183,6 @@ Controller.prototype = {
 		this.socket.on('QTEDone', function(actionMobile) {
 			if(action === actionMobile) {
 				self.QTESuccess++;
-			} else {
-				self.model.emitSocket('failQTE');
 			}
             clearTimeout(timeout);
 			self.view.toggleQteMode(self.videoSequence, i);
@@ -210,7 +208,6 @@ Controller.prototype = {
 		console.log(self.filmName);
 		self.model.saveSequence(self.filmName, self.videoSequence, QTEDone, function(){
 			self.getSave();
-			console.log(self.save);
 		});
 	}
 };
