@@ -66,10 +66,9 @@ View.prototype = {
 		video.play();
 	},
 	displayQTEInformations: function(action, callback) {
-		
 		var data = {};
 		var qteAction = document.querySelector('.qte-action');
-		var template  = Handlebars.compile(this.swipeUp);
+		var template  = Handlebars.compile(this[action]);
 		var html      = template(data);
 		qteAction.innerHTML = html;
         this.toggleFullscreen();
