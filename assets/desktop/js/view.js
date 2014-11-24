@@ -37,10 +37,12 @@ View.prototype = {
 		var template  = Handlebars.compile(this.videoTemplate);
 		var html      = template(data);
 		document.querySelector('.video-container').innerHTML = html;
+        document.querySelector('.video-container').classList.add('show-screen');
 		var video = document.querySelector('.video');
 		callback.call(this, video);
 	},
 	renderHomeVideo: function(movie, callback) {
+        document.querySelector('.video-container').classList.remove('show-screen');
 		var data      = {filmName: movie.filmName, logo: movie.logo};
 		var template  = Handlebars.compile(this.movieHomeTemplate);
 		var html      = template(data);
