@@ -18,12 +18,12 @@
                 "videoDuration" : "76",
                 "qte": [
                     {
-                        "time": "13",
+                        "time": "16",
                         "duration": "3",
                         "type": "tap"
                     },
                     {
-                        "time": "34",
+                        "time": "36",
                         "duration": "3",
                         "type": "tap"
                     },

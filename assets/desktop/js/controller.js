@@ -152,6 +152,7 @@ Controller.prototype = {
 		if(sequence.qte.length) {
 			var interval = setInterval(function(){
 
+
 				if(Math.round(self.video.currentTime) === parseInt(sequence.qte[i].time)) {
 					self.dealQTEAction(sequence, interval, parseInt(sequence.qte[i].duration)*1000, sequence.qte[i].type, i);
 					if(i < sequence.qte.length-1) i++;
@@ -210,6 +211,7 @@ Controller.prototype = {
 		clearInterval(interval);
 		self.saveSequence(function(QTEStatus){
             self.view.addStatusSeq(self.videoSequence, QTEStatus);
+            self.view.showBadge(self.json[self.videoNumber].filmName, self.videoSequence, QTEStatus);
         });
     },
 	saveSequence: function(callback){

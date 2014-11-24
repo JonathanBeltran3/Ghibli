@@ -100,25 +100,22 @@ View.prototype = {
     addStatusSeq: function(seq, success) {
         var status = (success) ? 'unlocked' : 'locked';
         document.querySelectorAll('.qte-shield')[seq].classList.add(status);
-        this.showBadge();
     },
-    showBadge : function (){
-        var seq = 1;
-
+    showBadge : function (filmName, seq, unlocked){
 		var data = {
-            filmName: 'nausicaa',
-            seq : seq,
-            unlocked : false
+            filmName: filmName,
+            seq : seq + 1,
+            unlocked : unlocked
         };
 
         switch(seq) {
+            case 0 :
+                data.msg = 'The complete biography of the film &amp; characters.';
+            break;
             case 1 :
                 data.msg = 'The complete biography of the film &amp; characters.';
             break;
             case 2 :
-                data.msg = 'The complete biography of the film &amp; characters.';
-            break;
-            case 3 :
                 data.msg = 'The complete biography of the film &amp; characters.';
             break;
         }
