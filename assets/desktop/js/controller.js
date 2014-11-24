@@ -41,7 +41,7 @@ Controller.prototype = {
 	loadVideoTemplates: function(){
 		var self = this;
 		self.load = 0;
-		self.numberOfLoad = 8;
+		self.numberOfLoad = 13;
 		self.launchInitTemplate('video.handlebars', 'videoTemplate');
 		self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
 		self.launchInitTemplate('movieHome.handlebars', 'movieHomeTemplate');
@@ -49,7 +49,14 @@ Controller.prototype = {
 		self.launchInitPartials('modules/sound.handlebars', 'sound');
 		self.launchInitPartials('modules/credits.handlebars', 'credits');
 		self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
-		self.launchInitTemplate('gestures/swipe-up.handlebars', 'swipeUp');
+
+        /* gestures */
+		self.launchInitTemplate('gestures/swipe-up.handlebars', 'swipe-up');
+		self.launchInitTemplate('gestures/swipe-down.handlebars', 'swipe-down');
+		self.launchInitTemplate('gestures/swipe-right.handlebars', 'swipe-right');
+		self.launchInitTemplate('gestures/swipe-left.handlebars', 'swipe-left');
+		self.launchInitTemplate('gestures/hold.handlebars', 'hold');
+		self.launchInitTemplate('gestures/tap.handlebars', 'tap');
 	},
 	launchInitTemplate: function(templatePath, templateName){
 		var self = this;
