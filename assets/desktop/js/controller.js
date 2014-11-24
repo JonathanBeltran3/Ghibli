@@ -150,10 +150,9 @@ Controller.prototype = {
 		if(sequence.qte.length) {
 			var interval = setInterval(function(){
                 var progress = self.video.currentTime / self.video.duration * 100;
-                console.log(self.video.currentTime);
                 self.view.updateTimelineProgress(self.videoSequence, progress);
 				if(Math.round(self.video.currentTime) === parseInt(sequence.qte[i].time)) {
-					self.dealQTEAction(parseInt(sequence.qte[i].duration)*1000, sequence.qte[i].type);
+					self.dealQTEAction(parseInt(sequence.qte[i].duration)*1000, sequence.qte[i].type, i);
 					if(i < sequence.qte.length-1) i++;
 				}
 			}, 1000);
@@ -161,15 +160,16 @@ Controller.prototype = {
 		self.video.onended = function(e) { self.finishVideo(interval) };
 	},
 	
-	dealQTEAction: function(wait, action) {
+	dealQTEAction: function(wait, action, i) {
 		var self = this;
-		self.view.displayQTEInformations(action, function() {
+		self.view.displayQTEInformations(action, self.videoSequence, i, function() {
 			var datas = {'action': action, 'room': self.room};
 			self.model.emitSocket('actionQTE', datas, function() {
 				var timeout = setTimeout(function(){
 					self.model.emitSocket('failQTE');
 					console.log('failQTE');
-                    self.view.toggleQteMode();
+                    self.view.toggleQteMode(self.videoSequence, i);
+                    console.log(self);
 				}, wait);
 				self.addQTEListener(timeout, action);
 			});
@@ -177,7 +177,7 @@ Controller.prototype = {
 		
 	},
 	
-	addQTEListener: function(timeout, action) {
+	addQTEListener: function(timeout, action, i) {
 		var self = this;
 		
 
@@ -188,7 +188,7 @@ Controller.prototype = {
 			} else {
 				self.model.emitSocket('failQTE');
 			}
-			self.view.toggleQteMode();
+			self.view.toggleQteMode(self.videoSequence, i);
 		});
 	},
 	
