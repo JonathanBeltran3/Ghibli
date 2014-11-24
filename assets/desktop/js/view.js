@@ -21,7 +21,7 @@ View.prototype = {
 		var data      = {rootUrl: rootUrl, token: string};
 		var template  = Handlebars.compile(this.linksTemplate);
 		var html      = template(data);
-		document.getElementById('links').innerHTML = html;
+		document.querySelector('.main').innerHTML = html;
 	},
 	renderIntro: function(movie, callback) {
 		var data      = {movieLink: movie.introduction};
