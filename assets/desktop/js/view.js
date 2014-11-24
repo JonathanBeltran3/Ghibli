@@ -23,6 +23,15 @@ View.prototype = {
 		var html      = template(data);
 		document.querySelector('.main').innerHTML = html;
 	},
+	renderLoader: function(value, callback){
+		var data      = {value: value};
+		var template  = Handlebars.compile(this.loadingTemplate);
+		var html      = template(data);
+		document.querySelector('.loader-screen').innerHTML = html;
+		document.querySelector('.loader-screen').classList.add('show-screen');
+		setTimeout(callback.call(this), 800);
+
+	},
 	renderIntro: function(movie, callback) {
 		var data      = {movieLink: movie.introduction};
 		var template  = Handlebars.compile(this.videoTemplate);
@@ -65,8 +74,12 @@ View.prototype = {
 		this.video = video;
 		video.play();
 	},
-    hideLoader: function() {
+	updateLoader: function(value) {
+		document.querySelector('.value').innerHTML = value;
+	},
+    hideLoader: function(callback) {
         document.querySelector('.loader-screen').classList.remove('show-screen');
+		if(callback) callback.call(this);
     },
 	displayQTEInformations: function(action, seq, i, callback) {
 		var data = {};

@@ -36,6 +36,8 @@ Controller.prototype = {
 						self.model.getRootUrl(function(rootUrl) {
 							self.view.showAccess(string, rootUrl);
 							self.room = string;
+							self.launchInitTemplate('loading.handlebars', 'loadingTemplate');
+
 						});
 					});
 				});
@@ -51,23 +53,26 @@ Controller.prototype = {
 	loadVideoTemplates: function(){
 		var self = this;
 		self.load = 0;
-		self.numberOfLoad = 14;
-		self.launchInitTemplate('video.handlebars', 'videoTemplate');
-		self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
-		self.launchInitTemplate('movieHome.handlebars', 'movieHomeTemplate');
-		self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
-		self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
-		self.launchInitPartials('modules/sound.handlebars', 'sound');
-		self.launchInitPartials('modules/credits.handlebars', 'credits');
-		self.launchInitTemplate('modules/badge-content.handlebars', 'badgeContent');
+		self.view.renderLoader(self.load, function(){
+			self.numberOfLoad = 14;
+			self.launchInitTemplate('video.handlebars', 'videoTemplate');
+			self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
+			self.launchInitTemplate('movieHome.handlebars', 'movieHomeTemplate');
+			self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
+			self.launchInitTemplate('modules/badge-content.handlebars', 'badgeContent');
 
-        /* gestures */
-		self.launchInitTemplate('gestures/swipe-up.handlebars', 'swipe-up');
-		self.launchInitTemplate('gestures/swipe-down.handlebars', 'swipe-down');
-		self.launchInitTemplate('gestures/swipe-right.handlebars', 'swipe-right');
-		self.launchInitTemplate('gestures/swipe-left.handlebars', 'swipe-left');
-		self.launchInitTemplate('gestures/hold.handlebars', 'hold');
-		self.launchInitTemplate('gestures/tap.handlebars', 'tap');
+			self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
+			self.launchInitPartials('modules/sound.handlebars', 'sound');
+			self.launchInitPartials('modules/credits.handlebars', 'credits');
+
+			/* gestures */
+			self.launchInitTemplate('gestures/swipe-up.handlebars', 'swipe-up');
+			self.launchInitTemplate('gestures/swipe-down.handlebars', 'swipe-down');
+			self.launchInitTemplate('gestures/swipe-right.handlebars', 'swipe-right');
+			self.launchInitTemplate('gestures/swipe-left.handlebars', 'swipe-left');
+			self.launchInitTemplate('gestures/hold.handlebars', 'hold');
+			self.launchInitTemplate('gestures/tap.handlebars', 'tap');
+		});
 	},
 	launchInitTemplate: function(templatePath, templateName){
 		var self = this;
@@ -85,17 +90,22 @@ Controller.prototype = {
 		});
 	},
 	dealWithLoading: function(){
-		this.load += 100/this.numberOfLoad;
-		if(Math.round(this.load) === 100) this.rollIntro();
+		var self = this;
+		self.load += 100/self.numberOfLoad;
+		if(Math.round(self.load) === 100) setTimeout(function(){self.rollIntro()},1000);
+		if(document.querySelector('.value')) self.view.updateLoader(Math.round(self.load));
+
 	},
 	rollIntro: function() {
 		var self = this;
 		self.view.renderIntro(self.json[self.videoNumber], function(video){
-			self.video = video;
-			video.play();
-			video.onended = function(){self.passIntro();};
-			self.model.emitSocket('passIntro', self.room);
-			self.addIntroListener();
+			self.view.hideLoader(function(){
+				self.video = video;
+				video.play();
+				video.onended = function(){self.passIntro();};
+				self.model.emitSocket('passIntro', self.room);
+				self.addIntroListener();
+			});
 		});
 	},
 	
