@@ -41,7 +41,7 @@ Controller.prototype = {
 	loadVideoTemplates: function(){
 		var self = this;
 		self.load = 0;
-		self.numberOfLoad = 7;
+		self.numberOfLoad = 8;
 		self.launchInitTemplate('video.handlebars', 'videoTemplate');
 		self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
 		self.launchInitTemplate('movieHome.handlebars', 'movieHomeTemplate');
@@ -49,6 +49,7 @@ Controller.prototype = {
 		self.launchInitPartials('modules/sound.handlebars', 'sound');
 		self.launchInitPartials('modules/credits.handlebars', 'credits');
 		self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
+		self.launchInitTemplate('gestures/swipe-up.handlebars', 'swipeUp');
 	},
 	launchInitTemplate: function(templatePath, templateName){
 		var self = this;
@@ -130,8 +131,10 @@ Controller.prototype = {
 		self.video.addEventListener('canplaythrough', function(){self.fadeQuotesAndLaunchVideo();} , false);
 		var sequence = self.json[self.videoNumber].sequences[self.videoSequence];
 		if(sequence.qte.length) {
-			var interval = setInterval(function(){			
+			var interval = setInterval(function(){
+				
 				if(parseInt(self.video.currentTime) === parseInt(sequence.qte[i].time)) {
+					
 					self.dealQTEAction(parseInt(sequence.qte[i].duration)*1000, sequence.qte[i].type);
 					if(i < sequence.qte.length-1) i++;
 				}
@@ -166,6 +169,7 @@ Controller.prototype = {
                 self.view.toggleQteMode();
 			} else {
 				self.model.emitSocket('failQTE');
+				self.view.toggleQteMode();
 			}
 		});
 	},

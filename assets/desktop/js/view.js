@@ -66,13 +66,19 @@ View.prototype = {
 		video.play();
 	},
 	displayQTEInformations: function(action, callback) {
-        qteAction = document.querySelector('.qte-action'),
-		qteAction.innerHTML = action;
+		
+		var data = {};
+		var qteAction = document.querySelector('.qte-action');
+		var template  = Handlebars.compile(this.swipeUp);
+		var html      = template(data);
+		qteAction.innerHTML = html;
         this.toggleFullscreen();
+		this.toggleQteMode();
 		callback.call(this);
 	},
 	toggleQteMode: function() {
-        qteMode = document.querySelector('.qte-mode'),
+        console.log('toggle toggle')
+		var qteMode = document.querySelector('.qte-mode');
         qteMode.classList.toggle('active');
 	}
 };
