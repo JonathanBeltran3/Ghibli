@@ -31,6 +31,7 @@ Controller.prototype = {
 	},
 	
 	emitAction: function(action) {
+
 		this.model.emitAction(action);
 	},
 	

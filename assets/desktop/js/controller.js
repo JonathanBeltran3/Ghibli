@@ -19,6 +19,7 @@ Controller.prototype = {
 		var self = this;
 		self.model.getSave(function(datas){
 			self.save = datas;
+			console.log(datas);
 		});
 	},
 	eventListener: function(){
@@ -122,6 +123,7 @@ Controller.prototype = {
 	
 	dealSequences: function(){
 		var self = this;
+		self.QTESuccess = 0;
 		self.view.renderQuotes(self.json[self.videoNumber], self.videoSequence, function(){
 			self.view.renderVideo(self.json[self.videoNumber], self.videoSequence, function() {
 				self.video = document.querySelector('.video');
@@ -207,7 +209,6 @@ Controller.prototype = {
 		console.log(self.filmName);
 		self.model.saveSequence(self.filmName, self.videoSequence, QTEDone, function(){
 			self.getSave();
-			console.log(self.save);
 		});
 	}
 };
