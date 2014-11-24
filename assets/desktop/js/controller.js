@@ -138,14 +138,12 @@ Controller.prototype = {
 		self.video.addEventListener('canplaythrough', function(){self.fadeQuotesAndLaunchVideo();} , false);
 		var sequence = self.json[self.videoNumber].sequences[self.videoSequence];
 		if(sequence.qte.length) {
-			var interval = setInterval(function(){
-				
+			self.video.addEventListener('timeupdate', function(){
 				if(parseInt(self.video.currentTime) === parseInt(sequence.qte[i].time)) {
-					
 					self.dealQTEAction(parseInt(sequence.qte[i].duration)*1000, sequence.qte[i].type);
 					if(i < sequence.qte.length-1) i++;
 				}
-			},1000);
+			});
 		}
 		self.video.onended = function(e) { self.finishVideo(interval) };
 	},
@@ -182,7 +180,6 @@ Controller.prototype = {
 	},
 	
 	finishVideo: function(interval) {
-		clearInterval(interval);
 		if(this.videoSequence < this.json[this.videoNumber].sequences.length-1) {
 			this.videoSequence++;
 			this.dealSequences();
