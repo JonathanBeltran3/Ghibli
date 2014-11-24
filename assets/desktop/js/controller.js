@@ -19,7 +19,6 @@ Controller.prototype = {
 		var self = this;
 		self.model.getSave(function(datas){
 			self.save = datas;
-			console.log(datas);
 		});
 	},
 	eventListener: function(){
