@@ -151,7 +151,6 @@ Controller.prototype = {
 			var interval = setInterval(function(){
                 var progress = self.video.currentTime / self.video.duration * 100;
                 self.view.updateTimelineProgress(self.videoSequence, progress);
-				console.log(Math.round(self.video.currentTime));
 				if(Math.round(self.video.currentTime) === parseInt(sequence.qte[i].time)) {
 					self.dealQTEAction(parseInt(sequence.qte[i].duration)*1000, sequence.qte[i].type, i);
 					if(i < sequence.qte.length-1) i++;
@@ -167,7 +166,6 @@ Controller.prototype = {
 			var datas = {'action': action, 'room': self.room};
 			self.model.emitSocket('actionQTE', datas, function() {
 				var timeout = setTimeout(function(){
-					self.model.emitSocket('failQTE');
 					console.log('failQTE');
                     self.view.toggleQteMode(self.videoSequence, i);
 				}, wait);
@@ -183,11 +181,9 @@ Controller.prototype = {
 
 		this.socket.on('QTEDone', function(actionMobile) {
 			if(action === actionMobile) {
-				clearTimeout(timeout);
 				self.QTESuccess++;
-			} else {
-				self.model.emitSocket('failQTE');
 			}
+			clearTimeout(timeout);
 			self.view.toggleQteMode(self.videoSequence, i);
 		});
 	},

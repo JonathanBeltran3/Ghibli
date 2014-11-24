@@ -11,12 +11,12 @@ Model.prototype = {
 		this.room = room;
 	},
 	emitAction: function(action, callback) {
-		var datas = {'room': this.room, 'action': action}
-		this.socket.emit('mobileResponseQTE', datas);
+		this.socket.emit('mobileResponseQTE', action);
 	},
 	emitSocket: function(event, datas, callback) {
 		datas.room = this.room;
 		this.socket.emit(event, datas);
+		console.log("emit "+event);
 		if(callback) callback.call(this);
 	}
 };

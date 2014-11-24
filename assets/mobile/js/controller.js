@@ -35,6 +35,6 @@ Controller.prototype = {
 	},
 	
 	emitSocket: function(event, datas) {
-		this.model.emitSocket(event,datas);
+		this.model.emitSocket(event, datas);
 	}
 }

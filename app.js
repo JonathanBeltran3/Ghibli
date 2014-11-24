@@ -32,23 +32,24 @@ io.sockets.on('connection', function(socket){
 		listenPassIntro = 1;
 	});
 	socket.on('mobilePassIntro', function(datas){
-		if(listenPassIntro === 1 && datas.action === 'tap') {
+		if(listenPassIntro) {
 			listenPassIntro = 0;
 			io.to(datas.room).emit('mobilePassIntro');
 		}
 	});
 	socket.on('actionQTE', function(datas){
 		io.to(datas.room).emit('mobileActionQTE', datas.action);
-		listenQTE = 0;
+		listenQTE = 1;
+		console.log(listenQTE);
 	});
 	socket.on('mobileResponseQTE', function(datas) {
-		if(listenQTE === 0) {
+		if(listenQTE) {
 			io.to(datas.room).emit('QTEDone', datas.action);
 		}
-		listenQTE++;
+		listenQTE = 0;
 	});
 	socket.on('failQTE', function(){
-		listenQTE++;
+		listenQTE = 0;
 	});
 });
 server.listen(8080);
