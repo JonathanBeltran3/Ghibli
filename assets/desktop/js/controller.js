@@ -9,6 +9,7 @@ Controller.prototype = {
 		this.model.init(this.socket);
 		this.videoNumber = 0;
 		this.room = 0;
+		this.QTESuccess = 0;
 		this.main = document.querySelector('.main');
 		this.eventListener();
 		this.socketListener();
@@ -35,6 +36,7 @@ Controller.prototype = {
 
 		this.socket.on('mobileConnected',function(data){
 			self.json = data;
+			self.filmName = data[self.videoNumber].fileName;
 			self.loadVideoTemplates();
 		});
 	},
@@ -45,10 +47,10 @@ Controller.prototype = {
 		self.launchInitTemplate('video.handlebars', 'videoTemplate');
 		self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
 		self.launchInitTemplate('movieHome.handlebars', 'movieHomeTemplate');
+		self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
 		self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
 		self.launchInitPartials('modules/sound.handlebars', 'sound');
 		self.launchInitPartials('modules/credits.handlebars', 'credits');
-		self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
 
         /* gestures */
 		self.launchInitTemplate('gestures/swipe-up.handlebars', 'swipe-up');
@@ -171,6 +173,7 @@ Controller.prototype = {
 		this.socket.on('QTEDone', function(actionMobile) {
 			if(action === actionMobile) {
 				clearTimeout(timeout);
+				self.QTESuccess++;
 			} else {
 				self.model.emitSocket('failQTE');
 			}
@@ -179,6 +182,8 @@ Controller.prototype = {
 	},
 	
 	finishVideo: function(interval) {
+
+
 		if(this.videoSequence < this.json[this.videoNumber].sequences.length-1) {
 			this.videoSequence++;
 			this.dealSequences();
