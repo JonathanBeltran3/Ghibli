@@ -90,7 +90,6 @@ Controller.prototype = {
 	rollIntro: function() {
 		var self = this;
 		self.view.renderIntro(self.json[self.videoNumber], function(video){
-			self.main.classList.add('hide-element');
 			self.video = video;
 			video.play();
 			video.onended = function(){self.passIntro();};
@@ -119,6 +118,7 @@ Controller.prototype = {
 		e.preventDefault();
 		this.videoSequence = 0;
 		this.dealSequences();
+        this.view.renderMoviePlaying(this.json[this.videoNumber]);
 	},
 	
 	dealSequences: function(){
@@ -130,7 +130,6 @@ Controller.prototype = {
 				self.video.load();
 				self.addVideoListener();
 			});
-            self.view.renderMoviePlaying(self.json[self.videoNumber]);
 		});
 		
 	},
@@ -138,7 +137,7 @@ Controller.prototype = {
 	fadeQuotesAndLaunchVideo: function(){
 		var self = this;
 		setTimeout(function(){
-			self.main.classList.add('hide-element');
+            self.view.hideLoader();
 			self.view.launchVideo(self.video);
 		},3000);
 		
@@ -185,7 +184,7 @@ Controller.prototype = {
 			if(action === actionMobile) {
 				self.QTESuccess++;
 			}
-			clearTimeout(timeout);
+            clearTimeout(timeout);
 			self.view.toggleQteMode(self.videoSequence, i);
 		});
 	},
@@ -194,7 +193,7 @@ Controller.prototype = {
 		var self = this;
 		clearInterval(interval);
 		self.saveSequence();
-
+        self.view.addStatusSeq(self.videoSequence, false); // mettre true à la place de false si on a réussi la séquence
 		if(self.videoSequence < self.json[self.videoNumber].sequences.length-1) {
 			self.videoSequence++;
 			self.dealSequences();
