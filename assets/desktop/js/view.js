@@ -64,20 +64,21 @@ View.prototype = {
 		this.video = video;
 		video.play();
 	},
-	displayQTEInformations: function(action, callback) {
+	displayQTEInformations: function(action, seq, i, callback) {
 		var data = {};
 		var qteAction = document.querySelector('.qte-action');
 		var template  = Handlebars.compile(this[action]);
 		var html      = template(data);
 		qteAction.innerHTML = html;
         this.toggleFullscreen();
-		this.toggleQteMode();
+		this.toggleQteMode(seq, i);
 		callback.call(this);
 	},
-	toggleQteMode: function() {
+	toggleQteMode: function(seq, i) {
 		var qteMode = document.querySelector('.qte-mode');
         qteMode.classList.toggle('active');
         document.querySelector('.qte-progression').classList.toggle('shrinkQTECircle');
+        document.querySelectorAll('.timeline-3-seq')[seq].querySelectorAll('.qte')[i].classList.toggle('doing');
 	},
 	fadeIntro: function(video, callback){
 		var interval = setInterval(function() {
