@@ -42,7 +42,7 @@ Model.prototype = {
 	save: function(filmName, sequence, success, callback){
 		this.save[filmName][sequence] = {qte: success};
 		localStorage.save = JSON.stringify(this.save);
-		callback.call(this, this.save)
+		callback.call(this);
 	},
 	ajaxLoadTemplate: function(template, callback) {
 		var xmlhttp;

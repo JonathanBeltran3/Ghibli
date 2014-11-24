@@ -151,6 +151,7 @@ Controller.prototype = {
 			var interval = setInterval(function(){
                 var progress = self.video.currentTime / self.video.duration * 100;
                 self.view.updateTimelineProgress(self.videoSequence, progress);
+				console.log(Math.round(self.video.currentTime));
 				if(Math.round(self.video.currentTime) === parseInt(sequence.qte[i].time)) {
 					self.dealQTEAction(parseInt(sequence.qte[i].duration)*1000, sequence.qte[i].type, i);
 					if(i < sequence.qte.length-1) i++;
@@ -169,9 +170,8 @@ Controller.prototype = {
 					self.model.emitSocket('failQTE');
 					console.log('failQTE');
                     self.view.toggleQteMode(self.videoSequence, i);
-                    console.log(self);
 				}, wait);
-				self.addQTEListener(timeout, action);
+				self.addQTEListener(timeout, action, i);
 			});
 		});
 		
