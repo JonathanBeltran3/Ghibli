@@ -81,6 +81,7 @@ Controller.prototype = {
 		var self = this;
 		self.view.renderIntro(self.json[self.videoNumber], function(video){
 			self.main.classList.add('hide-element');
+			self.video = video;
 			video.play();
 			video.onended = function(){self.passIntro();};
 			self.model.emitSocket('passIntro', self.room);
@@ -90,9 +91,10 @@ Controller.prototype = {
 	
 	passIntro: function() {
 		var self = this;
-		
-		this.view.renderHomeVideo(this.json[this.videoNumber], function(){
-			document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
+		self.view.fadeIntro(self.video, function(){
+			self.view.renderHomeVideo(self.json[self.videoNumber], function(){
+				document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
+			});
 		});
 	},
 	
@@ -169,12 +171,10 @@ Controller.prototype = {
 		this.socket.on('QTEDone', function(actionMobile) {
 			if(action === actionMobile) {
 				clearTimeout(timeout);
-				console.log('Même action');
-                self.view.toggleQteMode();
 			} else {
 				self.model.emitSocket('failQTE');
-				self.view.toggleQteMode();
 			}
+			self.view.toggleQteMode();
 		});
 	},
 	
