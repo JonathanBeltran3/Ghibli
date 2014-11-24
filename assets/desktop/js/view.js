@@ -79,5 +79,6 @@ View.prototype = {
         console.log('toggle toggle')
 		var qteMode = document.querySelector('.qte-mode');
         qteMode.classList.toggle('active');
+        document.querySelector('.qte-progression').classList.toggle('shrinkQTECircle');
 	}
 };
