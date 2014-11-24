@@ -85,7 +85,6 @@ Controller.prototype = {
 		var self = this;
 		
 		this.view.renderHomeVideo(this.json[this.videoNumber], function(){
-			console.log('home');
 			document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
 		});
 	},
