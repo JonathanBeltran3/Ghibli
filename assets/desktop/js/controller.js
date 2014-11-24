@@ -11,8 +11,15 @@ Controller.prototype = {
 		this.room = 0;
 		this.QTESuccess = 0;
 		this.main = document.querySelector('.main');
+		this.getSave();
 		this.eventListener();
 		this.socketListener();
+	},
+	getSave: function() {
+		var self = this;
+		self.model.getSave(function(datas){
+			self.save = datas;
+		});
 	},
 	eventListener: function(){
 		var self= this;
@@ -141,7 +148,7 @@ Controller.prototype = {
 		self.video.addEventListener('canplaythrough', function(){self.fadeQuotesAndLaunchVideo();} , false);
 		var sequence = self.json[self.videoNumber].sequences[self.videoSequence];
 		if(sequence.qte.length) {
-			self.video.addEventListener('timeupdate', function(){
+			var interval = setInterval(function(){
                 var progress = self.video.currentTime / self.video.duration * 100;
                 console.log(self.video.currentTime);
                 self.view.updateTimelineProgress(self.videoSequence, progress);
@@ -149,7 +156,7 @@ Controller.prototype = {
 					self.dealQTEAction(parseInt(sequence.qte[i].duration)*1000, sequence.qte[i].type);
 					if(i < sequence.qte.length-1) i++;
 				}
-			});
+			}, 1000);
 		}
 		self.video.onended = function(e) { self.finishVideo(interval) };
 	},
@@ -173,6 +180,7 @@ Controller.prototype = {
 	addQTEListener: function(timeout, action) {
 		var self = this;
 		
+
 		this.socket.on('QTEDone', function(actionMobile) {
 			if(action === actionMobile) {
 				clearTimeout(timeout);
@@ -185,11 +193,23 @@ Controller.prototype = {
 	},
 	
 	finishVideo: function(interval) {
+		var self = this;
+		self.saveSequence();
 
-
-		if(this.videoSequence < this.json[this.videoNumber].sequences.length-1) {
-			this.videoSequence++;
-			this.dealSequences();
+		if(self.videoSequence < self.json[self.videoNumber].sequences.length-1) {
+			self.videoSequence++;
+			self.dealSequences();
 		}
+	},
+
+	saveSequence: function(){
+		var self = this;
+		var QTEDone = false;
+		var sequence = self.json[self.videoNumber].sequences[self.videoSequence];
+		if(sequence.qte.length === self.QTESuccess) QTEDone = true;
+		self.model.save(self.filmName, self.videoSequence, QTEDone, function(){
+			self.getSave();
+			console.log(self.save);
+		});
 	}
 };

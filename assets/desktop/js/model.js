@@ -30,6 +30,20 @@ Model.prototype = {
 		// Return
 		callback.call(this, rootUrl);
 	},
+	getSave: function(callback){
+		var datas = {};
+		if(localStorage.save)
+        {
+            datas = JSON.parse(localStorage.save);
+        }
+		this.save = datas;
+		callback.call(this);
+	},
+	save: function(filmName, sequence, success, callback){
+		this.save[filmName][sequence] = {qte: success};
+		localStorage.save = JSON.stringify(this.save);
+		callback.call(this, this.save)
+	},
 	ajaxLoadTemplate: function(template, callback) {
 		var xmlhttp;
 
