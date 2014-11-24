@@ -161,8 +161,6 @@ Controller.prototype = {
 		var sequence = self.json[self.videoNumber].sequences[self.videoSequence];
 		if(sequence.qte.length) {
 			var interval = setInterval(function(){
-
-
 				if(Math.round(self.video.currentTime) === parseInt(sequence.qte[i].time)) {
 					self.dealQTEAction(sequence, interval, parseInt(sequence.qte[i].duration)*1000, sequence.qte[i].type, i);
 					if(i < sequence.qte.length-1) i++;
@@ -173,6 +171,14 @@ Controller.prototype = {
                 self.endQTEs(interval);
             }, 10 * 1000);
         }
+//        var timeout;
+//        document.onmousemove = function(){
+//          clearTimeout(timeout);
+//          timeout = setTimeout(function(){
+//
+//            self.view.toggleControls();
+//          }, 5000);
+//        };
 		self.video.addEventListener('timeupdate', function(){
             var progress = self.video.currentTime / self.video.duration * 100;
             self.view.updateTimelineProgress(self.videoSequence, progress);

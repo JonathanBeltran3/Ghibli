@@ -126,7 +126,7 @@ View.prototype = {
 
         switch(seq) {
             case 0 :
-                data.msg = 'The complete biography of the film &amp; characters.';
+                data.msg = 'The complete biography of the film & characters.';
             break;
             case 1 :
                 data.msg = 'Boloboblboblb';
@@ -142,5 +142,9 @@ View.prototype = {
 		setTimeout(function(){
             document.querySelector('.qte-badge').classList.add('fadeInUpThenDown');
         }, 100);
+    },
+    toggleControls: function(){
+        console.log('HIDING CONTROLS');
+        document.querySelector('.sequence').classList.add('hide-controls');
     }
 };
