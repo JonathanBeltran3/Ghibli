@@ -23,8 +23,7 @@ Controller.prototype = {
 	},
 	eventListener: function(){
 		var self= this;
-		
-		document.querySelector('.fullscreen-toggle').addEventListener('click', self.view.toggleFullscreen, false);
+		//document.querySelector('.fullscreen-toggle').addEventListener('click', self.view.toggleFullscreen, false);
 	},
 	socketListener: function() {
 		var self = this;
