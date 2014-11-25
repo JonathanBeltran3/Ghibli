@@ -3,7 +3,6 @@
     background: rgba(0,0,0,0.5);
     z-index: 10;
     opacity: 0;
-    @include transition(all 400ms ease-in-out);
     &.active {
         opacity: 1;
     }
@@ -11,7 +10,7 @@
 
 .qte-progression {
     width: 180px; height: 180px;
-    @include position(absolute, 0 0 0 0);
+    @include position(fixed, 0 0 0 0);
     margin: auto;
     opacity: 0.5;
     border-radius: 50%;
@@ -20,7 +19,7 @@
 
 .qte-action {
     width: 175px; height: 175px;
-    @include position(absolute, 0 0 0 0);
+    @include position(fixed, 0 0 0 0);
     margin: auto;
     background: rgba(0,0,0,0.5);
     border-radius: 50%;
