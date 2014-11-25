@@ -25,6 +25,17 @@ nav {
     left: 120px;
     height: 140px;
     width: 19em;
+	li {
+		visibility: visible;
+		opacity: 1;
+		transition: all 800ms;
+	}
+	.left-disappear {
+		visibility: hidden;
+		opacity: 0;
+		transform: translateX(-100px);
+		-webkit-transform: translateX(-100px);
+	}
 }
 
 .menu-link {

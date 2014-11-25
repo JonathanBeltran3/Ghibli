@@ -56,6 +56,14 @@ View.prototype = {
 		html = template(data);
 		this.main.innerHTML = html;
 		this.main.classList.remove('hide-screen');
+		var lis = document.querySelectorAll('.left-disappear');
+		var i = 0;
+		var interval = setInterval(function(){
+			var li = lis[i];
+			li.classList.remove('left-disappear');
+			if(i === lis.length-1) clearInterval(interval);
+			i++;
+		},300);
 		callback.call(this);
 	},
 	renderVideo: function(movie, sequence, callback) {
