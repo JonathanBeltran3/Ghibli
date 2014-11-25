@@ -174,21 +174,11 @@ Controller.prototype = {
             }, 10 * 1000);
         }
 
+        /* hide controls after 5 secondes without doing anyting */
         self.hiddenControls = false;
         self.timeoutControls;
 
-        document.onmousemove = function(){
-          clearTimeout(self.timeoutControls);
-          if (self.hiddenControls === true) {
-              self.view.toggleControls();
-              self.hiddenControls = false;
-          }
-          self.timeoutControls = setTimeout(function(){
-            self.view.toggleControls();
-            self.hiddenControls = true;
-          }, 5000);
-        };
-
+        document.addEventListener('mousemove', self.dealHiddenControls, false);
 
 		self.video.addEventListener('timeupdate', function(){
             var progress = self.video.currentTime / self.video.duration * 100;
@@ -196,7 +186,17 @@ Controller.prototype = {
         });
 		self.video.onended = function(e) { self.finishVideo(interval) };
 	},
-	
+	dealHiddenControls : function(){
+        clearTimeout(self.timeoutControls);
+        if (self.hiddenControls === true) {
+            self.view.toggleControls();
+            self.hiddenControls = false;
+        }
+        self.timeoutControls = setTimeout(function(){
+            self.view.toggleControls();
+            self.hiddenControls = true;
+        }, 5000);
+    },
 	dealQTEAction: function(sequence, interval, wait, action, i) {
 		var self = this;
 		self.view.displayQTEInformations(action, self.videoSequence, i, function() {
@@ -234,7 +234,12 @@ Controller.prototype = {
 	
 	finishVideo: function() {
 		var self = this;
-
+        document.removeEventListener('mousemove', self.dealHiddenControls, false);
+        clearTimeout(self.timeoutControls);
+        if (self.hiddenControls === true) {
+            self.view.toggleControls();
+            self.hiddenControls = false;
+        }
 		if(self.videoSequence < self.json[self.videoNumber].sequences.length-1) {
 			self.videoSequence++;
 			self.dealSequences();
