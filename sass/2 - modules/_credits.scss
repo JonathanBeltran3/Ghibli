@@ -1,0 +1,17 @@
+.credits {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.88em;
+    position: fixed;
+    bottom: 20px;
+    text-align: center;
+    left: 0;
+    right: 0;
+    
+}
+.credits.dark {
+    color:  rgba(0, 0, 0, 0.5);
+}
+
+.credits a {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}

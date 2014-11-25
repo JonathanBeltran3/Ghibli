@@ -1,0 +1,57 @@
+.home-intro.nausicaa {
+    background-image: url('../img/home-intro.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.home-intro {
+    .main-content {
+        position: absolute;
+        width: 80%;
+        height: 50%;
+        top: 0; left: 0; right: 0; bottom: 0;
+        margin: auto;
+    }
+
+     .credits {
+        position: absolute;
+        bottom: 0;
+    }
+
+    .indication-text {
+        margin: auto;
+        margin-top: 5%;
+        text-align: center;
+        
+        color:  #dec080;
+        font-size: 1.5em;
+        
+        svg {
+            width: 44px;
+            vertical-align: middle;
+            #hand {
+                -webkit-animation: cssAnimation 600ms infinite linear alternate;
+                animation: cssAnimation 600ms infinite linear alternate;
+            }
+            &:hover {
+                #hand { transform: translateY(0px); }
+            }
+        }
+    }
+    .film-title {
+        margin-top: 0;
+    }
+     .film-title svg {
+        width: 50%;
+    }
+
+}
+
+ @-webkit-keyframes cssAnimation {
+from { -webkit-transform: translateY(-3px) }
+to { -webkit-transform: translateY(0px); }
+}
+ @keyframes cssAnimation {
+from { -webkit-transform: translateY(-3px) }
+to { -webkit-transform: translateY(0px); }
+}

@@ -1,0 +1,69 @@
+.qte-badge {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    
+    background: #ffebc0;
+    border-radius: 5px;
+    width: 340px;
+    
+    min-height: 90px;
+    box-shadow: 0 20px 20px rgba(1, 1, 1, 0.5), 0 0 0 6px rgba(0, 0, 0, 0.25), 0 0 90px white inset;
+    
+    position: absolute;
+    bottom: 100px;
+    left: 0; right: 0; 
+    margin: auto;
+    
+    z-index: 10;
+    
+    overflow: hidden; /* clearfix */
+    
+    animation-duration: 5s;
+    -webkit-animation-duration: 5s;
+}
+
+.badge-illustration, .badge-content {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.badge-illustration {
+    width: 90px;
+    overflow: hidden;
+    font-size: 0;
+    img {
+        width: 100%;
+    }
+}
+
+.badge-content {
+    width: 250px;
+    padding: 10px 15px;
+    line-height: 1.45;
+}
+
+.badge-title {
+    color:  #332211;
+    font-weight: 700;  
+}
+
+.badge-msg {
+    color:  #7a6d5a;
+    font-size: 0.875em;
+    font-style: italic;
+
+    text-shadow: 0 1px 0 #ffffff;
+}
+
+.badge-status {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background: url('../img/ico-missed-treasure-red@2x.png') no-repeat center ;
+    background-size: 100%;
+    margin-left: 5px;
+    &.success {
+        background-image: url('../img/ico-valid-treasure-green@2x.png');
+    }
+}

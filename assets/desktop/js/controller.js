@@ -150,7 +150,7 @@ Controller.prototype = {
 		setTimeout(function(){
             self.view.hideLoader();
 			self.view.launchVideo(self.video);
-		},3000);
+		},6000);
 		
 	},
 	

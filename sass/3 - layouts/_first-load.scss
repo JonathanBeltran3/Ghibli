@@ -1,0 +1,58 @@
+/*
+ * FIRST LOAD
+ * 
+ * 
+ */
+
+.loader-screen {
+    background: white;
+}
+
+#toto {
+    position: absolute;
+    top: 40%;
+    left: 0; right: 0;
+}
+
+.load-value {
+/*
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+*/
+    margin: auto;
+    font-family: $serif;
+    color:  #cd834b;
+    font-size: 2.75em; 
+    line-height: 150px;
+    width: 200px;
+    height: 150px;
+    text-align: center;
+}
+
+.loader {
+    font-family: $serif;
+    color:  #332211;
+    font-size: 1em; 
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.loader svg {
+    height: 7em;
+    margin-bottom: 2em;
+}
+
+#totoro path {
+fill: #332211;
+}
+
+#engrenage {
+    -webkit-transform-origin: center center;
+    -webkit-animation: rotate 5s infinite linear;
+}
+
+
+@-webkit-keyframes rotate {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg)}
+}

@@ -1,0 +1,16 @@
+@import 'reset';
+@import 'boilerplate';
+
+$serif : 'Libre Baskerville', serif;
+
+html,
+body {
+    height: 100%;
+}
+body {
+    background: white;
+    color: black;
+    font-family: $serif;
+    position: relative;
+    overflow: hidden;
+}

@@ -1,0 +1,32 @@
+.timeline-container {
+    position: fixed;
+    bottom: 0;
+    left: 0; right: 0;
+    height: 50px;
+    background-color:  rgba(0, 0, 0, 0.75);
+     @include transition(all 1s);
+    opacity: 1;
+    .timeline {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        margin: auto;
+        width: 920px;
+    }
+}
+.hide-controls {
+    .timeline-container {
+        @include transform(translateY(100%));
+        opacity: 0;
+    }
+    * { cursor: none   }
+    .qte-mode {  bottom: 0; }
+}
+
+
+
+.sequence-video {
+    position: absolute;
+    min-height: 100%;
+    width: 100%;
+    background: black;
+}

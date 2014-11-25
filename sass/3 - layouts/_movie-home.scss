@@ -1,0 +1,72 @@
+.home-movie.nausicaa {
+    background-image: url('../img/nausicaa/background-menu.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.film-title {
+    margin-top: 5em;
+}
+
+.film-title svg {
+    margin: auto;
+    display: block;
+}
+/*
+ * MENU OF A SEQUENCE * 
+ */
+
+nav {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 120px;
+    height: 140px;
+    width: 19em;
+}
+
+.menu-link {
+    vertical-align: bottom;
+    color: #dec080;
+    font-size: 1.1em;
+    font-weight: 700;
+    line-height: 2.5;
+    font-variant: small-caps;
+    text-shadow: 1px 2px 1px rgba(1, 1, 1, 0.5);
+    display: block;
+    vertical-align: bottom;
+/*    transition: all 100ms;*/
+    background-position: center right;
+    background-repeat: no-repeat;
+    transform-origin: bottom left;
+    background-size: 35px;
+}
+
+.menu-link.active, .menu-link:hover  {
+    color: #ffebc0;
+    transform: scale(1.1);
+/*    font-size: 1.25em;*/
+    text-shadow: 1px 2px 1px rgba(1, 1, 1, 0.5), 0px 0px 20px rgba(237, 207, 136, 1) ;
+    background-image: url('../img/ico-medal-hover-light@2x.png');
+    
+}
+
+.menu-second-level {
+    margin-left: 3em;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 1s;
+/*    width: 20em;*/
+}
+/*
+
+.menu-second-level .menu-link {
+    width: 81.5%;
+}
+*/
+
+.menu-second-level.open {
+    max-height: 10em;
+}

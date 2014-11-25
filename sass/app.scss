@@ -1,0 +1,26 @@
+@import '0 - plugins/plugins-dir';
+@import '1 - base/base-dir';
+@import '2 - modules/modules-dir';
+@import '3 - layouts/layouts-dir';
+
+.main-screen{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.screen {
+    visibility: hidden;
+    transition: all 800ms;
+    opacity: 0;
+}
+
+.show-screen {
+    opacity: 1;
+    visibility: visible;
+    z-index: 50;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+}

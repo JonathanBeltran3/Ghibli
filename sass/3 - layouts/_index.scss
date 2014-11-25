@@ -1,0 +1,55 @@
+.home-content {
+	height: 100%; width: 100%;
+	background: url('../img/bg-totoro-shadow-dark.png') no-repeat center bottom #bbb5a4; /* Old browsers */
+	background: url('../img/bg-totoro-shadow-dark.png') no-repeat center bottom, -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #bbb5a4 100%); /* FF3.6+ */
+	background: url('../img/bg-totoro-shadow-dark.png') no-repeat center bottom, -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#bbb5a4)); /* Chrome,Safari4+ */
+	background: url('../img/bg-totoro-shadow-dark.png') no-repeat center bottom, -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#bbb5a4 100%); /* Chrome10+,Safari5.1+ */
+	background: url('../img/bg-totoro-shadow-dark.png') no-repeat center bottom, -o-radial-gradient(center, ellipse cover, #ffffff 0%,#bbb5a4 100%); /* Opera 12+ */
+	background: url('../img/bg-totoro-shadow-dark.png') no-repeat center bottom, -ms-radial-gradient(center, ellipse cover, #ffffff 0%,#bbb5a4 100%); /* IE10+ */
+	background: url('../img/bg-totoro-shadow-dark.png') no-repeat center bottom, radial-gradient(ellipse at center, #ffffff 0%,#bbb5a4 100%); /* W3C */
+}
+
+.home-title {
+	width: 20%;
+	max-width: 500px;
+	margin: auto;
+	padding: 2% 0;
+}
+
+.home-central-container {
+	height: 370px;
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	margin: auto;
+	text-align: center;
+	color: #332211;
+}
+
+.home-paragraph {
+	width: 360px;
+	margin: auto;
+	padding-bottom: 10px;
+	line-height: 1.5;
+}
+
+.before-home-link { padding-bottom: 35px; }
+
+.qr-code-container {
+	background: url('../img/ico-ticket-connexion-colored@2x.png');
+	width: 442px; height: 242px;
+	padding-top: 20px;
+	margin: auto;
+	text-align: center;
+	margin-botto: 2%;
+}
+
+.home-link {
+	background: #ffebc0;
+	padding: 20px 25px;
+	font-weight: 700;
+	border-radius: 5px;
+	-moz-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15), inset 0px 1px 90px 50px rgba(255, 255, 255, 0.5), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.25), inset 0px 1px 15px 50px rgba(255, 255, 255, 0.25);
+	-webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15), inset 0px 1px 90px 50px rgba(255, 255, 255, 0.5), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.25), inset 0px 1px 15px 50px rgba(255, 255, 255, 0.25);
+	-o-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15), inset 0px 1px 90px 50px rgba(255, 255, 255, 0.5), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.25), inset 0px 1px 15px 50px rgba(255, 255, 255, 0.25);
+	box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15), inset 0px 1px 90px 50px rgba(255, 255, 255, 0.5), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.25), inset 0px 1px 15px 50px rgba(255, 255, 255, 0.25);
+}

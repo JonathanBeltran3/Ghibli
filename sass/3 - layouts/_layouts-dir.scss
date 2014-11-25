@@ -1,0 +1,25 @@
+@import 'first-load';
+@import 'movie-home';
+@import 'home-intro';
+@import 'intro-sequence';
+@import 'sequence';
+@import 'index';
+
+.footer {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+}
+
+.top-bar {
+    position: fixed;
+    right: 1.4em;
+    top: 1.4em;
+    overflow: hidden;
+}
+
+.top-bar-element {
+    margin-right: 1.4em;
+    float: right;
+}
