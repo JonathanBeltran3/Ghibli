@@ -49,7 +49,6 @@ View.prototype = {
 		callback.call(this, video);
 	},
 	renderHomeVideo: function(movie, callback) {
-        this.videoContainer.classList.add('hide-screen');
 		var data      = {filmName: movie.filmName, logo: movie.logo};
 		var template  = Handlebars.compile(this.movieHomeTemplate);
 		var html      = template(data);
@@ -77,7 +76,7 @@ View.prototype = {
 		var template  = Handlebars.compile(this.quoteTemplate);
 		var html      = template(data);
 		this.loader.innerHTML = html;
-		this.loader.classList.add('show-screen');
+		this.loader.classList.remove('hide-screen');
 		callback.call(this);
 	},
 	launchVideo: function(video) {
