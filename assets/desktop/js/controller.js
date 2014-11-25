@@ -6,6 +6,7 @@ Controller.prototype = {
 		this.socket = io.connect();
 		this.model = model;
 		this.view = view;
+		this.view.init();
 		this.model.init(this.socket);
 		this.videoNumber = 0;
 		this.room = 0;
@@ -23,8 +24,7 @@ Controller.prototype = {
 	},
 	eventListener: function(){
 		var self= this;
-		
-		document.querySelector('.fullscreen-toggle').addEventListener('click', self.view.toggleFullscreen, false);
+		//document.querySelector('.fullscreen-toggle').addEventListener('click', self.view.toggleFullscreen, false);
 	},
 	socketListener: function() {
 		var self = this;
@@ -53,24 +53,26 @@ Controller.prototype = {
 		var self = this;
 		self.load = 0;
 		self.view.renderLoader(self.load, function(){
-			self.numberOfLoad = 14;
-			self.launchInitTemplate('video.handlebars', 'videoTemplate');
-			self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
-			self.launchInitTemplate('movieHome.handlebars', 'movieHomeTemplate');
-			self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
-			self.launchInitTemplate('modules/badge-content.handlebars', 'badgeContent');
+			self.view.hideMain(function(){
+				self.numberOfLoad = 14;
+				self.launchInitTemplate('video.handlebars', 'videoTemplate');
+				self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
+				self.launchInitTemplate('movieHome.handlebars', 'movieHomeTemplate');
+				self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
+				self.launchInitTemplate('modules/badge-content.handlebars', 'badgeContent');
 
-			self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
-			self.launchInitPartials('modules/sound.handlebars', 'sound');
-			self.launchInitPartials('modules/credits.handlebars', 'credits');
+				self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
+				self.launchInitPartials('modules/sound.handlebars', 'sound');
+				self.launchInitPartials('modules/credits.handlebars', 'credits');
 
-			/* gestures */
-			self.launchInitTemplate('gestures/swipe-up.handlebars', 'swipe-up');
-			self.launchInitTemplate('gestures/swipe-down.handlebars', 'swipe-down');
-			self.launchInitTemplate('gestures/swipe-right.handlebars', 'swipe-right');
-			self.launchInitTemplate('gestures/swipe-left.handlebars', 'swipe-left');
-			self.launchInitTemplate('gestures/hold.handlebars', 'hold');
-			self.launchInitTemplate('gestures/tap.handlebars', 'tap');
+				/* gestures */
+				self.launchInitTemplate('gestures/swipe-up.handlebars', 'swipe-up');
+				self.launchInitTemplate('gestures/swipe-down.handlebars', 'swipe-down');
+				self.launchInitTemplate('gestures/swipe-right.handlebars', 'swipe-right');
+				self.launchInitTemplate('gestures/swipe-left.handlebars', 'swipe-left');
+				self.launchInitTemplate('gestures/hold.handlebars', 'hold');
+				self.launchInitTemplate('gestures/tap.handlebars', 'tap');
+			});
 		});
 	},
 	launchInitTemplate: function(templatePath, templateName){
@@ -91,7 +93,7 @@ Controller.prototype = {
 	dealWithLoading: function(){
 		var self = this;
 		self.load += 100/self.numberOfLoad;
-		if(Math.round(self.load) === 100) setTimeout(function(){self.rollIntro()},1000);
+		if(Math.round(self.load) === 100) setTimeout(function(){self.rollIntro()},3000);
 		if(document.querySelector('.value')) self.view.updateLoader(Math.round(self.load));
 
 	},

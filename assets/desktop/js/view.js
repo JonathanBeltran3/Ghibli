@@ -2,6 +2,13 @@
 
 var View = function() {};
 View.prototype = {
+	init: function() {
+		this.loader = document.querySelector('.loader-screen');
+		this.main = document.querySelector('.main');
+		this.videoContainer = document.querySelector('.video-container');
+		this.mapContainer = document.querySelector('.map-screen');
+	},
+
 	toggleFullscreen: function() {
 		if (fullScreenApi.supportsFullScreen)
 		{
@@ -21,55 +28,56 @@ View.prototype = {
 		var data      = {rootUrl: rootUrl, token: string};
 		var template  = Handlebars.compile(this.linksTemplate);
 		var html      = template(data);
-		document.querySelector('.main').innerHTML = html;
+		this.main.innerHTML = html;
 	},
 	renderLoader: function(value, callback){
 		var data      = {value: value};
 		var template  = Handlebars.compile(this.loadingTemplate);
 		var html      = template(data);
-		document.querySelector('.loader-screen').innerHTML = html;
-		document.querySelector('.loader-screen').classList.add('show-screen');
-		setTimeout(callback.call(this), 800);
+		this.loader.innerHTML = html;
+		this.loader.classList.remove('hide-screen');
+		setTimeout(callback.call(this), 1000);
 
 	},
 	renderIntro: function(movie, callback) {
 		var data      = {movieLink: movie.introduction};
 		var template  = Handlebars.compile(this.videoTemplate);
 		var html      = template(data);
-		document.querySelector('.video-container').innerHTML = html;
-        document.querySelector('.video-container').classList.add('show-screen');
+		this.videoContainer.innerHTML = html;
+        this.videoContainer.classList.remove('hide-screen');
 		var video = document.querySelector('.video');
 		callback.call(this, video);
 	},
 	renderHomeVideo: function(movie, callback) {
-        document.querySelector('.video-container').classList.remove('show-screen');
+        this.videoContainer.classList.add('hide-screen');
 		var data      = {filmName: movie.filmName, logo: movie.logo};
 		var template  = Handlebars.compile(this.movieHomeTemplate);
 		var html      = template(data);
 		template  = Handlebars.compile(html);
 		html = template(data);
-		document.querySelector('.main').innerHTML = html;
+		this.main.innerHTML = html;
+		this.main.classList.remove('hide-screen');
 		callback.call(this);
 	},
 	renderVideo: function(movie, sequence, callback) {
 		var data      = {movieLink: movie.sequences[sequence].videoLink};
 		var template  = Handlebars.compile(this.videoTemplate);
 		var html      = template(data);
-		document.querySelector('.video-container').innerHTML = html;
+		this.videoContainer.innerHTML = html;
 		callback.call(this);
 	},
 	renderMoviePlaying: function(movie) {
 		var data = { sequences: movie.sequences };
 		var template  = Handlebars.compile(this.moviePlaying);
 		var html      = template(data);
-		document.querySelector('.main').innerHTML = html;
+		this.main.innerHTML = html;
 	},
 	renderQuotes: function(movie, sequence, callback){
 		var data = {movieQuote: movie.sequences[sequence].quote, movieSequence: sequence+1};
 		var template  = Handlebars.compile(this.quoteTemplate);
 		var html      = template(data);
-		document.querySelector('.loader-screen').innerHTML = html;
-		document.querySelector('.loader-screen').classList.add('show-screen');
+		this.loader.innerHTML = html;
+		this.loader.classList.add('show-screen');
 		callback.call(this);
 	},
 	launchVideo: function(video) {
@@ -80,9 +88,17 @@ View.prototype = {
 		document.querySelector('.value').innerHTML = value;
 	},
     hideLoader: function(callback) {
-        document.querySelector('.loader-screen').classList.remove('show-screen');
+        this.loader.classList.add('hide-screen');
 		if(callback) callback.call(this);
     },
+	hideMain: function(callback) {
+		this.main.classList.add('hide-screen');
+		if(callback) callback.call(this);
+	},
+	hideVideoContainer: function(callback) {
+		this.videoContainer.classList.add('hide-screen');
+		if(callback) callback.call(this);
+	},
 	displayQTEInformations: function(action, seq, i, callback) {
 		var data = {};
 		var template  = Handlebars.compile(this[action]);
