@@ -7,16 +7,21 @@
     position: absolute;
     top: 0; left: 0; bottom: 0; right: 0;
 }
-
 .screen {
-	position: absolute;
-	top: 0; left: 0; right: 0; bottom: 0;
-	visibility: visible;
-	opacity: 1;
-	transition: all 800ms;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    visibility: visible;
+    opacity: 1;
+    transition: all 800ms;
+}
+.hide-screen {
+    visibility: hidden;
+    opacity: 0;
 }
 
-.hide-screen {
-	visibility: hidden;
-	opacity: 0;
+.sequence-video {
+    min-height: 100%;
+    width: 100%;
+    background: black;
 }
+
