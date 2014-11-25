@@ -16,9 +16,7 @@
 	transition: all 800ms;
 }
 
-.sequence-video {
-    position: absolute;
-    min-height: 100%;
-    width: 100%;
-    background: black;
+.hide-screen {
+	visibility: hidden;
+	opacity: 0;
 }
