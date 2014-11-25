@@ -129,10 +129,10 @@ View.prototype = {
                 data.msg = 'The complete biography of the film & characters.';
             break;
             case 1 :
-                data.msg = 'Boloboblboblb';
+                data.msg = 'Phrase séquence 2 débloquée';
             break;
             case 2 :
-                data.msg = 'Trucucucucucucucucdlkwj<vk,';
+                data.msg = 'Phrase séquence 3 débloquée';
             break;
         }
 
@@ -144,7 +144,6 @@ View.prototype = {
         }, 100);
     },
     toggleControls: function(){
-        console.log('HIDING CONTROLS');
-        document.querySelector('.sequence').classList.add('hide-controls');
+        document.querySelector('.sequence').classList.toggle('hide-controls');
     }
 };

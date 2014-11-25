@@ -171,14 +171,23 @@ Controller.prototype = {
                 self.endQTEs(interval);
             }, 10 * 1000);
         }
-//        var timeout;
-//        document.onmousemove = function(){
-//          clearTimeout(timeout);
-//          timeout = setTimeout(function(){
-//
-//            self.view.toggleControls();
-//          }, 5000);
-//        };
+
+        self.hiddenControls = false;
+        self.timeoutControls;
+
+        document.onmousemove = function(){
+          clearTimeout(self.timeoutControls);
+          if (self.hiddenControls === true) {
+              self.view.toggleControls();
+              self.hiddenControls = false;
+          }
+          self.timeoutControls = setTimeout(function(){
+            self.view.toggleControls();
+            self.hiddenControls = true;
+          }, 5000);
+        };
+
+
 		self.video.addEventListener('timeupdate', function(){
             var progress = self.video.currentTime / self.video.duration * 100;
             self.view.updateTimelineProgress(self.videoSequence, progress);
