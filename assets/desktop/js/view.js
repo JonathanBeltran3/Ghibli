@@ -145,16 +145,11 @@ View.prototype = {
 	fadeHomeVideo: function(callback) {
 		document.querySelector('.film-title').classList.add('up-disappear');
 		var lis = document.querySelectorAll('.first-level-li');
-		var i = 2;
-		var interval = setInterval(function(){
+		for(var i = 0; i < lis. length; i++) {
 			var li = lis[i];
 			li.classList.add('left-disappear');
-			if(i === 0) {
-				clearInterval(interval);
-				setTimeout(function(){callback.call(this);},2400);
-			}
-			i--;
-		},150);
+		}
+		setTimeout(function(){callback.call(this);},800);
 
 	},
     updateTimelineProgress: function (seq, progress) {
