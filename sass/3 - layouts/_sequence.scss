@@ -18,7 +18,6 @@
     .timeline-container {
         @include transform(translateY(100%));
     }
-    * { cursor: none   }
     .qte-mode {  bottom: 0; }
 }
 .qte-mode, .timeline-container {
