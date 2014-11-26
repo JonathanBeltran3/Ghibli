@@ -54,14 +54,16 @@ Controller.prototype = {
 		self.load = 0;
 		self.view.renderLoader(self.load, function(){
 			self.view.hideMain(function(){
-				self.numberOfLoad = 14;
+				self.numberOfLoad = 16;
 				self.launchInitTemplate('video.handlebars', 'videoTemplate');
 				self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
+				self.launchInitTemplate('homeIntro.handlebars', 'homeIntro');
 				self.launchInitTemplate('movieHome.handlebars', 'movieHomeTemplate');
 				self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
 				self.launchInitTemplate('modules/badge-content.handlebars', 'badgeContent');
 
 				self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
+				self.launchInitPartials('logos/nausicaa-intro.handlebars', 'nausicaaLogo-intro');
 				self.launchInitPartials('modules/sound.handlebars', 'sound');
 				self.launchInitPartials('modules/credits.handlebars', 'credits');
 

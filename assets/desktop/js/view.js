@@ -40,11 +40,16 @@ View.prototype = {
 
 	},
 	renderIntro: function(movie, callback) {
-		var data      = {movieLink: movie.introduction};
-		var template  = Handlebars.compile(this.videoTemplate);
+		var data      = {movieLink: movie.introduction, logo: movie.logo+'-intro'};
+		var template  = Handlebars.compile(this.homeIntro);
 		var html      = template(data);
 		this.videoContainer.innerHTML = html;
         this.videoContainer.classList.remove('hide-screen');
+		var downs = document.querySelectorAll('.down-disappear');
+		for(var i = 0; i < downs.length; i++) {
+			var down = downs[i];
+			down.classList.remove('down-disappear');
+		}
 		var video = document.querySelector('.video');
 		callback.call(this, video);
 	},
@@ -56,7 +61,6 @@ View.prototype = {
 		html = template(data);
 		this.main.innerHTML = html;
 		this.main.classList.remove('hide-screen');
-		console.log(document.querySelector('.up-disappear'));
 		document.querySelector('.up-disappear').classList.remove('up-disappear');
 		var lis = document.querySelectorAll('.left-disappear');
 		var i = 0;
@@ -129,9 +133,12 @@ View.prototype = {
 				video.volume = 0;
 				video.pause();
 				clearInterval(interval);
+				callback.call(this);
 			}
 		},200);
-		callback.call(this);
+		document.querySelector('.indication-text').classList.add('down-disappear');
+		document.querySelector('.credits-intro').classList.add('down-disappear');
+		document.querySelector('.film-title').classList.add('down-disappear');
 	},
 	fadeHomeVideo: function(callback) {
 		document.querySelector('.film-title').classList.add('up-disappear');
