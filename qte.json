@@ -59,10 +59,93 @@
             },
             {
                 "id": 3,
-                "quote": "After a thousand years of darkness, he will come, clad in blue and surrounded by fields of gold to restore mankind's connection of the Earth that was destroye",
+                "quote": "After a thousand years of darkness, he will come, clad in blue and surrounded by fields of gold to restore mankind's connection of the Earth that was destroyed.",
                 "videoLink": "/nausicaa/nausicaa-seq3",
                 "videoDuration" : "220",
                 "qte": []
+            }
+        ]
+    },
+	{
+        "name": "Princess Mononoke",
+        "filmName": "mononoke",
+        "logo": "mononokeLogo",
+        "treasures" : {
+            "characters": "",
+            "analysis": "",
+            "fanArt": ""
+        },
+        "infos" : "",
+		"introduction": "/mononoke/mononoke-intro-video",
+        "sequences": [
+            {
+                "id": 1,
+                "quote": "In ancient times, [...] man and beast lived in harmony, but as time went by, most of the great forests were destroyed. [...] For those were the days of gods and of demons...",
+                "videoLink": "/mononoke/mononoke-seq1",
+                "videoDuration" : "73",
+                "qte": [
+                    {
+                        "time": "26",
+                        "duration": "3",
+                        "type": "hold"
+                    },
+                    {
+                        "time": "40",
+                        "duration": "3",
+                        "type": "swipe-left"
+                    },
+                    {
+                        "time": "47",
+                        "duration": "3",
+                        "type": "hold"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "quote": "You know, that boy wanted to share his life with you. - I hate him! I hate all humans!",
+                "videoLink": "/mononoke/mononoke-seq2",
+                "videoDuration" : "134",
+                "qte": [
+                    {
+                        "time": "55",
+                        "duration": "3",
+                        "type": "hold"
+                    },
+                    {
+                        "time": "70",
+                        "duration": "3",
+                        "type": "tap"
+                    },
+                    {
+                        "time": "107",
+                        "duration": "3",
+                        "type": "tap"
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "quote": "Ashitaka... Can you save the girl you love...?",
+                "videoLink": "/mononoke/mononoke-seq3",
+                "videoDuration" : "220",
+                "qte": [
+                    {
+                        "time": "46",
+                        "duration": "3",
+                        "type": "swipe-up"
+                    },
+                    {
+                        "time": "70",
+                        "duration": "3",
+                        "type": "tap"
+                    },
+                    {
+                        "time": "107",
+                        "duration": "3",
+                        "type": "tap"
+                    }
+                ]
             }
         ]
     }
