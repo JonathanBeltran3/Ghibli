@@ -142,7 +142,7 @@ View.prototype = {
 			li.classList.add('left-disappear');
 			if(i === 0) {
 				clearInterval(interval);
-				setTimeout(function(){callback.call(this);},3100);
+				setTimeout(function(){callback.call(this);},2400);
 			}
 			i--;
 		},150);
