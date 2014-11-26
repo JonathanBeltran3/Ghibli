@@ -201,10 +201,9 @@ Controller.prototype = {
         self.timeoutControls = setTimeout(function(){
             self.view.toggleControls();
             self.hiddenControls = true;
-        }, 5000);
+        }, 2000);
     },
     playPauseVideo: function(e) {
-        console.log('coucou')
         e.preventDefault();
         if (this.video.paused)
             this.video.play();
