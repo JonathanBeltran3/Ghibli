@@ -45,12 +45,6 @@ nav {
 		transform: translateX(-100px);
 		transition: all 800ms linear;
 	}
-
-	.down-disappear {
-		visibility: hidden;
-		opacity: 0;
-		transform: translateY(100px);
-	}
 }
 
 .menu-link {

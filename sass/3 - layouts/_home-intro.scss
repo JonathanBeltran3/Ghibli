@@ -13,9 +13,12 @@
         margin: auto;
     }
 
-     .credits {
+     .credits-intro {
         position: absolute;
         bottom: 0;
+		visibility: visible;
+		opacity: 1;
+		transition: all 800ms 6s;
     }
 
     .indication-text {
@@ -25,6 +28,10 @@
         
         color:  #dec080;
         font-size: 1.5em;
+		
+		visibility: visible;
+		opacity: 1;
+		transition: all 800ms 6200ms;
         
         svg {
             width: 44px;
@@ -40,10 +47,19 @@
     }
     .film-title {
         margin-top: 0;
+		visibility: visible;
+		opacity: 1;
+		transition: all 800ms linear 5s;
     }
      .film-title svg {
         width: 50%;
     }
+	.down-disappear {
+		visibility: hidden;
+		opacity: 0;
+		transform: translateY(100px);
+		transition: all 800ms
+	}
 
 }
 
