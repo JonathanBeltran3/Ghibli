@@ -168,7 +168,7 @@ View.prototype = {
         document.querySelectorAll('.qte-shield')[seq].classList.add(status);
     },
     showBadge : function (filmName, seq, unlocked){
-        document.querySelector('.qte-badge').classList.remove('testflipOutX');
+        document.querySelector('.qte-badge').classList.remove('badgeAnimation');
 		var data = {
             filmName: filmName,
             seq : seq + 1,
@@ -191,7 +191,7 @@ View.prototype = {
 		var html      = template(data);
 		document.querySelector('.qte-badge').innerHTML = html;
 		setTimeout(function(){
-            document.querySelector('.qte-badge').classList.add('testflipOutX');
+            document.querySelector('.qte-badge').classList.add('badgeAnimation');
         }, 100);
     },
     toggleControls: function(){

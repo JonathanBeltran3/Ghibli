@@ -67,3 +67,85 @@
         background-image: url('../img/ico-valid-treasure-green@2x.png');
     }
 }
+
+@-webkit-keyframes badgeAnimation {
+  0% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    opacity: 0;
+  } 
+    
+   15% {
+    opacity: 0;
+  }
+  
+  25% {
+    -webkit-transform: perspective(400px);
+            transform: perspective(400px);
+    opacity: 1;
+  }
+  
+  75% {
+    -webkit-transform: perspective(400px);
+            transform: perspective(400px);
+    opacity: 1;
+  }
+    
+  85% {
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    opacity: 0;
+  }
+
+}
+
+@keyframes badgeAnimation {
+
+  0% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    opacity: 0;
+  }
+    
+  15% {
+    opacity: 0;
+  }
+  
+  25% {
+    -webkit-transform: perspective(400px);
+            transform: perspective(400px);
+    opacity: 1;
+  }
+  
+  75% {
+    -webkit-transform: perspective(400px);
+            transform: perspective(400px);
+    opacity: 1;
+  }
+    
+  85% {
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    opacity: 0;
+  }
+
+}
+
+.badgeAnimation {
+    transform-origin: center 300px;
+    -webkit-transform-origin: center 300px;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-name: badgeAnimation;
+          animation-name: badgeAnimation;
+  -webkit-backface-visibility: visible !important;
+          backface-visibility: visible !important;
+}
