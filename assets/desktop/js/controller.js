@@ -288,7 +288,7 @@ Controller.prototype = {
         self.removeHiddenControlsListener();
         window.removeEventListener('click', self.playPauseVideo.bind(self));
 
-        self.view.hideSound(this.allowSound);
+       Sound.hideSound();
 		if(self.videoSequence < self.json[self.videoNumber].sequences.length-1) {
 			self.videoSequence++;
 			self.dealSequences();
@@ -319,7 +319,6 @@ Controller.prototype = {
         var self = this;
         if (!self.video) return;
         if (self.togglingSound === true) return;
-        self.view.toggleSound();
         self.togglingSound = true;
 
         if (self.allowSound === true) {

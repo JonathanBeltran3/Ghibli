@@ -202,13 +202,6 @@ View.prototype = {
     },
     toggleControls: function(){
         document.querySelector('body').classList.toggle('hide-controls');
-    },
-    toggleSound: function() {
-        document.querySelector('.sound').classList.toggle('is-off');
-    },
-    hideSound: function (soundOn) {
-        document.querySelector('.sound').classList.remove('visible');
-        if (soundOn) document.querySelector('.sound').classList.remove('is-off')
     }
 };
 
