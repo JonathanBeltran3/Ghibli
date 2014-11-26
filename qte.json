@@ -95,7 +95,7 @@
                         "type": "swipe-left"
                     },
                     {
-                        "time": "47",
+                        "time": "48",
                         "duration": "3",
                         "type": "hold"
                     }
@@ -113,12 +113,12 @@
                         "type": "hold"
                     },
                     {
-                        "time": "70",
+                        "time": "71",
                         "duration": "3",
                         "type": "tap"
                     },
                     {
-                        "time": "107",
+                        "time": "108",
                         "duration": "3",
                         "type": "tap"
                     }
@@ -128,22 +128,12 @@
                 "id": 3,
                 "quote": "Ashitaka... Can you save the girl you love...?",
                 "videoLink": "/mononoke/mononoke-seq3",
-                "videoDuration" : "220",
+                "videoDuration" : "163",
                 "qte": [
                     {
                         "time": "46",
                         "duration": "3",
                         "type": "swipe-up"
-                    },
-                    {
-                        "time": "70",
-                        "duration": "3",
-                        "type": "tap"
-                    },
-                    {
-                        "time": "107",
-                        "duration": "3",
-                        "type": "tap"
                     }
                 ]
             }
