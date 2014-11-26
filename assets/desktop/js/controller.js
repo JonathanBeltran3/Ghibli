@@ -128,10 +128,14 @@ Controller.prototype = {
 	},
 	
 	newGame: function(e){
+		var self = this;
 		e.preventDefault();
-		this.videoSequence = 0;
-		this.dealSequences();
-        this.view.renderMoviePlaying(this.json[this.videoNumber]);
+		self.videoSequence = 0;
+		self.view.fadeHomeVideo(function(){
+			self.dealSequences();
+			self.view.renderMoviePlaying(self.json[self.videoNumber]);
+		});
+
 	},
 	
 	dealSequences: function(){

@@ -56,6 +56,7 @@ View.prototype = {
 		html = template(data);
 		this.main.innerHTML = html;
 		this.main.classList.remove('hide-screen');
+		document.querySelector('.up-disappear').classList.remove('up-disappear');
 		var lis = document.querySelectorAll('.left-disappear');
 		var i = 0;
 		var interval = setInterval(function(){
@@ -121,13 +122,30 @@ View.prototype = {
 	},
 	fadeIntro: function(video, callback){
 		var interval = setInterval(function() {
-			if(video.volume < 0.15) {
+			video.volume -= 0.1;
+			video.volume = Math.round(video.volume * 100)/100;
+			if(video.volume === 0) {
 				video.volume = 0;
+				video.pause();
 				clearInterval(interval);
 			}
-			video.volume -= 0.1;
 		},200);
 		callback.call(this);
+	},
+	fadeHomeVideo: function(callback) {
+		document.querySelector('.film-title').classList.add('up-disappear');
+		var lis = document.querySelectorAll('.first-level-li');
+		var i = 2;
+		var interval = setInterval(function(){
+			var li = lis[i];
+			li.classList.add('left-disappear');
+			if(i === 0) {
+				clearInterval(interval);
+				callback.call(this);
+			}
+			i--;
+		},300);
+
 	},
     updateTimelineProgress: function (seq, progress) {
         document.querySelectorAll('.timeline-part')[seq].style.width = progress + '%';
