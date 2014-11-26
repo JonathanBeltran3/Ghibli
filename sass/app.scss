@@ -25,3 +25,7 @@
     background: black;
 }
 
+.hide-controls {
+    * { cursor: none   }
+    .whole-information { opacity: 0;}
+}
