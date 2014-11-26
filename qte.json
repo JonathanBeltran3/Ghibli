@@ -113,12 +113,12 @@
                         "type": "hold"
                     },
                     {
-                        "time": "70",
+                        "time": "71",
                         "duration": "3",
                         "type": "tap"
                     },
                     {
-                        "time": "107",
+                        "time": "108",
                         "duration": "3",
                         "type": "tap"
                     }
@@ -134,16 +134,6 @@
                         "time": "46",
                         "duration": "3",
                         "type": "swipe-up"
-                    },
-                    {
-                        "time": "70",
-                        "duration": "3",
-                        "type": "tap"
-                    },
-                    {
-                        "time": "107",
-                        "duration": "3",
-                        "type": "tap"
                     }
                 ]
             }
