@@ -104,15 +104,22 @@ Controller.prototype = {
 	dealWithLoading: function(){
 		var self = this;
 		self.load += 100/self.numberOfLoad;
-		if(Math.round(self.load) === 100) setTimeout(function(){self.rollIntro()},3000);
+		if(Math.round(self.load) === 100) setTimeout(function(){self.renderMap()},3000);
 		if(document.querySelector('.value')) self.view.updateLoader(Math.round(self.load));
 
 	},
 	renderMap: function() {
 		var self = this;
 		self.view.renderMap(function(){
-			document.getElementById('')
+			var zones = document.querySelectorAll('.clickable-zone');
+			for(var i = 0; i < zones.length; i++) {
+				var zone = zones[i];
+				zone.addEventListener('click', self.getDataForIntro(this, false));
+			}
 		});
+	},
+	getDataForIntro: function(elt){
+		console.log(elt);
 	},
 	rollIntro: function() {
 		var self = this;
