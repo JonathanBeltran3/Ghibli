@@ -72,7 +72,6 @@ App.prototype = {
 				self.io.to(room).emit('failQTE');
 			});
 		});
-
 		self.server.listen(8080);
 	}
 }

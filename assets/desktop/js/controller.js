@@ -43,7 +43,7 @@ Controller.prototype = {
 			});
 		});
 
-		this.socket.on('mobileConnected',function(data){
+		this.socket.once('mobileConnected',function(data){
 			self.json = data;
 			self.filmName = data[self.videoNumber].filmName;
 			self.loadVideoTemplates();
