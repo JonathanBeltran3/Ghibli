@@ -48,7 +48,6 @@ View.prototype = {
 		var downs = document.querySelectorAll('.down-disappear');
 		for(var i = 0; i < downs.length; i++) {
 			var down = downs[i];
-			console.log(down);
 			down.classList.remove('down-disappear');
 		}
 		var video = document.querySelector('.video');
@@ -62,7 +61,6 @@ View.prototype = {
 		html = template(data);
 		this.main.innerHTML = html;
 		this.main.classList.remove('hide-screen');
-		console.log(document.querySelector('.up-disappear'));
 		document.querySelector('.up-disappear').classList.remove('up-disappear');
 		var lis = document.querySelectorAll('.left-disappear');
 		var i = 0;
