@@ -9,12 +9,14 @@
     margin-top: 5em;
 	visibility: visible;
 	opacity: 1;
-	transition: all 1s ease-out 0.8s;
+	transition: all 1s cubic-bezier(.33,.04,.22,1.14) 0.8s;
+	-webkit-transition: all 1s cubic-bezier(.33,.04,.22,1.14) 0.8s;
 	&.up-disappear {
 		visibility: hidden;
 		opacity: 0;
-		transform: translateY(-100px);
-		transition: all 1s ease-in-out 1400ms;
+		transform: translateY(-20px);
+		transition: all 1s cubic-bezier(.33,.04,.22,1.14) 1400ms;
+		-webkit-transition: all 1s cubic-bezier(.33,.04,.22,1.14) 1400ms;
 	}
 }
 
@@ -37,13 +39,15 @@ nav {
 	li {
 		visibility: visible;
 		opacity: 1;
-		transition: all 800ms linear 1s;
+		transition: all 800ms cubic-bezier(.33,.04,.22,1.14) 1s;
+		-webkit-transition: all 800ms cubic-bezier(.33,.04,.22,1.14) 1s;
 	}
 	.left-disappear {
 		visibility: hidden;
 		opacity: 0;
-		transform: translateX(-100px);
-		transition: all 800ms linear;
+		transform: translateX(-20px);
+		transition: all 800ms cubic-bezier(.33,.04,.22,1.14);
+		-webkit-transition: all 800ms cubic-bezier(.33,.04,.22,1.14);
 	}
 }
 

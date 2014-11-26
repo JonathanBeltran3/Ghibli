@@ -18,7 +18,8 @@
         bottom: 0;
 		visibility: visible;
 		opacity: 1;
-		transition: all 800ms 6.8s;
+		transition: all 800ms cubic-bezier(.33,.04,.22,1.14) 6.8s;
+		-webkit-transition: all 800ms cubic-bezier(.33,.04,.22,1.14) 6.8s;
     }
 
     .indication-text {
@@ -31,7 +32,8 @@
 		
 		visibility: visible;
 		opacity: 1;
-		transition: all 800ms 7s;
+		transition: all 800ms cubic-bezier(.33,.04,.22,1.14) 7s;
+		-webkit-transition: all 800ms cubic-bezier(.33,.04,.22,1.14) 7s;
         
         svg {
             width: 44px;
@@ -49,7 +51,8 @@
         margin-top: 0;
 		visibility: visible;
 		opacity: 1;
-		transition: all 800ms linear 5.8s;
+		transition: all 800ms cubic-bezier(.33,.04,.22,1.14) 5.8s;
+		-webkit-transition: all 800ms cubic-bezier(.33,.04,.22,1.14) 5.8s;
     }
      .film-title svg {
         width: 50%;
@@ -57,8 +60,9 @@
 	.down-disappear {
 		visibility: hidden;
 		opacity: 0;
-		transform: translateY(100px);
-		transition: all 800ms;
+		transform: translateY(20px);
+		transition: all 800ms cubic-bezier(.33,.04,.22,1.14);
+		-webkit-transition: all 800ms cubic-bezier(.33,.04,.22,1.14);
 	}
 
 }
