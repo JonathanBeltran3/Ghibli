@@ -289,10 +289,15 @@ Controller.prototype = {
         self.removeHiddenControlsListener();
         window.removeEventListener('click', self.playPauseVideo.bind(self));
 
-       Sound.hideSound();
+		Sound.hideSound();
 		if(self.videoSequence < self.json[self.videoNumber].sequences.length-1) {
 			self.videoSequence++;
 			self.dealSequences();
+		} else {
+			self.view.renderHomeVideo(self.json[self.videoNumber], function(){
+                self.removeHiddenControlsListener();
+				document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
+			});
 		}
 	},
     endQTEs: function (interval) {

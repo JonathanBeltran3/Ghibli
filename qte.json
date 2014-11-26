@@ -170,7 +170,7 @@
                     {
                         "time": "90",
                         "duration": "3",
-                        "type": "tap"
+                        "type": "swipe-up"
                     },
 					{
                         "time": "138",
@@ -196,7 +196,7 @@
                         "type": "hold"
                     },
                     {
-                        "time": "42",
+                        "time": "43",
                         "duration": "3",
                         "type": "swipe-up"
                     }
@@ -214,7 +214,7 @@
                         "type": "swipe-left"
                     },
 					{
-                        "time": "64",
+                        "time": "65",
                         "duration": "3",
                         "type": "swipe-up"
                     },
