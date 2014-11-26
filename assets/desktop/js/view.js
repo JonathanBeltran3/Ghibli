@@ -128,16 +128,17 @@ View.prototype = {
         document.querySelectorAll('.timeline-3-seq')[seq].querySelectorAll('.qte')[i].classList.toggle('doing');
 	},
 	fadeIntro: function(video, callback){
-		var interval = setInterval(function() {
-			video.volume -= 0.1;
-			video.volume = Math.round(video.volume * 100)/100;
-			if(video.volume === 0) {
-				video.volume = 0;
-				video.pause();
-				clearInterval(interval);
-				callback.call(this);
-			}
-		},200);
+        if (video.volume !== 0) {
+            var interval = setInterval(function() {
+                video.volume -= 0.1;
+                video.volume = Math.round(video.volume * 100)/100; // fixing stupid error
+                if(video.volume === 0) {
+                    video.pause();
+                    clearInterval(interval);
+                    callback.call(this);
+                }
+            },200);
+        }
 		document.querySelector('.indication-text').classList.add('down-disappear');
 		document.querySelector('.credits-intro').classList.add('down-disappear');
 		document.querySelector('.film-title').classList.add('down-disappear');
@@ -172,13 +173,13 @@ View.prototype = {
 
         switch(seq) {
             case 0 :
-                data.msg = 'The complete biography of the film & characters.';
+                data.msg = 'All you need to know about this movie (Synopsis & other).';
             break;
             case 1 :
-                data.msg = 'Phrase séquence 2 débloquée';
+                data.msg = 'The complete biography of each important character.';
             break;
             case 2 :
-                data.msg = 'Phrase séquence 3 débloquée';
+                data.msg = 'All the best fan art, found on Deviant Art & Behance.';
             break;
         }
 
@@ -191,5 +192,8 @@ View.prototype = {
     },
     toggleControls: function(){
         document.querySelector('body').classList.toggle('hide-controls');
+    },
+    toggleSound: function() {
+        document.querySelector('.sound').classList.toggle('is-off');
     }
 };

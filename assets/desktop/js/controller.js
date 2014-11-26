@@ -15,6 +15,8 @@ Controller.prototype = {
 		this.getSave();
 		this.eventListener();
 		this.socketListener();
+        this.allowSound = true;
+        this.togglingSound = false;
 	},
 	getSave: function() {
 		var self = this;
@@ -25,6 +27,7 @@ Controller.prototype = {
 	eventListener: function(){
 		var self= this;
 		//document.querySelector('.fullscreen-toggle').addEventListener('click', self.view.toggleFullscreen, false);
+		document.querySelector('.sound').addEventListener('click', self.toggleSound.bind(self), false);
 	},
 	socketListener: function() {
 		var self = this;
@@ -295,5 +298,38 @@ Controller.prototype = {
 			self.getSave();
 		});
         callback.call(this, QTEDone);
-	}
+	},
+    toggleSound: function(e){
+        e.preventDefault();
+        var self = this;
+        if (self.togglingSound === true) return;
+        self.view.toggleSound();
+        self.togglingSound = true;
+        /* we should make a function for this... later ?*/
+        if (self.allowSound === true) {
+            self.video.volume = 1;
+            var interval = setInterval(function() {
+                if(self.video.volume <= 0) {
+                    clearInterval(interval);
+                    self.allowSound = false;
+                    self.togglingSound = false;
+                } else {
+                    self.video.volume -= 0.1;
+                    self.video.volume = Math.round(self.video.volume * 100)/100;
+                }
+            },200);
+        } else {
+            self.video.volume = 0;
+            var interval = setInterval(function() {
+                if(self.video.volume >= 1) {
+                    clearInterval(interval);
+                    self.allowSound = true;
+                    self.togglingSound = false;
+                } else {
+                    self.video.volume += 0.1;
+                    self.video.volume = Math.round(self.video.volume * 100)/100;
+                }
+            },200);
+        }
+    }
 };
