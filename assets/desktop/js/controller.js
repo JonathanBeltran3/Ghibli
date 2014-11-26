@@ -114,24 +114,25 @@ Controller.prototype = {
 			var zones = document.querySelectorAll('.clickable-zone');
 			for(var i = 0; i < zones.length; i++) {
 				var zone = zones[i];
-				zone.addEventListener('click', self.getDataForIntro(this, false));
+				zone.addEventListener('click', function(){
+					self.getDataForIntro(this);
+				}, false);
 			}
 		});
 	},
 	getDataForIntro: function(elt){
-		console.log(elt);
+		this.videoNumber = parseInt(elt.getAttribute('data-film'));
+		this.rollIntro();
 	},
 	rollIntro: function() {
 		var self = this;
 		self.view.renderIntro(self.json[self.videoNumber], function(video){
-			self.view.hideLoader(function(){
-				self.video = video;
-				self.view.launchVideo(video);
-                document.addEventListener('mousemove', self.dealHiddenControls.bind(self), false);
-				video.onended = function(){self.passIntro();};
-				self.model.emitSocket('passIntro', self.room);
-				self.addIntroListener();
-			});
+			self.video = video;
+			self.view.launchVideo(video);
+			document.addEventListener('mousemove', self.dealHiddenControls.bind(self), false);
+			video.onended = function(){self.passIntro();};
+			self.model.emitSocket('passIntro', self.room);
+			self.addIntroListener();
 		});
 	},
 	

@@ -86,6 +86,7 @@ View.prototype = {
 		var template  = Handlebars.compile(this.mapTemplate);
 		var html      = template(data);
 		this.mapContainer.innerHTML = html;
+		this.hideLoader();
 		callback.call(this);
 	},
 	renderMoviePlaying: function(movie) {
