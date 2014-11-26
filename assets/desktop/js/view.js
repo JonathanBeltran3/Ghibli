@@ -65,7 +65,7 @@ View.prototype = {
 			li.classList.remove('left-disappear');
 			if(i === lis.length-1) clearInterval(interval);
 			i++;
-		},300);
+		},150);
 		callback.call(this);
 	},
 	renderVideo: function(movie, sequence, callback) {
@@ -142,10 +142,10 @@ View.prototype = {
 			li.classList.add('left-disappear');
 			if(i === 0) {
 				clearInterval(interval);
-				callback.call(this);
+				setTimeout(function(){callback.call(this);},3100);
 			}
 			i--;
-		},300);
+		},150);
 
 	},
     updateTimelineProgress: function (seq, progress) {
