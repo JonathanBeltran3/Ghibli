@@ -9,7 +9,7 @@
     margin-top: 5em;
 	visibility: visible;
 	opacity: 1;
-	transition: all 2s ease-out;
+	transition: all 2s ease-out 800ms;
 	&.up-disappear {
 		visibility: hidden;
 		opacity: 0;

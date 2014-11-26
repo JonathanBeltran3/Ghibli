@@ -56,6 +56,7 @@ View.prototype = {
 		html = template(data);
 		this.main.innerHTML = html;
 		this.main.classList.remove('hide-screen');
+		console.log(document.querySelector('.up-disappear'));
 		document.querySelector('.up-disappear').classList.remove('up-disappear');
 		var lis = document.querySelectorAll('.left-disappear');
 		var i = 0;
