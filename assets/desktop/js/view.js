@@ -105,6 +105,7 @@ View.prototype = {
 	launchVideo: function(video) {
 		this.video = video;
 		video.play();
+        document.querySelector('.sound').classList.add('visible');
 	},
 	updateLoader: function(value) {
 		document.querySelector('.value').innerHTML = value;
@@ -135,17 +136,19 @@ View.prototype = {
         document.querySelectorAll('.timeline-3-seq')[seq].querySelectorAll('.qte')[i].classList.toggle('doing');
 	},
 	fadeIntro: function(video, callback){
-        if (video.volume !== 0) {
-            var interval = setInterval(function() {
+        var interval = setInterval(function() {
+            if (video.volume > 0) {
                 video.volume -= 0.1;
                 video.volume = Math.round(video.volume * 100)/100; // fixing stupid error
-                if(video.volume === 0) {
-                    video.pause();
-                    clearInterval(interval);
-                    callback.call(this);
-                }
-            },200);
-        }
+            }
+            if(video.volume === 0) {
+                video.pause();
+                document.querySelector('.sound').classList.remove('visible');
+                clearInterval(interval);
+                callback.call(this);
+            }
+        },200);
+
 		document.querySelector('.indication-text').classList.add('down-disappear');
 		document.querySelector('.credits-intro').classList.add('down-disappear');
 		document.querySelector('.film-title').classList.add('down-disappear');
@@ -202,5 +205,55 @@ View.prototype = {
     },
     toggleSound: function() {
         document.querySelector('.sound').classList.toggle('is-off');
+    },
+    hideSound: function (soundOn) {
+        document.querySelector('.sound').classList.remove('visible');
+        if (soundOn) document.querySelector('.sound').classList.remove('is-off')
     }
+};
+
+var Sound = {
+    el : document.querySelector('.sound')
+};
+
+Sound.playSound = function(video, callback) {
+    video.volume = 0;
+    var interval = setInterval(function() {
+        if(video.volume >= 1) {
+            clearInterval(interval);
+            callback.call(this);
+        } else {
+            video.volume += 0.1;
+            video.volume = Math.round(video.volume * 100)/100;
+        }
+    },200);
+
+    this.el.classList.remove('is-off');
+};
+
+Sound.cutSound = function(video, callback) {
+    video.volume = 1;
+    var interval = setInterval(function() {
+        if(video.volume <= 0) {
+            clearInterval(interval);
+            callback.call(this);
+        } else {
+            video.volume -= 0.1;
+            video.volume = Math.round(video.volume * 100)/100;
+        }
+    },200);
+
+    this.el.classList.add('is-off');
+};
+
+Sound.showSound = function (soundOn) {
+    this.el.classList.add('visible');
+    if (soundOn)
+        this.el.classList.remove('is-off');
+    else
+        this.el.classList.add('is-off');
+};
+
+Sound.hideSound = function () {
+    this.el.classList.remove('visible');
 };
