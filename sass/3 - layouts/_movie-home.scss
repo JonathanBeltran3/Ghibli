@@ -7,6 +7,15 @@
 
 .film-title {
     margin-top: 5em;
+	visibility: visible;
+	opacity: 1;
+	transition: all 2s ease-out;
+	&.up-disappear {
+		visibility: hidden;
+		opacity: 0;
+		transform: translateY(-100px);
+		transition: all 2s ease-in-out 1400ms;
+	}
 }
 
 .film-title svg {
@@ -28,13 +37,19 @@ nav {
 	li {
 		visibility: visible;
 		opacity: 1;
-		transition: all 800ms;
+		transition: all 800ms linear 2s;
 	}
 	.left-disappear {
 		visibility: hidden;
 		opacity: 0;
 		transform: translateX(-100px);
-		-webkit-transform: translateX(-100px);
+		transition: all 800ms linear;
+	}
+
+	.down-disappear {
+		visibility: hidden;
+		opacity: 0;
+		transform: translateY(100px);
 	}
 }
 
