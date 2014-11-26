@@ -81,6 +81,13 @@ View.prototype = {
 		this.videoContainer.innerHTML = html;
 		callback.call(this);
 	},
+	renderMap: function(callback) {
+		var data      = {};
+		var template  = Handlebars.compile(this.mapTemplate);
+		var html      = template(data);
+		this.mapContainer.innerHTML = html;
+		callback.call(this);
+	},
 	renderMoviePlaying: function(movie) {
 		var data = { sequences: movie.sequences };
 		var template  = Handlebars.compile(this.moviePlaying);

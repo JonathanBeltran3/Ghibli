@@ -8,7 +8,7 @@ Controller.prototype = {
 		this.view = view;
 		this.view.init();
 		this.model.init(this.socket);
-		this.videoNumber = 2;
+		this.videoNumber = 1;
 		this.room = 0;
 		this.QTESuccess = 0;
 		this.main = document.querySelector('.main');
@@ -64,7 +64,7 @@ Controller.prototype = {
 				self.launchInitTemplate('movieHome.handlebars', 'movieHomeTemplate');
 				self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
 				self.launchInitTemplate('modules/badge-content.handlebars', 'badgeContent');
-				self.launchInitTemplate('map.handlebars', 'map');
+				self.launchInitTemplate('map.handlebars', 'mapTemplate');
 
 				self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
 				self.launchInitPartials('logos/nausicaa-intro.handlebars', 'nausicaaLogo-intro');
@@ -107,6 +107,12 @@ Controller.prototype = {
 		if(Math.round(self.load) === 100) setTimeout(function(){self.rollIntro()},3000);
 		if(document.querySelector('.value')) self.view.updateLoader(Math.round(self.load));
 
+	},
+	renderMap: function() {
+		var self = this;
+		self.view.renderMap(function(){
+			document.getElementById('')
+		});
 	},
 	rollIntro: function() {
 		var self = this;
