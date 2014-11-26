@@ -1,0 +1,23 @@
+.body-map{
+	background-color: #509fe9;
+}
+
+/* CONTINENT MAP
+--------------------------------------*/
+
+.continent-SVG-map{
+	 position: relative;
+	 width: 40%;
+	 margin: 0 auto;
+}
+
+#reg-nausicaa:hover,
+#reg-mononoke:hover,
+#reg-totoro:hover,
+#reg-laputa:hover,
+#reg-windrises:hover,
+#reg-spirited:hover,
+#reg-porco:hover{
+	opacity: 0.7;
+	cursor: pointer;
+}
