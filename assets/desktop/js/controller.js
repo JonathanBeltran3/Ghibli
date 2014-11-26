@@ -8,7 +8,7 @@ Controller.prototype = {
 		this.view = view;
 		this.view.init();
 		this.model.init(this.socket);
-		this.videoNumber = 1;
+		this.videoNumber = 0; // film choice
 		this.room = 0;
 		this.QTESuccess = 0;
 		this.main = document.querySelector('.main');
@@ -109,7 +109,7 @@ Controller.prototype = {
 		self.view.renderIntro(self.json[self.videoNumber], function(video){
 			self.view.hideLoader(function(){
 				self.video = video;
-				video.play();
+				self.view.launchVideo(video);
                 document.addEventListener('mousemove', self.dealHiddenControls.bind(self), false);
 				video.onended = function(){self.passIntro();};
 				self.model.emitSocket('passIntro', self.room);
@@ -166,7 +166,7 @@ Controller.prototype = {
 		setTimeout(function(){
             self.view.hideLoader();
 			self.view.launchVideo(self.video);
-            window.addEventListener('click', self.playPauseVideo.bind(self), false);
+            window.addEventListener('click', self.playPauseVideo.bind(self), true);
 		},6000);
 		
 	},
@@ -271,6 +271,7 @@ Controller.prototype = {
         self.removeHiddenControlsListener();
         window.removeEventListener('click', self.playPauseVideo.bind(self));
 
+        self.view.hideSound(this.allowSound);
 		if(self.videoSequence < self.json[self.videoNumber].sequences.length-1) {
 			self.videoSequence++;
 			self.dealSequences();
@@ -296,36 +297,25 @@ Controller.prototype = {
         callback.call(this, QTEDone);
 	},
     toggleSound: function(e){
+        console.log(e);
         e.preventDefault();
         var self = this;
+        if (!self.video) return;
         if (self.togglingSound === true) return;
         self.view.toggleSound();
         self.togglingSound = true;
-        /* we should make a function for this... later ?*/
+
         if (self.allowSound === true) {
-            self.video.volume = 1;
-            var interval = setInterval(function() {
-                if(self.video.volume <= 0) {
-                    clearInterval(interval);
-                    self.allowSound = false;
-                    self.togglingSound = false;
-                } else {
-                    self.video.volume -= 0.1;
-                    self.video.volume = Math.round(self.video.volume * 100)/100;
-                }
-            },200);
+            Sound.cutSound(self.video, function(){
+                self.allowSound = false;
+                self.togglingSound = false;
+            });
         } else {
-            self.video.volume = 0;
-            var interval = setInterval(function() {
-                if(self.video.volume >= 1) {
-                    clearInterval(interval);
-                    self.allowSound = true;
-                    self.togglingSound = false;
-                } else {
-                    self.video.volume += 0.1;
-                    self.video.volume = Math.round(self.video.volume * 100)/100;
-                }
-            },200);
+            Sound.playSound(self.video, function(){
+                self.allowSound = true;
+                self.togglingSound = false;
+            });
         }
+        return false;
     }
 };
