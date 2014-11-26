@@ -8,7 +8,7 @@ Controller.prototype = {
 		this.view = view;
 		this.view.init();
 		this.model.init(this.socket);
-		this.videoNumber = 1;
+		this.videoNumber = 2;
 		this.room = 0;
 		this.QTESuccess = 0;
 		this.main = document.querySelector('.main');
@@ -54,20 +54,24 @@ Controller.prototype = {
 		self.load = 0;
 		self.view.renderLoader(self.load, function(){
 			self.view.hideMain(function(){
-				self.numberOfLoad = 18;
+				self.numberOfLoad = 22;
 				self.launchInitTemplate('video.handlebars', 'videoTemplate');
 				self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
 				self.launchInitTemplate('homeIntro.handlebars', 'homeIntro');
 				self.launchInitTemplate('movieHome.handlebars', 'movieHomeTemplate');
 				self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
 				self.launchInitTemplate('modules/badge-content.handlebars', 'badgeContent');
+				self.launchInitTemplate('map.handlebars', 'map');
 
 				self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
 				self.launchInitPartials('logos/nausicaa-intro.handlebars', 'nausicaaLogo-intro');
 				self.launchInitPartials('logos/mononoke.handlebars', 'mononokeLogo');
 				self.launchInitPartials('logos/mononoke-intro.handlebars', 'mononokeLogo-intro');
+				self.launchInitPartials('logos/totoro.handlebars', 'totoroLogo');
+				self.launchInitPartials('logos/totoro-intro.handlebars', 'totoroLogo-intro');
 				self.launchInitPartials('modules/sound.handlebars', 'sound');
 				self.launchInitPartials('modules/credits.handlebars', 'credits');
+				self.launchInitPartials('modules/world-map.handlebars', 'worldMap');
 
 				/* gestures */
 				self.launchInitTemplate('gestures/swipe-up.handlebars', 'swipe-up');

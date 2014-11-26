@@ -138,5 +138,93 @@
                 ]
             }
         ]
+    },
+	{
+        "name": "My Neighbor Totoro",
+        "filmName": "totoro",
+        "logo": "totoroLogo",
+        "treasures" : {
+            "characters": "",
+            "analysis": "",
+            "fanArt": ""
+        },
+        "infos" : "",
+		"introduction": "/totoro/totoro-intro-video",
+        "sequences": [
+            {
+                "id": 1,
+                "quote": "Hold over your head, like this !",
+                "videoLink": "/totoro/totoro-seq1",
+                "videoDuration" : "162",
+                "qte": [
+                    {
+                        "time": "17",
+                        "duration": "3",
+                        "type": "swipe-right"
+                    },
+                    {
+                        "time": "37",
+                        "duration": "3",
+                        "type": "swipe-up"
+                    },
+                    {
+                        "time": "90",
+                        "duration": "3",
+                        "type": "tap"
+                    },
+					{
+                        "time": "138",
+                        "duration": "3",
+                        "type": "hold"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "quote": "Trees and people used to be good friends.",
+                "videoLink": "/totoro/totoro-seq2",
+                "videoDuration" : "107",
+                "qte": [
+                    {
+                        "time": "22",
+                        "duration": "3",
+                        "type": "swipe-up"
+                    },
+                    {
+                        "time": "32",
+                        "duration": "3",
+                        "type": "hold"
+                    },
+                    {
+                        "time": "42",
+                        "duration": "3",
+                        "type": "swipe-up"
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "quote": "Totoro, my little sister is missing! Please, help me...",
+                "videoLink": "/totoro/totoro-seq3",
+                "videoDuration" : "141",
+                "qte": [
+                    {
+                        "time": "50",
+                        "duration": "3",
+                        "type": "swipe-left"
+                    },
+					{
+                        "time": "64",
+                        "duration": "3",
+                        "type": "swipe-up"
+                    },
+					{
+                        "time": "126",
+                        "duration": "3",
+                        "type": "swipe-up"
+                    }
+                ]
+            }
+        ]
     }
 ]
