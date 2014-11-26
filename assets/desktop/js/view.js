@@ -45,11 +45,13 @@ View.prototype = {
 		var html      = template(data);
 		this.videoContainer.innerHTML = html;
         this.videoContainer.classList.remove('hide-screen');
-		var downs = document.querySelectorAll('.down-disappear');
-		for(var i = 0; i < downs.length; i++) {
-			var down = downs[i];
-			down.classList.remove('down-disappear');
-		}
+		setTimeout(function(){
+			var downs = document.querySelectorAll('.down-disappear');
+			for(var i = 0; i < downs.length; i++) {
+				var down = downs[i];
+				down.classList.remove('down-disappear');
+			}
+		},50);
 		var video = document.querySelector('.video');
 		callback.call(this, video);
 	},
@@ -61,7 +63,7 @@ View.prototype = {
 		html = template(data);
 		this.main.innerHTML = html;
 		this.main.classList.remove('hide-screen');
-		document.querySelector('.up-disappear').classList.remove('up-disappear');
+		setTimeout(function(){document.querySelector('.up-disappear').classList.remove('up-disappear')}, 50);
 		var lis = document.querySelectorAll('.left-disappear');
 		var i = 0;
 		var interval = setInterval(function(){
