@@ -6,22 +6,24 @@
 
     .sequence-title {
         color:  #ffebc0;
-        font-size: 2.75em; /* Approximation causée par une substitution de police */
+        font-size: 1.25em; 
         font-weight: 700;
-        
+        font-family: 'Open Sans Condensed';
+        text-transform: uppercase;
         &:after {
             content: "";
             display: block;
             width: 150px;
             height: 3px;
-            margin: 1em auto;
+            margin: 0.5em auto 1em auto;
             background: #ffebc0;
             opacity: 0.15;
         }
     }
     .sequence-quote {
         color:  #dec080;
-        font-size: 1.25em; /* Approximation causée par une substitution de police */
+        font-size: 1.5em; /* Approximation causée par une substitution de police */
+        line-height: 2.25em;
         font-style: italic;
         &:before {
             content : "« "; 
