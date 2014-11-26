@@ -186,6 +186,6 @@ View.prototype = {
         }, 100);
     },
     toggleControls: function(){
-        document.querySelector('.sequence').classList.toggle('hide-controls');
+        document.querySelector('body').classList.toggle('hide-controls');
     }
 };
