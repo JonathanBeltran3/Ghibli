@@ -105,6 +105,7 @@ Controller.prototype = {
 			self.view.hideLoader(function(){
 				self.video = video;
 				video.play();
+                document.addEventListener('mousemove', self.dealHiddenControls.bind(self), false);
 				video.onended = function(){self.passIntro();};
 				self.model.emitSocket('passIntro', self.room);
 				self.addIntroListener();
@@ -114,9 +115,11 @@ Controller.prototype = {
 	
 	passIntro: function() {
 		var self = this;
+
 		self.model.emitSocket('introPassed', self.room);
 		self.view.fadeIntro(self.video, function(){
 			self.view.renderHomeVideo(self.json[self.videoNumber], function(){
+                self.removeHiddenControlsListener();
 				document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
 			});
 		});
@@ -185,7 +188,7 @@ Controller.prototype = {
         self.hiddenControls = false;
         self.timeoutControls;
 
-        document.addEventListener('mousemove', self.dealHiddenControls, false);
+        document.addEventListener('mousemove', self.dealHiddenControls.bind(self), false);
 
 
 		self.video.addEventListener('timeupdate', function(){
@@ -195,6 +198,7 @@ Controller.prototype = {
 		self.video.onended = function(e) { self.finishVideo(interval) };
 	},
 	dealHiddenControls : function(){
+        var self = this;
         clearTimeout(self.timeoutControls);
         if (self.hiddenControls === true) {
             self.view.toggleControls();
@@ -246,16 +250,22 @@ Controller.prototype = {
             if (i === sequence.qte.length-1) self.endQTEs(interval);
 		});
 	},
-	
-	finishVideo: function() {
-		var self = this;
+	removeHiddenControlsListener: function(){
+        var self = this;
         document.removeEventListener('mousemove', self.dealHiddenControls);
-        window.removeEventListener('click', self.playPauseVideo.bind(self));
         clearTimeout(self.timeoutControls);
         if (self.hiddenControls === true) {
+            console.log('Controls were hidden');
             self.view.toggleControls();
             self.hiddenControls = false;
         }
+        console.log('Remove evt listener');
+    },
+	finishVideo: function() {
+		var self = this;
+        self.removeHiddenControlsListener();
+        window.removeEventListener('click', self.playPauseVideo.bind(self));
+
 		if(self.videoSequence < self.json[self.videoNumber].sequences.length-1) {
 			self.videoSequence++;
 			self.dealSequences();
