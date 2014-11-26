@@ -152,6 +152,7 @@ Controller.prototype = {
 		setTimeout(function(){
             self.view.hideLoader();
 			self.view.launchVideo(self.video);
+            window.addEventListener('click', self.playPauseVideo.bind(self), false);
 		},6000);
 		
 	},
@@ -180,6 +181,7 @@ Controller.prototype = {
 
         document.addEventListener('mousemove', self.dealHiddenControls, false);
 
+
 		self.video.addEventListener('timeupdate', function(){
             var progress = self.video.currentTime / self.video.duration * 100;
             self.view.updateTimelineProgress(self.videoSequence, progress);
@@ -196,6 +198,14 @@ Controller.prototype = {
             self.view.toggleControls();
             self.hiddenControls = true;
         }, 5000);
+    },
+    playPauseVideo: function(e) {
+        console.log('coucou')
+        e.preventDefault();
+        if (this.video.paused)
+            this.video.play();
+        else
+            this.video.pause();
     },
 	dealQTEAction: function(sequence, interval, wait, action, i) {
 		var self = this;
@@ -234,7 +244,8 @@ Controller.prototype = {
 	
 	finishVideo: function() {
 		var self = this;
-        document.removeEventListener('mousemove', self.dealHiddenControls, false);
+        document.removeEventListener('mousemove', self.dealHiddenControls);
+        window.removeEventListener('click', self.playPauseVideo.bind(self));
         clearTimeout(self.timeoutControls);
         if (self.hiddenControls === true) {
             self.view.toggleControls();
