@@ -44,7 +44,7 @@ Controller.prototype = {
 		];
 		this.totalLoad = templates.length;
 		this.load = 0;
-		for(var i = 0; i < this.load; i++) {
+		for(var i = 0; i < this.totalLoad; i++) {
 			var template = templates[i];
 			this.launchInitTemplate(template.templatePath, template.templateName);
 		}

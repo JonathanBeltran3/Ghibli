@@ -112,7 +112,7 @@ Controller.prototype = {
 	dealWithLoading: function(){
 		var self = this;
 		self.load += 100/self.numberOfLoad;
-		self.model.emitSocket('loadingInProgress', {load: self.load, room: self.room});
+		self.model.emitSocket('loadingInProgress', {load: Math.round(self.load), room: self.room});
 		if(Math.round(self.load) === 100) setTimeout(function(){self.renderMap()},3000);
 		if(document.querySelector('.value')) self.view.updateLoader(Math.round(self.load));
 

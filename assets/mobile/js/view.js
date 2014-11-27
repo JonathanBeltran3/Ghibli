@@ -16,6 +16,6 @@ View.prototype = {
 		this.mainScreen.classList.remove('hide-screen');
 	},
 	dealwithLoading: function(load) {
-
+		document.querySelector('.loading-value').innerHTML = load;
 	}
 };
