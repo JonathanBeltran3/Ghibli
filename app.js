@@ -11,6 +11,7 @@ App.prototype = {
 		this.json = require('./qte.json');
 		this.listenQTE = 0;
 		this.listenPassIntro = 0;
+		this.rooms = {};
 
 		this.app.use(this.express.static(this.path.join(__dirname, './assets/desktop/views')));
 		this.app.use(this.express.static(this.path.join(__dirname, './assets/desktop/videos/')));
@@ -33,11 +34,13 @@ App.prototype = {
 
 		self.io.sockets.on('connection', function(socket){
 			socket.on('subscribe', function(room) { //Client subscribe to a Room (recieve)
+				if(self.rooms[room] === undefined) self.rooms[room] = 0;
+				self.rooms[room]++;
 				socket.join(room);
+				console.log(self.io.nsps['/']);
 			});
 
 			socket.on('mobileConnection', function(datas){
-				console.log(datas);
 				self.io.to(datas.room).emit('mobileConnected', self.json);
 			});
 
@@ -77,6 +80,16 @@ App.prototype = {
 			socket.on('loadingInProgress', function(datas){
 				self.io.to(datas.room).emit('loadingInProgress', datas.load);
 			});
+
+			socket.on('renderMap', function(room){
+				self.io.to(room).emit('renderMap');
+			});
+
+			socket.on('disconnect', function(){
+				//var rooms = self.io.sockets.clients(socket.room);
+				console.log(socket.id);
+			});
+
 		});
 		self.server.listen(8080);
 	}

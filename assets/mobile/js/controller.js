@@ -6,6 +6,7 @@ Controller.prototype = {
 		this.socket = socket;
 		this.model = model;
 		this.view = view;
+		this.view.init();
 		this.room = room;
 		this.touch = new Touch();
 		this.touch.init(this);
@@ -33,6 +34,10 @@ Controller.prototype = {
 			self.view.dealwithLoading(load);
 		});
 
+		self.socket.on('renderMap', function(load){
+			self.view.renderMap();
+		});
+
 	},
 	
 	loadTemplates: function() {
@@ -40,6 +45,10 @@ Controller.prototype = {
 			{
 				templatePath: 'mobileLoader.handlebars',
 				templateName: 'loaderTemplate'
+			},
+			{
+				templatePath: 'mobileMap.handlebars',
+				templateName: 'mapTemplate'
 			}
 		];
 		this.totalLoad = templates.length;

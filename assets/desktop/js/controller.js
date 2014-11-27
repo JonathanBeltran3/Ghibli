@@ -8,7 +8,7 @@ Controller.prototype = {
 		this.view = view;
 		this.view.init();
 		this.model.init(this.socket);
-		this.videoNumber = 1;
+		this.videoNumber = 0;
 		this.room = 0;
 		this.QTESuccess = 0;
 		this.main = document.querySelector('.main');
@@ -48,7 +48,6 @@ Controller.prototype = {
 
 		this.socket.once('mobileConnected',function(data){
 			self.json = data;
-			self.filmName = data[self.videoNumber].filmName;
 			self.loadVideoTemplates();
 		});
 	},
@@ -120,6 +119,7 @@ Controller.prototype = {
 	renderMap: function() {
 		var self = this;
 		self.view.renderMap(function(){
+			self.model.emitSocket('renderMap', self.room);
 			var zones = document.querySelectorAll('.clickable-zone');
 			for(var i = 0; i < zones.length; i++) {
 				var zone = zones[i];
@@ -131,6 +131,7 @@ Controller.prototype = {
 	},
 	getDataForIntro: function(elt){
 		this.videoNumber = parseInt(elt.getAttribute('data-film'));
+		this.filmName = this[this.videoNumber].filmName;
 		this.rollIntro();
 	},
 	rollIntro: function() {
