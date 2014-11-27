@@ -140,6 +140,9 @@ Controller.prototype = {
 			self.video = video;
 			self.view.launchVideo(video);
 			document.addEventListener('mousemove', self.dealHiddenControls.bind(self), false);
+            setTimeout(function(){
+                self.view.moveIntroElements();
+            }, (7 + 5) * 1000);
 			video.onended = function(){self.passIntro();};
 			self.model.emitSocket('passIntro', self.room);
 			self.addIntroListener();

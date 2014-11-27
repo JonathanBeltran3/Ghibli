@@ -149,11 +149,13 @@ View.prototype = {
                 callback.call(this);
             }
         },200);
-
+        this.moveIntroElements();
+	},
+    moveIntroElements: function(){
 		document.querySelector('.indication-text').classList.add('down-disappear');
 		document.querySelector('.credits-intro').classList.add('down-disappear');
 		document.querySelector('.film-title').classList.add('down-disappear');
-	},
+    },
 	fadeHomeVideo: function(callback) {
 		document.querySelector('.film-title').classList.add('up-disappear');
 		var lis = document.querySelectorAll('.first-level-li');
@@ -192,6 +194,8 @@ View.prototype = {
             case 2 :
                 data.msg = 'All the best fan art, found on Deviant Art & Behance.';
             break;
+            default :
+                data.msg = 'Bonus video';
         }
 
 		var template  = Handlebars.compile(this.badgeContent);
