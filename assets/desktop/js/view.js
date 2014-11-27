@@ -177,6 +177,8 @@ View.prototype = {
         document.querySelectorAll('.qte-shield')[seq].classList.add(status);
     },
     showBadge : function (filmName, seq, unlocked){
+        if (seq > 2) return;
+
         document.querySelector('.qte-badge').classList.remove('badgeAnimation');
 		var data = {
             filmName: filmName,
@@ -194,8 +196,6 @@ View.prototype = {
             case 2 :
                 data.msg = 'All the best fan art, found on Deviant Art & Behance.';
             break;
-            default :
-                data.msg = 'Bonus video';
         }
 
 		var template  = Handlebars.compile(this.badgeContent);

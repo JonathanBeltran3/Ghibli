@@ -164,10 +164,10 @@ Controller.prototype = {
 		self.view.renderIntro(self.json[self.videoNumber], function(video){
 			self.video = video;
 			self.view.launchVideo(video);
-			document.addEventListener('mousemove', self.dealHiddenControls.bind(self), false);
             setTimeout(function(){
-                self.view.moveIntroElements();
-            }, (7 + 5) * 1000);
+                document.querySelector('.first-animation').classList.remove('first-animation');
+                self.addHideControls();
+            }, 10000);
 			video.onended = function(){self.passIntro();};
 			self.model.emitSocket('passIntro', self.room);
 			self.addIntroListener();
@@ -249,7 +249,7 @@ Controller.prototype = {
         self.hiddenControls = false;
         self.timeoutControls;
 
-        document.addEventListener('mousemove', self.dealHiddenControls.bind(self), false);
+        self.addHideControls();
 
 		self.video.addEventListener('timeupdate', function(){
             var progress = self.video.currentTime / self.video.duration * 100;
@@ -376,5 +376,16 @@ Controller.prototype = {
             });
         }
         return false;
+    },
+    addHideControls: function(){
+        var self = this;
+        document.addEventListener('mousemove', self.dealHiddenControls.bind(self), false);
+        if( document.createEvent ) {
+            var evObj = document.createEvent('MouseEvents');
+            evObj.initEvent( 'mousemove', true, false );
+            document.dispatchEvent(evObj);
+        } else if( document.createEventObject ) {
+            document.fireEvent('mousemove');
+        }
     }
 };
