@@ -1,7 +1,7 @@
 "use strict";
 var App = function(){};
 App.prototype = {
-	init: function(){
+	init: function() {
 		this.express = require('express');
 		this.app = this.express();
 		this.http = require('http');
@@ -37,16 +37,24 @@ App.prototype = {
 
 		self.io.sockets.on('connection', function(socket){
 			socket.on('subscribe', function(room) {
-				if(self.rooms[room] === undefined) self.rooms[room] = {count: 0, clients: []};
+				if(self.rooms[room] === undefined) {
+					self.rooms[room] = {count: 1, clients: []};
+					socket.join(room);
+					console.log('join');
+				}
 				else self.io.to(socket.id).emit('changeRoom');
 			});
-			socket.on('subscribeMobile', function(room) { //Client subscribe to a Room (recieve)
-				if(self.rooms[room].count < 2) {
-					self.rooms[room].count++;
-					self.rooms[room].clients.push(socket.id);
-					socket.join(room);
-				} else {
-					self.io.to(socket.id).emit('noMoreSpaces');
+
+			socket.on('subscribeMobile', function(room) {
+				if(self.rooms[room]) {
+					if(self.rooms[room].count < 2) {
+						console.log('mobile join');
+						self.rooms[room].count++;
+						self.rooms[room].clients.push(socket.id);
+						socket.join(room);
+					} else {
+						self.io.to(socket.id).emit('noMoreSpaces');
+					}
 				}
 			});
 
@@ -98,14 +106,12 @@ App.prototype = {
 			socket.on('disconnect', function(){
 				for(var i in self.rooms) {
 					var room = self.rooms[i].clients;
-					if(self.isInArray(socket.id, room)) {
-						self.rooms[i].count--;
-					}
+					if(self.isInArray(socket.id, room))	self.rooms[i].count--;
 				}
 			});
 
 		});
-		self.server.listen(8080);
+		self.server.listen(3000);
 	}
 }
 var app = new App();
