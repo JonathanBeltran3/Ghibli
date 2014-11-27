@@ -15,8 +15,8 @@ Model.prototype = {
 		if(callback) callback.call(this);
 	},
 	emitSocket: function(event, datas, callback) {
-		console.log(datas);
 		datas.room = this.room;
+		console.log(datas);
 		this.socket.emit(event, datas);
 		if(callback) callback.call(this);
 	},

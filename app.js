@@ -37,6 +37,7 @@ App.prototype = {
 			});
 
 			socket.on('mobileConnection', function(datas){
+				console.log(datas);
 				self.io.to(datas.room).emit('mobileConnected', self.json);
 			});
 
