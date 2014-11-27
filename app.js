@@ -37,7 +37,10 @@ App.prototype = {
 
 		self.io.sockets.on('connection', function(socket){
 			socket.on('subscribe', function(room) {
-				if(self.rooms[room] === undefined) self.rooms[room] = {count: 0, clients: []};
+				if(self.rooms[room] === undefined) {
+					self.rooms[room] = {count: 0, clients: []};
+					socket.join(room);
+				}
 				else self.io.to(socket.id).emit('changeRoom');
 			});
 			socket.on('subscribeMobile', function(room) { //Client subscribe to a Room (recieve)

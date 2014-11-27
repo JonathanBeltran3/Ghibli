@@ -6,7 +6,7 @@ Model.prototype = {
 		this.socket = socket
 	},
 	connectRoom: function(room) {
-		this.socket.emit('subscribe', room);
+		this.socket.emit('subscribeMobile', room);
 		this.room = room;
 	},
 	emitAction: function(action, callback) {
@@ -16,7 +16,6 @@ Model.prototype = {
 	},
 	emitSocket: function(event, datas, callback) {
 		datas.room = this.room;
-		console.log(datas);
 		this.socket.emit(event, datas);
 		if(callback) callback.call(this);
 	},
