@@ -36,8 +36,8 @@ App.prototype = {
 				socket.join(room);
 			});
 
-			socket.on('mobileConnection', function(room){
-				self.io.to(room).emit('mobileConnected', self.json);
+			socket.on('mobileConnection', function(datas){
+				self.io.to(datas.room).emit('mobileConnected', self.json);
 			});
 
 			socket.on('passIntro', function(room){
