@@ -28,6 +28,14 @@ Controller.prototype = {
 		var self= this;
 		//document.querySelector('.fullscreen-toggle').addEventListener('click', self.view.toggleFullscreen, false);
 		document.querySelector('.sound').addEventListener('click', self.toggleSound.bind(self), false);
+		document.querySelector('.back-film').addEventListener('click', function(e){
+                e.preventDefault();
+                this.classList.remove('visible');
+                self.view.renderHomeVideo(self.json[self.videoNumber], function(){
+                self.removeHiddenControlsListener();
+				document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
+			});
+        }, false);
 	},
 	socketListener: function() {
 		var self = this;
@@ -223,6 +231,8 @@ Controller.prototype = {
             self.view.hideLoader();
 			self.view.launchVideo(self.video);
             window.addEventListener('click', self.playPauseVideo.bind(self), true);
+            /* Toujours en test, sera bien mis après #backFilm */
+            document.querySelector('.back-film').classList.add('visible');
 		},6000);
 		
 	},
@@ -250,6 +260,8 @@ Controller.prototype = {
         self.timeoutControls;
 
         self.addHideControls();
+
+
 
 		self.video.addEventListener('timeupdate', function(){
             var progress = self.video.currentTime / self.video.duration * 100;
@@ -325,7 +337,8 @@ Controller.prototype = {
 		var self = this;
         self.removeHiddenControlsListener();
         window.removeEventListener('click', self.playPauseVideo.bind(self));
-
+        /* Toujours en test, sera bien mis après #backFilm */
+        document.querySelector('.back-film').classList.remove('visible');
 		Sound.hideSound();
 		if(self.videoSequence < self.json[self.videoNumber].sequences.length-1) {
 			self.videoSequence++;
