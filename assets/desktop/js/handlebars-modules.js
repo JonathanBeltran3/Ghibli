@@ -15,3 +15,9 @@ Handlebars.registerHelper('addingQTE', function () {
 
     return new Handlebars.SafeString(text);
 });
+
+
+
+Handlebars.registerHelper('percent', function (nb) {
+    return new Handlebars.SafeString(100/nb);
+});
