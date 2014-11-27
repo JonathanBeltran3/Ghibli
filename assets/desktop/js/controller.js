@@ -8,7 +8,7 @@ Controller.prototype = {
 		this.view = view;
 		this.view.init();
 		this.model.init(this.socket);
-		this.videoNumber = 1;
+		this.videoNumber = 0;
 		this.room = 0;
 		this.QTESuccess = 0;
 		this.main = document.querySelector('.main');
@@ -31,16 +31,23 @@ Controller.prototype = {
 	},
 	socketListener: function() {
 		var self = this;
-		this.socket.on('connect', function() {
+		var changeRoom = 0;
+		self.socket.on('connect', function() {
 			self.model.ajaxLoadTemplate('links.handlebars',function(template){
 				self.view.initTemplates('linksTemplate', template, function(){
 					self.model.createRoom(function(string){
-						self.model.getRootUrl(function(rootUrl) {
-							self.view.showAccess(string, rootUrl);
-							self.room = string;
-							self.launchInitTemplate('loading.handlebars', 'loadingTemplate');
-
+						self.socket.on('changeRoom', function(){
+							changeRoom = 1;
+							self.changeRoom();
 						});
+
+						if(!changeRoom) {
+							self.model.getRootUrl(function(rootUrl) {
+								self.view.showAccess(string, rootUrl);
+								self.room = string;
+								self.launchInitTemplate('loading.handlebars', 'loadingTemplate');
+							});
+						}
 					});
 				});
 			});
@@ -48,8 +55,25 @@ Controller.prototype = {
 
 		this.socket.once('mobileConnected',function(data){
 			self.json = data;
-			self.filmName = data[self.videoNumber].filmName;
 			self.loadVideoTemplates();
+		});
+	},
+	changeRoom: function() {
+		var self = this;
+		var changeRoom = 0;
+		self.model.createRoom(function(string){
+			self.socket.on('changeRoom', function(){
+				changeRoom = 1;
+				self.changeRoom();
+			});
+
+			if(!changeRoom) {
+				self.model.getRootUrl(function(rootUrl) {
+					self.view.showAccess(string, rootUrl);
+					self.room = string;
+					self.launchInitTemplate('loading.handlebars', 'loadingTemplate');
+				});
+			}
 		});
 	},
 	loadVideoTemplates: function(){
@@ -120,6 +144,7 @@ Controller.prototype = {
 	renderMap: function() {
 		var self = this;
 		self.view.renderMap(function(){
+			self.model.emitSocket('renderMap', self.room);
 			var zones = document.querySelectorAll('.clickable-zone');
 			for(var i = 0; i < zones.length; i++) {
 				var zone = zones[i];
@@ -131,6 +156,7 @@ Controller.prototype = {
 	},
 	getDataForIntro: function(elt){
 		this.videoNumber = parseInt(elt.getAttribute('data-film'));
+		this.filmName = this.json[this.videoNumber].filmName;
 		this.rollIntro();
 	},
 	rollIntro: function() {

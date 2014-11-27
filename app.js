@@ -11,6 +11,7 @@ App.prototype = {
 		this.json = require('./qte.json');
 		this.listenQTE = 0;
 		this.listenPassIntro = 0;
+		this.rooms = {};
 
 		this.app.use(this.express.static(this.path.join(__dirname, './assets/desktop/views')));
 		this.app.use(this.express.static(this.path.join(__dirname, './assets/desktop/videos/')));
@@ -28,16 +29,28 @@ App.prototype = {
 		  res.render('mobile.ejs', {title: 'Wind Memory', code: req.params.code});
 		});
 	},
+	isInArray: function(value, array) {
+		return array.indexOf(value) > -1;
+	},
 	socketListener: function() {
 		var self = this;
 
 		self.io.sockets.on('connection', function(socket){
-			socket.on('subscribe', function(room) { //Client subscribe to a Room (recieve)
-				socket.join(room);
+			socket.on('subscribe', function(room) {
+				if(self.rooms[room] === undefined) self.rooms[room] = {count: 0, clients: []};
+				else self.io.to(socket.id).emit('changeRoom');
+			});
+			socket.on('subscribeMobile', function(room) { //Client subscribe to a Room (recieve)
+				if(self.rooms[room].count < 2) {
+					self.rooms[room].count++;
+					self.rooms[room].clients.push(socket.id);
+					socket.join(room);
+				} else {
+					self.io.to(socket.id).emit('noMoreSpaces');
+				}
 			});
 
 			socket.on('mobileConnection', function(datas){
-				console.log(datas);
 				self.io.to(datas.room).emit('mobileConnected', self.json);
 			});
 
@@ -77,6 +90,20 @@ App.prototype = {
 			socket.on('loadingInProgress', function(datas){
 				self.io.to(datas.room).emit('loadingInProgress', datas.load);
 			});
+
+			socket.on('renderMap', function(room){
+				self.io.to(room).emit('renderMap');
+			});
+
+			socket.on('disconnect', function(){
+				for(var i in self.rooms) {
+					var room = self.rooms[i].clients;
+					if(self.isInArray(socket.id, room)) {
+						self.rooms[i].count--;
+					}
+				}
+			});
+
 		});
 		self.server.listen(8080);
 	}

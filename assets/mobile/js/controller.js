@@ -6,6 +6,7 @@ Controller.prototype = {
 		this.socket = socket;
 		this.model = model;
 		this.view = view;
+		this.view.init();
 		this.room = room;
 		this.touch = new Touch();
 		this.touch.init(this);
@@ -25,12 +26,20 @@ Controller.prototype = {
 			self.json = data;
 			self.view.renderLoader();
 		});
+
+		self.socket.on('noMoreSpaces', function() {
+			alert('No more spaces !');
+		});
 				
 		self.socket.on('mobileActionQTE', function(action){
 		});
 
 		self.socket.on('loadingInProgress', function(load){
 			self.view.dealwithLoading(load);
+		});
+
+		self.socket.on('renderMap', function(load){
+			self.view.renderMap();
 		});
 
 	},
@@ -40,6 +49,10 @@ Controller.prototype = {
 			{
 				templatePath: 'mobileLoader.handlebars',
 				templateName: 'loaderTemplate'
+			},
+			{
+				templatePath: 'mobileMap.handlebars',
+				templateName: 'mapTemplate'
 			}
 		];
 		this.totalLoad = templates.length;
