@@ -30,12 +30,23 @@ Controller.prototype = {
 		//document.querySelector('.fullscreen-toggle').addEventListener('click', self.view.toggleFullscreen, false);
 		document.querySelector('.sound').addEventListener('click', self.toggleSound.bind(self), false);
 		document.querySelector('.back-film').addEventListener('click', function(e){
-                e.preventDefault();
-                this.classList.remove('visible');
+            e.preventDefault();
+            self.removeHiddenControlsListener();
+            document.querySelector('.qte-mode').removeEventListener('click', self.playPauseVideo.bind(self));
+
+            Sound.cutSound(self.video, function(){
+                self.allowSound = false;
+                self.togglingSound = false;
+
                 self.view.renderHomeVideo(self.json[self.videoNumber], function(){
-                self.removeHiddenControlsListener();
-				document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
-			});
+                    self.video.pause();
+                    self.removeHiddenControlsListener();
+                    document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
+                });
+
+            });
+            this.classList.remove('visible');
+
         }, false);
 	},
 	socketListener: function() {
@@ -181,7 +192,8 @@ Controller.prototype = {
 			self.video = video;
 			self.view.launchVideo(video);
             setTimeout(function(){
-                document.querySelector('.first-animation').classList.remove('first-animation');
+                if (document.querySelector('.first-animation'))
+                    document.querySelector('.first-animation').classList.remove('first-animation');
                 self.addHideControls();
             }, 10000);
 			video.onended = function(){self.passIntro();};
@@ -189,7 +201,6 @@ Controller.prototype = {
 			self.addIntroListener();
 		});
 	},
-	
 	passIntro: function() {
 		var self = this;
 
@@ -202,7 +213,6 @@ Controller.prototype = {
 			});
 		});
 	},
-	
 	addIntroListener: function() {
 		var self = this;
 		self.socket.once('mobilePassIntro', function(){
@@ -240,7 +250,7 @@ Controller.prototype = {
 		setTimeout(function(){
             self.view.hideLoader();
 			self.view.launchVideo(self.video);
-            window.addEventListener('click', self.playPauseVideo.bind(self), true);
+            document.querySelector('.qte-mode').addEventListener('click', self.playPauseVideo.bind(self), true);
             /* Toujours en test, sera bien mis après #backFilm */
             document.querySelector('.back-film').classList.add('visible');
 		},6000);
@@ -265,13 +275,11 @@ Controller.prototype = {
             }, 10 * 1000);
         }
 
-        /* hide controls after 5 secondes without doing anyting */
-        self.hiddenControls = false;
-        self.timeoutControls;
-
-        self.addHideControls();
-
-
+//        /* hide controls after 5 secondes without doing anyting */
+//        self.hiddenControls = false;
+//        self.timeoutControls;
+//
+//        self.addHideControls();
 
 		self.video.addEventListener('timeupdate', function(){
             var progress = self.video.currentTime / self.video.duration * 100;
@@ -319,7 +327,6 @@ Controller.prototype = {
 	
 	addQTEListener: function(sequence, interval, timeout, action, i) {
 		var self = this;
-        //self.socket.addListener('QTEDone');
 		self.socket.once('QTEDone', function(actionMobile) {
 			if(action === actionMobile) {
 				self.QTESuccess++;
@@ -334,7 +341,7 @@ Controller.prototype = {
 	},
 	removeHiddenControlsListener: function(){
         var self = this;
-        document.removeEventListener('mousemove', self.dealHiddenControls);
+        document.removeEventListener('mousemove', self.dealHiddenControls.bind(self), false);
         clearTimeout(self.timeoutControls);
         if (self.hiddenControls === true) {
             console.log('Controls were hidden');
@@ -346,7 +353,7 @@ Controller.prototype = {
 	finishVideo: function() {
 		var self = this;
         self.removeHiddenControlsListener();
-        window.removeEventListener('click', self.playPauseVideo.bind(self));
+        document.querySelector('.qte-mode').removeEventListener('click', self.playPauseVideo.bind(self));
         /* Toujours en test, sera bien mis après #backFilm */
         document.querySelector('.back-film').classList.remove('visible');
 		Sound.hideSound();
@@ -355,7 +362,6 @@ Controller.prototype = {
 			self.dealSequences();
 		} else {
 			self.view.renderHomeVideo(self.json[self.videoNumber], function(){
-                self.removeHiddenControlsListener();
 				document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
 			});
 		}
@@ -401,6 +407,7 @@ Controller.prototype = {
         return false;
     },
     addHideControls: function(){
+        console.log('Ajout de addHideControls');
         var self = this;
         document.addEventListener('mousemove', self.dealHiddenControls.bind(self), false);
         if( document.createEvent ) {
