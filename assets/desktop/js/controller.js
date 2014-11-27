@@ -57,7 +57,7 @@ Controller.prototype = {
 		self.load = 0;
 		self.view.renderLoader(self.load, function(){
 			self.view.hideMain(function(){
-				self.numberOfLoad = 22;
+				self.numberOfLoad = 30;
 				self.launchInitTemplate('video.handlebars', 'videoTemplate');
 				self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
 				self.launchInitTemplate('homeIntro.handlebars', 'homeIntro');

@@ -246,14 +246,14 @@
                 "videoDuration" : "131",
                 "qte": [
                     {
-                        "time": "21",
+                        "time": "20",
                         "duration": "3",
-                        "type": "tap"
+                        "type": "hold"
                     },
                     {
                         "time": "73",
                         "duration": "3",
-                        "type": "tap"
+                        "type": "hold"
                     },
                     {
                         "time": "124",
@@ -274,7 +274,7 @@
                         "type": "swipe-left"
                     },
                     {
-                        "time": "16",
+                        "time": "17",
                         "duration": "3",
                         "type": "swipe-right"
                     }
@@ -292,7 +292,7 @@
                         "type": "hold"
                     },
 					{
-                        "time": "65",
+                        "time": "67",
                         "duration": "3",
                         "type": "swipe-up"
                     },
@@ -302,7 +302,7 @@
                         "type": "hold"
                     },
 					{
-						"time": "93",
+						"time": "94",
 						"duration": "3",
 						"type": "swipe-up"
 					}
@@ -341,7 +341,7 @@
                         "type": "swipe-up"
                     },
                     {
-                        "time": "80",
+                        "time": "81",
                         "duration": "3",
                         "type": "swipe-up"
                     }
@@ -372,17 +372,17 @@
                 "videoDuration" : "102",
                 "qte": [
                     {
-                        "time": "31",
+                        "time": "32",
                         "duration": "3",
                         "type": "hold"
                     },
 					{
-                        "time": "40",
+                        "time": "42",
                         "duration": "3",
                         "type": "swipe-up"
                     },
 					{
-                        "time": "52",
+                        "time": "53",
                         "duration": "3",
                         "type": "hold"
                     }
@@ -421,7 +421,7 @@
                         "type": "hold"
                     },
                     {
-                        "time": "65",
+                        "time": "67",
                         "duration": "3",
                         "type": "swipe-up"
                     }
@@ -439,7 +439,7 @@
                         "type": "tap"
                     },
                     {
-                        "time": "67",
+                        "time": "69",
                         "duration": "3",
                         "type": "tap"
                     },

@@ -18,6 +18,7 @@ Controller.prototype = {
 		
 		self.socket.on('connect', function() {
 			self.model.connectRoom(self.room);
+			self.loadTemplates();
 		});
 
 		self.socket.on('mobileConnected', function(data){
@@ -34,20 +35,42 @@ Controller.prototype = {
 
 	},
 	
-	emitAction: function(action) {
-		this.model.emitAction(action);
-	},
-	
-	emitSocket: function(event, datas) {
-		this.model.emitSocket(event, datas);
+	loadTemplates: function() {
+		var templates = [
+			{
+				templatePath: 'mobileLoader.handlebars',
+				templateName: 'loaderTemplate'
+			}
+		];
+		this.totalLoad = templates.length;
+		this.load = 0;
+		for(var i = 0; i < this.load; i++) {
+			var template = templates[i];
+			this.launchInitTemplate(template.templatePath, template.templateName);
+		}
 	},
 
 	launchInitTemplate: function(templatePath, templateName){
 		var self = this;
 		self.model.ajaxLoadTemplate(templatePath, function(template) {
 			self.view.initTemplates(templateName, template, function(){
-                self.dealWithLoading();
+				self.loading();
 			});
 		});
+	},
+
+	loading: function() {
+		this.load++;
+		if(this.load === this.totalLoad) {
+			this.model.emitSocket('mobileConnection', this.room);
+		}
+	},
+
+	emitAction: function(action) {
+		this.model.emitAction(action);
+	},
+
+	emitSocket: function(event, datas) {
+		this.model.emitSocket(event, datas);
 	},
 }
