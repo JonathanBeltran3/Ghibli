@@ -149,11 +149,13 @@ View.prototype = {
                 callback.call(this);
             }
         },200);
-
+        this.moveIntroElements();
+	},
+    moveIntroElements: function(){
 		document.querySelector('.indication-text').classList.add('down-disappear');
 		document.querySelector('.credits-intro').classList.add('down-disappear');
 		document.querySelector('.film-title').classList.add('down-disappear');
-	},
+    },
 	fadeHomeVideo: function(callback) {
 		document.querySelector('.film-title').classList.add('up-disappear');
 		var lis = document.querySelectorAll('.first-level-li');
