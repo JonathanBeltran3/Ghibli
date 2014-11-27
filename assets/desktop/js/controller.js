@@ -72,6 +72,14 @@ Controller.prototype = {
 				self.launchInitPartials('logos/mononoke-intro.handlebars', 'mononokeLogo-intro');
 				self.launchInitPartials('logos/totoro.handlebars', 'totoroLogo');
 				self.launchInitPartials('logos/totoro-intro.handlebars', 'totoroLogo-intro');
+				self.launchInitPartials('logos/laputa.handlebars', 'laputaLogo');
+				self.launchInitPartials('logos/laputa-intro.handlebars', 'laputaLogo-intro');
+				self.launchInitPartials('logos/porco.handlebars', 'porcoLogo');
+				self.launchInitPartials('logos/porco-intro.handlebars', 'porcoLogo-intro');
+				self.launchInitPartials('logos/spirited.handlebars', 'spiritedLogo');
+				self.launchInitPartials('logos/spirited-intro.handlebars', 'spiritedLogo-intro');
+				self.launchInitPartials('logos/windrises.handlebars', 'windrisesLogo');
+				self.launchInitPartials('logos/windrises-intro.handlebars', 'windrisesLogo-intro');
 				self.launchInitPartials('modules/sound.handlebars', 'sound');
 				self.launchInitPartials('modules/credits.handlebars', 'credits');
 				self.launchInitPartials('modules/world-map.handlebars', 'worldMap');
@@ -104,6 +112,7 @@ Controller.prototype = {
 	dealWithLoading: function(){
 		var self = this;
 		self.load += 100/self.numberOfLoad;
+		self.model.emitSocket('loadingInProgress', {load: self.load, room: self.room});
 		if(Math.round(self.load) === 100) setTimeout(function(){self.renderMap()},3000);
 		if(document.querySelector('.value')) self.view.updateLoader(Math.round(self.load));
 
@@ -212,7 +221,6 @@ Controller.prototype = {
         self.timeoutControls;
 
         document.addEventListener('mousemove', self.dealHiddenControls.bind(self), false);
-
 
 		self.video.addEventListener('timeupdate', function(){
             var progress = self.video.currentTime / self.video.duration * 100;

@@ -14,6 +14,7 @@ App.prototype = {
 
 		this.app.use(this.express.static(this.path.join(__dirname, './assets/desktop/views')));
 		this.app.use(this.express.static(this.path.join(__dirname, './assets/desktop/videos/')));
+		this.app.use(this.express.static(this.path.join(__dirname, './assets/mobile/views/')));
 		this.app.use(this.express.static(this.path.join(__dirname, './assets/')));
 		this.getRoutes();
 		this.socketListener();
@@ -70,6 +71,10 @@ App.prototype = {
 			socket.on('failQTE', function(room) {
 				self.listenQTE = 0;
 				self.io.to(room).emit('failQTE');
+			});
+
+			socket.on('loadingInProgress', function(datas){
+				self.io.to(datas.room).emit('loadingInProgress', datas.load);
 			});
 		});
 		self.server.listen(8080);

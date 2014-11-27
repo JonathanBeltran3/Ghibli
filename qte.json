@@ -18,7 +18,7 @@
                 "videoDuration" : "76",
                 "qte": [
                     {
-                        "time": "16",
+                        "time": "17",
                         "duration": "3",
                         "type": "tap"
                     },
@@ -41,17 +41,17 @@
                 "videoDuration" : "79",
                 "qte": [
                     {
-                        "time": "27",
+                        "time": "28",
                         "duration": "3",
                         "type": "swipe-down"
                     },
                     {
-                        "time": "35",
+                        "time": "36",
                         "duration": "3",
                         "type": "hold"
                     },
                     {
-                        "time": "50",
+                        "time": "51",
                         "duration": "3",
                         "type": "swipe-up"
                     }
@@ -224,6 +224,328 @@
                         "type": "swipe-up"
                     }
                 ]
+            }
+        ]
+    },
+	{
+        "name": "Porco Rosso",
+        "filmName": "porco",
+        "logo": "porcoLogo",
+        "treasures" : {
+            "characters": "",
+            "analysis": "",
+            "fanArt": ""
+        },
+        "infos" : "",
+		"introduction": "/porco/porco-intro-video",
+        "sequences": [
+            {
+                "id": 1,
+                "quote": "I'm a pig. I don't fight for honor. I fight for a paycheck.",
+                "videoLink": "/porco/porco-seq1",
+                "videoDuration" : "131",
+                "qte": [
+                    {
+                        "time": "21",
+                        "duration": "3",
+                        "type": "tap"
+                    },
+                    {
+                        "time": "73",
+                        "duration": "3",
+                        "type": "tap"
+                    },
+                    {
+                        "time": "124",
+                        "duration": "3",
+                        "type": "swipe-down"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "quote": "If you run away, I'll tell everyone you're chicken! - Chicken, pig, what's the difference ?",
+                "videoLink": "/porco/porco-seq2",
+                "videoDuration" : "65",
+                "qte": [
+                    {
+                        "time": "5",
+                        "duration": "3",
+                        "type": "swipe-left"
+                    },
+                    {
+                        "time": "16",
+                        "duration": "3",
+                        "type": "swipe-right"
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "quote": "A pig who doesn't fly is just an ordinary pig.",
+                "videoLink": "/porco/porco-seq3",
+                "videoDuration" : "104",
+                "qte": [
+                    {
+                        "time": "14",
+                        "duration": "3",
+                        "type": "hold"
+                    },
+					{
+                        "time": "65",
+                        "duration": "3",
+                        "type": "swipe-up"
+                    },
+					{
+                        "time": "79",
+                        "duration": "3",
+                        "type": "hold"
+                    },
+					{
+						"time": "93",
+						"duration": "3",
+						"type": "swipe-up"
+					}
+                ]
+            },
+			{
+				"id": 4,
+				"quote": "Can you tell me the first requirement for a good pilot ? - Inspiration",
+				"videoLink": "/porco/porco-seq4",
+				"videoDuration": "222",
+				"qte": []
+			}
+        ]
+    },
+	{
+        "name": "The Wind Rises",
+        "filmName": "windrises",
+        "logo": "windrisesLogo",
+        "treasures" : {
+            "characters": "",
+            "analysis": "",
+            "fanArt": ""
+        },
+        "infos" : "",
+		"introduction": "/windrises/windrises-intro-video",
+        "sequences": [
+            {
+                "id": 1,
+                "quote": "Airplanes are beautiful dreams, engineers turn dreams into reality.",
+                "videoLink": "/windrises/windrises-seq1",
+                "videoDuration" : "148",
+                "qte": [
+                    {
+                        "time": "64",
+                        "duration": "3",
+                        "type": "swipe-up"
+                    },
+                    {
+                        "time": "80",
+                        "duration": "3",
+                        "type": "swipe-up"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "quote": "\" Le vent se lève, il faut tenter de vivre.\" - Paul Valery",
+                "videoLink": "/windrises/windrises-seq2",
+                "videoDuration" : "86",
+                "qte": [
+                    {
+                        "time": "19",
+                        "duration": "3",
+                        "type": "tap"
+                    },
+                    {
+                        "time": "24",
+                        "duration": "3",
+                        "type": "swipe-right"
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "quote": "A summer to remember.",
+                "videoLink": "/windrises/windrises-seq3",
+                "videoDuration" : "102",
+                "qte": [
+                    {
+                        "time": "31",
+                        "duration": "3",
+                        "type": "hold"
+                    },
+					{
+                        "time": "40",
+                        "duration": "3",
+                        "type": "swipe-up"
+                    },
+					{
+                        "time": "52",
+                        "duration": "3",
+                        "type": "hold"
+                    }
+                ]
+            },
+			{
+				"id": 4,
+				"quote": "She was beautiful, just like the wind.",
+				"videoLink": "/windrises/windrises-seq4",
+				"videoDuration": "188",
+				"qte": []
+			}
+        ]
+    },
+	{
+        "name": "Spirited Away",
+        "filmName": "spirited",
+        "logo": "spiritedLogo",
+        "treasures" : {
+            "characters": "",
+            "analysis": "",
+            "fanArt": ""
+        },
+        "infos" : "",
+		"introduction": "/spirited/spirited-intro-video",
+        "sequences": [
+            {
+                "id": 1,
+                "quote": "A human! You're in trouble ! You're the one everyone's been looking for !",
+                "videoLink": "/spirited/spirited-seq1",
+                "videoDuration" : "92",
+                "qte": [
+                    {
+                        "time": "32",
+                        "duration": "3",
+                        "type": "hold"
+                    },
+                    {
+                        "time": "65",
+                        "duration": "3",
+                        "type": "swipe-up"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "quote": "Once you do something, you never forget. Even if you can't remember.",
+                "videoLink": "/spirited/spirited-seq2",
+                "videoDuration" : "127",
+                "qte": [
+                    {
+                        "time": "8",
+                        "duration": "3",
+                        "type": "tap"
+                    },
+                    {
+                        "time": "67",
+                        "duration": "3",
+                        "type": "tap"
+                    },
+                    {
+                        "time": "111",
+                        "duration": "3",
+                        "type": "swipe-down"
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "quote": "I think he needs help ! It feels like there's a thorn in his side !",
+                "videoLink": "/spirited/spirited-seq3",
+                "videoDuration" : "162",
+                "qte": [
+                    {
+                        "time": "63",
+                        "duration": "3",
+                        "type": "hold"
+                    },
+					{
+                        "time": "84",
+                        "duration": "3",
+                        "type": "swipe-down"
+                    },
+					{
+                        "time": "92",
+                        "duration": "3",
+                        "type": "swipe-down"
+                    },
+					{
+                        "time": "123",
+                        "duration": "3",
+                        "type": "swipe-down"
+                    }
+                ]
+            },
+			{
+				"id": 4,
+				"quote": "I promise I'll be back, Haku. You can't die. - What's going on here ? - Don't you see ? It's called... Love.",
+				"videoLink": "/spirited/spirited-seq4",
+				"videoDuration": "213",
+				"qte": []
+			}
+        ]
+    },
+	{
+        "name": "Laputa the castle in the sky",
+        "filmName": "laputa",
+        "logo": "laputaLogo",
+        "treasures" : {
+            "characters": "",
+            "analysis": "",
+            "fanArt": ""
+        },
+        "infos" : "",
+		"introduction": "/laputa/laputa-intro-video",
+        "sequences": [
+            {
+                "id": 1,
+                "quote": "The earth speaks to all of us, and if we listen, we can understand.",
+                "videoLink": "/laputa/laputa-seq1",
+                "videoDuration" : "115",
+                "qte": [
+                    {
+                        "time": "21",
+                        "duration": "3",
+                        "type": "swipe-right"
+                    },
+                    {
+                        "time": "55",
+                        "duration": "3",
+                        "type": "hold"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "quote": "No matter how many weapons you have, no matter how great your technology might be, the world cannot live without love.",
+                "videoLink": "/laputa/laputa-seq2",
+                "videoDuration" : "126",
+                "qte": [
+                    {
+                        "time": "76",
+                        "duration": "3",
+                        "type": "hold"
+                    },
+                    {
+                        "time": "87",
+                        "duration": "3",
+                        "type": "hold"
+                    },
+                    {
+                        "time": "106",
+                        "duration": "3",
+                        "type": "swipe-up"
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "quote": "I'll give you one minute, starting now.",
+                "videoLink": "/laputa/laputa-seq3",
+                "videoDuration" : "216",
+                "qte": []
             }
         ]
     }

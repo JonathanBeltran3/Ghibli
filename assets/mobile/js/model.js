@@ -19,5 +19,33 @@ Model.prototype = {
 		datas.room = this.room;
 		this.socket.emit(event, datas);
 		if(callback) callback.call(this);
-	}
+	},
+	ajaxLoadTemplate: function(template, callback) {
+		var xmlhttp;
+
+		if (window.XMLHttpRequest) {
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			// code for IE6, IE5
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 ) {
+			   if(xmlhttp.status == 200){
+				   callback.call(this, xmlhttp.responseText);
+			   }
+			   else if(xmlhttp.status == 400) {
+				   console.log('There was an error 400');
+			   }
+			   else {
+				   console.log('something else other than 200 was returned');
+			   }
+			}
+		}
+
+		xmlhttp.open("GET", template, true);
+		xmlhttp.send();
+	},
 };

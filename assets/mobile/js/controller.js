@@ -16,26 +16,38 @@ Controller.prototype = {
 	socketListener: function() {
 		var self = this;
 		
-		this.socket.on('connect', function() {
+		self.socket.on('connect', function() {
 			self.model.connectRoom(self.room);
 		});
 
-		this.socket.on('mobileConnected', function(data){
-			this.json = data;
-			console.log(this.json);
+		self.socket.on('mobileConnected', function(data){
+			self.json = data;
+			self.view.renderLoader();
 		});
 				
-		this.socket.on('mobileActionQTE', function(action){
-			console.log(action);
+		self.socket.on('mobileActionQTE', function(action){
 		});
+
+		self.socket.on('loadingInProgress', function(load){
+			self.view.dealwithLoading(load);
+		});
+
 	},
 	
 	emitAction: function(action) {
-
 		this.model.emitAction(action);
 	},
 	
 	emitSocket: function(event, datas) {
 		this.model.emitSocket(event, datas);
-	}
+	},
+
+	launchInitTemplate: function(templatePath, templateName){
+		var self = this;
+		self.model.ajaxLoadTemplate(templatePath, function(template) {
+			self.view.initTemplates(templateName, template, function(){
+                self.dealWithLoading();
+			});
+		});
+	},
 }
