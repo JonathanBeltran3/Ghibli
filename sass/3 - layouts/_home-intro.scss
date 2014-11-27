@@ -12,9 +12,8 @@
         bottom: 0;
 		visibility: visible;
 		opacity: 1;
-		transition: all 800ms cubic-bezier(.33,.04,.22,1.14) 6.8s;
-		-webkit-transition: all 800ms cubic-bezier(.33,.04,.22,1.14) 6.8s;
     }
+
 
     .indication-text {
         margin: auto;
@@ -26,27 +25,16 @@
 		
 		visibility: visible;
 		opacity: 1;
-		transition: all 800ms cubic-bezier(.33,.04,.22,1.14) 7s;
-		-webkit-transition: all 800ms cubic-bezier(.33,.04,.22,1.14) 7s;
         
         svg {
             width: 44px;
             vertical-align: middle;
-            #hand {
-                -webkit-animation: cssAnimation 600ms infinite linear alternate;
-                animation: cssAnimation 600ms infinite linear alternate;
-            }
-            &:hover {
-                #hand { transform: translateY(0px); }
-            }
         }
     }
     .film-title {
         margin-top: 0;
 		visibility: visible;
 		opacity: 1;
-		transition: all 800ms cubic-bezier(.33,.04,.22,1.14) 5.8s;
-		-webkit-transition: all 800ms cubic-bezier(.33,.04,.22,1.14) 5.8s;
     }
      .film-title svg {
         width: 50%;
@@ -55,10 +43,30 @@
 		visibility: hidden;
 		opacity: 0;
 		transform: translateY(20px);
-		transition: all 800ms cubic-bezier(.33,.04,.22,1.14);
-		-webkit-transition: all 800ms cubic-bezier(.33,.04,.22,1.14);
 	}
+    
+        
+    .indication-text,
+    .credits-intro,
+    .film-title,
+    .down-disappear {
+        @include transition(all 800ms cubic-bezier(.33,.04,.22,1.14));
+    }
 
+}
+
+.first-animation.first-animation {
+    .credits-intro { @include transition-delay(6.8s); }
+    .indication-text { @include transition-delay(7s);  }
+    .film-title { @include transition-delay(5.8s); }
+}
+
+.hide-controls {
+    .indication-text,
+    .credits-intro,
+    .film-title {
+        @extend .down-disappear;
+    }
 }
 
  @-webkit-keyframes cssAnimation {
