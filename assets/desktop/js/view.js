@@ -167,7 +167,8 @@ View.prototype = {
 
 	},
     updateTimelineProgress: function (seq, progress) {
-        document.querySelectorAll('.timeline-part')[seq].style.width = progress + '%';
+        var timelines = document.querySelectorAll('.timeline-part');
+        if (timelines.length) timelines[seq].style.width = progress + '%';
     },
     addSuccessQTE: function(seq, i) {
         document.querySelectorAll('.timeline-3-seq')[seq].querySelectorAll('.qte')[i].classList.add('success');
