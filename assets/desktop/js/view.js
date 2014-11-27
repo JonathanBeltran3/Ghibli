@@ -192,6 +192,8 @@ View.prototype = {
             case 2 :
                 data.msg = 'All the best fan art, found on Deviant Art & Behance.';
             break;
+            default :
+                data.msg = 'Bonus video';
         }
 
 		var template  = Handlebars.compile(this.badgeContent);
