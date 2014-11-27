@@ -17,6 +17,7 @@ Controller.prototype = {
 		this.socketListener();
         this.allowSound = true;
         this.togglingSound = false;
+		this.step = 'init';
 	},
 	getSave: function() {
 		var self = this;
@@ -61,9 +62,13 @@ Controller.prototype = {
 			});
 		});
 
-		this.socket.once('mobileConnected',function(data){
+		self.socket.once('mobileConnected',function(data){
 			self.json = data;
 			self.loadVideoTemplates();
+		});
+
+		self.socket.on('askStep', function(){
+			self.model.emitSocket('resStep', {step: self.step, room: self.room});
 		});
 	},
 	changeRoom: function() {
@@ -87,6 +92,7 @@ Controller.prototype = {
 	loadVideoTemplates: function(){
 		var self = this;
 		self.load = 0;
+		this.step = 'loading';
 		self.view.renderLoader(self.load, function(){
 			self.view.hideMain(function(){
 				self.numberOfLoad = 30;
@@ -151,6 +157,7 @@ Controller.prototype = {
 	},
 	renderMap: function() {
 		var self = this;
+		this.step = 'renderMap';
 		self.view.renderMap(function(){
 			self.model.emitSocket('renderMap', self.room);
 			var zones = document.querySelectorAll('.clickable-zone');
@@ -169,6 +176,7 @@ Controller.prototype = {
 	},
 	rollIntro: function() {
 		var self = this;
+		this.step = 'renderIntro';
 		self.view.renderIntro(self.json[self.videoNumber], function(video){
 			self.video = video;
 			self.view.launchVideo(video);
@@ -177,7 +185,7 @@ Controller.prototype = {
                 self.addHideControls();
             }, 10000);
 			video.onended = function(){self.passIntro();};
-			self.model.emitSocket('passIntro', self.room);
+			self.model.emitSocket('passIntro', {room: self.room, filmName: self.filmName});
 			self.addIntroListener();
 		});
 	},
@@ -188,7 +196,8 @@ Controller.prototype = {
 		self.model.emitSocket('introPassed', self.room);
 		self.view.fadeIntro(self.video, function(){
 			self.view.renderHomeVideo(self.json[self.videoNumber], function(){
-                self.removeHiddenControlsListener();
+                this.step = 'HomeVideo';
+				self.removeHiddenControlsListener();
 				document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
 			});
 		});
@@ -214,6 +223,7 @@ Controller.prototype = {
 	
 	dealSequences: function(){
 		var self = this;
+		this.step = 'onSequence';
 		self.QTESuccess = 0;
 		self.view.renderQuotes(self.json[self.videoNumber], self.videoSequence, function(){
 			self.view.renderVideo(self.json[self.videoNumber], self.videoSequence, function() {

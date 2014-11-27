@@ -30,6 +30,14 @@ Controller.prototype = {
 		self.socket.on('noMoreSpaces', function() {
 			alert('No more spaces !');
 		});
+
+		self.socket.on('resStep', function(step) {
+			console.log(step);
+		});
+
+		self.socket.on('passIntro', function(filmName){
+			self.view.renderPassIntro(filmName);
+		});
 				
 		self.socket.on('mobileActionQTE', function(action){
 		});
@@ -53,6 +61,14 @@ Controller.prototype = {
 			{
 				templatePath: 'mobileMap.handlebars',
 				templateName: 'mapTemplate'
+			},
+			{
+				templatePath: 'mobileFilmScreen.handlebars',
+				templateName: 'filmScreenTemplate'
+			},
+			{
+				templatePath: 'mobilePassIntro.handlebars',
+				templateName: 'passIntroTemplate'
 			}
 		];
 		this.totalLoad = templates.length;

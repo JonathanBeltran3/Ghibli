@@ -40,7 +40,6 @@ App.prototype = {
 				if(self.rooms[room] === undefined) {
 					self.rooms[room] = {count: 1, clients: []};
 					socket.join(room);
-					console.log('join');
 				}
 				else self.io.to(socket.id).emit('changeRoom');
 			});
@@ -48,22 +47,27 @@ App.prototype = {
 			socket.on('subscribeMobile', function(room) {
 				if(self.rooms[room]) {
 					if(self.rooms[room].count < 2) {
-						console.log('mobile join');
 						self.rooms[room].count++;
 						self.rooms[room].clients.push(socket.id);
 						socket.join(room);
+						self.io.to(room).emit('askStep');
 					} else {
 						self.io.to(socket.id).emit('noMoreSpaces');
 					}
 				}
 			});
 
+			socket.on('resStep', function(datas) {
+				self.io.to(datas.room).emit('resStep', datas.step);
+			});
+
 			socket.on('mobileConnection', function(datas){
 				self.io.to(datas.room).emit('mobileConnected', self.json);
 			});
 
-			socket.on('passIntro', function(room){
-				self.io.to(room).emit('passIntro');
+			socket.on('passIntro', function(datas){
+				console.log(datas);
+				self.io.to(datas.room).emit('passIntro', datas.filmName);
 				self.listenPassIntro = 1;
 			});
 
