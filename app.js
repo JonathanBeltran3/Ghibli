@@ -44,7 +44,8 @@ App.prototype = {
 				}
 				else self.io.to(socket.id).emit('changeRoom');
 			});
-			socket.on('subscribeMobile', function(room) { //Client subscribe to a Room (recieve)
+
+			socket.on('subscribeMobile', function(room) {
 				if(self.rooms[room]) {
 					if(self.rooms[room].count < 2) {
 						console.log('mobile join');
@@ -105,14 +106,12 @@ App.prototype = {
 			socket.on('disconnect', function(){
 				for(var i in self.rooms) {
 					var room = self.rooms[i].clients;
-					if(self.isInArray(socket.id, room)) {
-						self.rooms[i].count--;
-					}
+					if(self.isInArray(socket.id, room))	self.rooms[i].count--;
 				}
 			});
 
 		});
-		self.server.listen(8080);
+		self.server.listen(3000);
 	}
 }
 var app = new App();
