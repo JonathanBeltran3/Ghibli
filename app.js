@@ -29,15 +29,25 @@ App.prototype = {
 		  res.render('mobile.ejs', {title: 'Wind Memory', code: req.params.code});
 		});
 	},
+	isInArray: function(value, array) {
+		return array.indexOf(value) > -1;
+	},
 	socketListener: function() {
 		var self = this;
 
 		self.io.sockets.on('connection', function(socket){
-			socket.on('subscribe', function(room) { //Client subscribe to a Room (recieve)
-				if(self.rooms[room] === undefined) self.rooms[room] = 0;
-				self.rooms[room]++;
-				socket.join(room);
-				console.log(self.io.nsps['/']);
+			socket.on('subscribe', function(room) {
+				if(self.rooms[room] === undefined) self.rooms[room] = {count: 0, clients: []};
+				else self.io.to(socket.id).emit('changeRoom');
+			});
+			socket.on('subscribeMobile', function(room) { //Client subscribe to a Room (recieve)
+				if(self.rooms[room].count < 2) {
+					self.rooms[room].count++;
+					self.rooms[room].clients.push(socket.id);
+					socket.join(room);
+				} else {
+					self.io.to(socket.id).emit('noMoreSpaces');
+				}
 			});
 
 			socket.on('mobileConnection', function(datas){
@@ -86,8 +96,12 @@ App.prototype = {
 			});
 
 			socket.on('disconnect', function(){
-				//var rooms = self.io.sockets.clients(socket.room);
-				console.log(socket.id);
+				for(var i in self.rooms) {
+					var room = self.rooms[i].clients;
+					if(self.isInArray(socket.id, room)) {
+						self.rooms[i].count--;
+					}
+				}
 			});
 
 		});

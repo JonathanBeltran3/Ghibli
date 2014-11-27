@@ -26,6 +26,10 @@ Controller.prototype = {
 			self.json = data;
 			self.view.renderLoader();
 		});
+
+		self.socket.on('noMoreSpaces', function() {
+			alert('No more spaces !');
+		});
 				
 		self.socket.on('mobileActionQTE', function(action){
 		});
