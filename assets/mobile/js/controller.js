@@ -62,7 +62,7 @@ Controller.prototype = {
 	loading: function() {
 		this.load++;
 		if(this.load === this.totalLoad) {
-			this.model.emitSocket('mobileConnection', this.room);
+			this.model.emitSocket('mobileConnection', {});
 		}
 	},
 
