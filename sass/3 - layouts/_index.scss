@@ -25,22 +25,25 @@
 	color: #332211;
 }
 
+
 .home-paragraph {
-	width: 360px;
-	margin: auto;
-	padding-bottom: 10px;
-	line-height: 1.5;
+    width: 400px;
+    margin: auto;
+    padding-bottom: 10px;
+    line-height: 1.5;
 }
 
 .before-home-link { padding-bottom: 35px; }
 
+
 .qr-code-container {
-	background: url('../img/ico-ticket-connexion-colored@2x.png');
-	width: 442px; height: 242px;
-	padding-top: 20px;
-	margin: auto;
-	text-align: center;
-	margin-botto: 2%;
+    background: url("../img/ico-ticket-connexion-colored@2x.png");
+    width: 442px;
+    height: 242px;
+    padding-top: 20px;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 3%;
 }
 
 .home-link {
