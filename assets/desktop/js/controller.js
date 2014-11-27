@@ -184,7 +184,8 @@ Controller.prototype = {
 			self.video = video;
 			self.view.launchVideo(video);
             setTimeout(function(){
-                document.querySelector('.first-animation').classList.remove('first-animation');
+                if (document.querySelector('.first-animation'))
+                    document.querySelector('.first-animation').classList.remove('first-animation');
                 self.addHideControls();
             }, 10000);
 			video.onended = function(){self.passIntro();};
@@ -192,7 +193,6 @@ Controller.prototype = {
 			self.addIntroListener();
 		});
 	},
-	
 	passIntro: function() {
 		var self = this;
 
@@ -204,7 +204,6 @@ Controller.prototype = {
 			});
 		});
 	},
-	
 	addIntroListener: function() {
 		var self = this;
 		self.socket.once('mobilePassIntro', function(){
@@ -266,13 +265,11 @@ Controller.prototype = {
             }, 10 * 1000);
         }
 
-        /* hide controls after 5 secondes without doing anyting */
-        self.hiddenControls = false;
-        self.timeoutControls;
-
-        self.addHideControls();
-
-
+//        /* hide controls after 5 secondes without doing anyting */
+//        self.hiddenControls = false;
+//        self.timeoutControls;
+//
+//        self.addHideControls();
 
 		self.video.addEventListener('timeupdate', function(){
             var progress = self.video.currentTime / self.video.duration * 100;
@@ -334,7 +331,7 @@ Controller.prototype = {
 	},
 	removeHiddenControlsListener: function(){
         var self = this;
-        document.removeEventListener('mousemove', self.dealHiddenControls);
+        document.removeEventListener('mousemove', self.dealHiddenControls.bind(self), false);
         clearTimeout(self.timeoutControls);
         if (self.hiddenControls === true) {
             console.log('Controls were hidden');
@@ -400,6 +397,7 @@ Controller.prototype = {
         return false;
     },
     addHideControls: function(){
+        console.log('Ajout de addHideControls');
         var self = this;
         document.addEventListener('mousemove', self.dealHiddenControls.bind(self), false);
         if( document.createEvent ) {
