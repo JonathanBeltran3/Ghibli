@@ -1,7 +1,7 @@
 "use strict";
 var App = function(){};
 App.prototype = {
-	init: function(){
+	init: function() {
 		this.express = require('express');
 		this.app = this.express();
 		this.http = require('http');
