@@ -480,7 +480,8 @@ Controller.prototype = {
 	addListenerOnWorldMap: function() {
 		var self = this;
 		self.model.emitSocket('renderMap', self.room);
-		var zones = document.querySelectorAll('.clickable-zone');
+		var zones = document.querySelectorAll('.body-map .clickable-zone');
+		console.log(zones);
 		for(var i = 0; i < zones.length; i++) {
 			var zone = zones[i];
 			zone.addEventListener('click', function(){

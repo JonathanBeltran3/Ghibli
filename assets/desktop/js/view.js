@@ -211,6 +211,7 @@ View.prototype = {
     },
     showBackWorldMap: function(callback){
         document.querySelector('.main').classList.add('hide-screen');
+        document.querySelector('.main').innerHTML = '';
         document.querySelector('.video-container').classList.add('hide-screen');
 		callback.call(this)
     },
