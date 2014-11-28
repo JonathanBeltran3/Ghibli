@@ -611,8 +611,8 @@ Controller.prototype = {
 
 	/**
 	 * Save the QTE
-	 * @param {[[Type]]} i       [[Description]]
-	 * @param {[[Type]]} success [[Description]]
+	 * @param {[[Type]]} i       number of the qte
+	 * @param {[[Type]]} success if is success or not
 	 */
 	saveQTE: function(i, success){
 		var self = this;
@@ -620,6 +620,10 @@ Controller.prototype = {
 			self.getSave();
 		});
 	},
+	/**
+	 * test if all QTE are successful or not
+	 * @param {[[Type]]} callback callback function
+	 */
 	testSequence: function(callback){
 		var self = this;
 		var QTEDone = false;
@@ -627,6 +631,12 @@ Controller.prototype = {
 		if(sequence.qte.length === self.QTESuccess) QTEDone = true; // checking if there if the right number of QTESuccess
         callback.call(this, QTEDone);
 	},
+
+    /**
+     * toggleSound on/off
+     * @param   {[[Type]]} e event
+     * @returns {Boolean}
+     */
     toggleSound: function(e){
         e.preventDefault();
         var self = this;
@@ -696,6 +706,9 @@ Controller.prototype = {
             self.hiddenControls = false;
         }
     },
+	/**
+	 * add the listeners on the world map
+	 */
 	addListenerOnWorldMap: function() {
 		var self = this;
 		self.model.emitSocket('renderMap', self.room);
@@ -707,6 +720,9 @@ Controller.prototype = {
 			}, false);
 		}
 	},
+	/**
+	 * add the listener on home video
+	 */
 	addListenerHomeVideo: function() {
 		var self = this;
 		self.step = 'HomeVideo';
@@ -733,12 +749,20 @@ Controller.prototype = {
 		});  /* get information for a treasure, should be done only if the user wants to click on this treasure, and don't forget to change filmID */
 	},
 
+	/**
+	 * Open the menu of the sequences
+	 * @param {[[Type]]} e event
+	 */
 	openSequence: function(e) {
 		var self = this;
 		e.preventDefault();
 		self.view.showSecondLevelMenu('.sequences-choices');
 	},
 
+	/**
+	 * Open the menu of treasures
+	 * @param {[[Type]]} e event
+	 */
 	openTreasures: function(e) {
 		var self = this;
 		e.preventDefault();
