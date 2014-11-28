@@ -7,7 +7,8 @@
 .map-borders {
     background-color: #1e1c1a;
     box-shadow: 0 0 0 5px #332211, 0px 6px 2px 0.00px #010101;
-    height: 8.4em;
+    
+    height: 2em;
     border-bottom: 1px solid rgba(255,255,255,0.15);
 }
 
@@ -37,4 +38,10 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 5;
+    @include transform(translateY(-2em));
+    @include transition(all 800ms);
+    cursor: pointer;
+    &:hover {
+        @include transform(translateY(0));
+    }
 }
