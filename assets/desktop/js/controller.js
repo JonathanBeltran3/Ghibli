@@ -286,7 +286,10 @@ Controller.prototype = {
 			self.passIntro();
 		});
 	},
-	
+	/**
+	 * Init a new game
+	 * @param event e Event for the click on "New game" button
+	 */
 	newGame: function(e){
 		var self = this;
 		e.preventDefault();
