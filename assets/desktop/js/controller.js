@@ -301,20 +301,34 @@ Controller.prototype = {
 		});
 
 	},
+	/**
+	 * See if we can chose an element then call the view function that adds the function possible-sequence
+	 */
+	possibleSequence: function() {
+		var choices = document.querySelectorAll('.choice-sequence');
+		for(var i = 0; i < choices.length; i++) {
+			var choice = choices[i];
+			var index = parseInt(choice.getAttribute('data-index'));
+			if(index === 0 || this.save[this.filmName][index-1] !== undefined) {
+				console.log(choice);
+				this.view.addPossible(choice);
+			}
+		}
+	},
 	
-	choiceSequence: function(e) {
+	/**
+	 * See if we can chose a sequence. If we can, launch it.
+	 * @param {[[Element]]} e element which is clicked (one of the .choice-sequence )
+	 */
+	choiceSequence: function(elt) {
 		var self = this;
-		var index = parseInt(e.getAttribute('data-index'));
-		console.log(index);
-		console.log(self.save[self.filmName]);
-		if(index === 0 || self.save[self.filmName][index-1] !== undefined) {
+		var index = parseInt(elt.getAttribute('data-index'));
+		if(elt.classList.contains('possible-sequence')) {
 			self.videoSequence = index;
 			self.view.fadeHomeVideo(function(){
 				self.dealSequences();
 				self.view.renderMoviePlaying(self.json[self.videoNumber]);
 			});
-		} else {
-			console.log('Not possible');
 		}
 	},
 
@@ -554,7 +568,13 @@ Controller.prototype = {
 				self.addListenerOnWorldMap();
 			});
 		}, false);
-		document.querySelector('.choice-sequence').addEventListener('click', function(e){ e.preventDefault(); self.choiceSequence(this); }, false);
+		var choices = document.querySelectorAll('.choice-sequence');
+		self.possibleSequence();
+		for(var i = 0; i < choices.length; i++) {
+			var choice = choices[i];
+			choice.addEventListener('click', function(e){ e.preventDefault(); self.choiceSequence(this); }, false);
+		}
+
 		self.model.getFilmInfo({room: self.room, filmID: 81}, function(data){
 
 		});  /* get information for a treasure, should be done only if the user wants to click on this treasure, and don't forget to change filmID */
