@@ -24,12 +24,20 @@ View.prototype = {
 		this[templateName] = template;
 		callback.call(this);
 	},
+	/**
+	 * Render the template for connexion Mobile / Desktop
+	 * @param string string  Token of the room
+	 * @param string rootUrl Website URL
+	 */
 	showAccess: function(string, rootUrl) {
 		var data      = {rootUrl: rootUrl, token: string};
 		var template  = Handlebars.compile(this.linksTemplate);
 		var html      = template(data);
 		this.main.innerHTML = html;
 	},
+	/**
+	 * Render template for "Loading" screen after first connexion
+	 */
 	renderLoader: function(value, callback){
 		var data      = {value: value};
 		var template  = Handlebars.compile(this.loadingTemplate);
@@ -39,6 +47,10 @@ View.prototype = {
 		setTimeout(callback.call(this), 1000);
 
 	},
+	/**
+	 * Render template for video introduction before film
+	 * @param {Object}   movie    Object containing movie json information
+	 */
 	renderIntro: function(movie, callback) {
 		var data      = {movieLink: movie.introduction, logo: movie.logo+'-intro'};
 		var template  = Handlebars.compile(this.homeIntro);
@@ -230,10 +242,24 @@ View.prototype = {
 	}
 };
 
+
+
+
+
+
+
+/*
+ * Sound to ease the use of sound control
+ */
+
 var Sound = {
     el : document.querySelector('.sound')
 };
 
+/*
+ * For cut sound, add back sound smoothly
+ * and change the icon
+ */
 Sound.playSound = function(video, callback) {
     video.volume = 0;
     var interval = setInterval(function() {
@@ -249,6 +275,10 @@ Sound.playSound = function(video, callback) {
     this.el.classList.remove('is-off');
 };
 
+/*
+ * From sound on, cut the sound smoothly
+ * and change icon
+ */
 Sound.cutSound = function(video, callback) {
     video.volume = 1;
     var interval = setInterval(function() {
@@ -264,14 +294,9 @@ Sound.cutSound = function(video, callback) {
     this.el.classList.add('is-off');
 };
 
-Sound.showSound = function (soundOn) {
-    this.el.classList.add('visible');
-    if (soundOn)
-        this.el.classList.remove('is-off');
-    else
-        this.el.classList.add('is-off');
-};
-
+/*
+ * Hide sound button
+ */
 Sound.hideSound = function () {
     this.el.classList.remove('visible');
 };
