@@ -21,3 +21,16 @@ Handlebars.registerHelper('addingQTE', function () {
 Handlebars.registerHelper('percent', function (nb) {
     return new Handlebars.SafeString(100/nb);
 });
+
+Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
+    lvalue = parseFloat(lvalue);
+    rvalue = parseFloat(rvalue);
+
+    return {
+        "+": lvalue + rvalue,
+        "-": lvalue - rvalue,
+        "*": lvalue * rvalue,
+        "/": lvalue / rvalue,
+        "%": lvalue % rvalue
+    }[operator];
+});

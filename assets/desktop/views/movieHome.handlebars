@@ -1030,9 +1030,14 @@
 			<li class="left-disappear first-level-li"><a href="#" class="menu-link new-game">New Game</a>
 			</li>
 			<li class="left-disappear first-level-li"><a href="#" class="menu-link select-sequence">Select sequence</a>
+				<ul class="menu-second-level sequences-choices">
+					{{#each sequences}}
+					<li><a href="#" class="menu-link choice-sequence" data-index="{{@index}}">Sequence {{math @index "+" 1}}</a></li>
+					{{/each}}
+				</ul>
 			</li>
 			<li class="left-disappear first-level-li"><a href="#" class="menu-link treasure-won">Treasure won</a>
-				<ul class="menu-second-level">
+				<ul class="menu-second-level treasures-choices">
 					<li><a href="#" class="menu-link chara-infos">S1 : Synopsis</a></li>
 					<li><a href="#" class="menu-link film-analysis">S2 : Characters infos</a></li>
 					<li><a href="#" class="menu-link fan-art">S3 : Fan art</a></li>
@@ -1041,7 +1046,7 @@
 		</ul>
 	</nav>
 
-    <div class="more-content"></div>
+    <!--<div class="more-content"></div>-->
     <!-- include here footer with credits -->
     {{> credits}}
 </div>
