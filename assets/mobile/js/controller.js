@@ -96,6 +96,30 @@ Controller.prototype = {
 			{
 				templatePath: 'mobileOnFilm.handlebars',
 				templateName: 'onFilmTemplate'
+			},
+			{
+				templatePath: 'gestures/hold.handlebars',
+				templateName: 'hold'
+			},
+			{
+				templatePath: 'gestures/tap.handlebars',
+				templateName: 'tap'
+			},
+			{
+				templatePath: 'gestures/swipe-up.handlebars',
+				templateName: 'swipe-up'
+			},
+			{
+				templatePath: 'gestures/swipe-down.handlebars',
+				templateName: 'swipe-down'
+			},
+			{
+				templatePath: 'gestures/swipe-right.handlebars',
+				templateName: 'swipe-right'
+			},
+			{
+				templatePath: 'gestures/swipe-left.handlebars',
+				templateName: 'swipe-left'
 			}
 		];
 		this.totalLoad = templates.length;

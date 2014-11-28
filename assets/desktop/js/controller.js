@@ -342,6 +342,7 @@ Controller.prototype = {
 				self.QTESuccess++;
 				QTEDone = true;
                 self.view.addSuccessQTE(self.videoSequence, i);
+				self.model.emitSocket('successQTE', self.room);
 			} else {
 				self.model.emitSocket('failQTE', self.room);
 			}

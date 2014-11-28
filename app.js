@@ -106,6 +106,11 @@ App.prototype = {
 				self.io.to(room).emit('failQTE');
 			});
 
+			socket.on('successQTE', function(room) {
+				self.listenQTE = 0;
+				self.io.to(room).emit('successQTE');
+			});
+
 			socket.on('loadingInProgress', function(datas){
 				self.io.to(datas.room).emit('loadingInProgress', datas.load);
 			});

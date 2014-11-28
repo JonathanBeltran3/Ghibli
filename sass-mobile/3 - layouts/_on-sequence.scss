@@ -1,0 +1,57 @@
+.gesture {
+	visibility: visible;
+	opacity: 1;
+	transition: all 800ms cubic-bezier(.33,.04,.22,1.14);
+	.qte-gesture {
+		width: 20%;
+		position: absolute;
+		top: 0; bottom: 0; right: 0; left: 0;
+		margin: auto;
+	}
+
+	.qte-text {
+		position: absolute;
+		bottom: 5%; right: 0; left: 0;
+		margin: auto;
+		font: 700 1em 'Open Sans Condensed';
+		text-transform: uppercase;
+	}
+	
+}
+
+.progress-bar {
+	position: absolute;
+	bottom: 0; 
+	height: 2%;
+	background: #dec080;
+	width: 0;
+
+	transition: all 3s cubic-bezier(.33,.04,.22,1.14);
+	&.done {
+		width: 100%;
+	}
+}
+
+.qte-done {
+	visibility: visible;
+	opacity: 1;
+	transition: all 800ms cubic-bezier(.33,.04,.22,1.14);
+	svg {
+		width: 20%;
+		position: absolute;
+		top: 0; bottom: 0; right: 0; left: 0;
+		margin: auto;
+	}
+}
+
+.down-disappear {
+	visibility: hidden;
+	opacity: 0;
+	transform: translateY(20px);
+	
+}
+
+.fade-disappear {
+	visibility: hidden;
+	opacity: 0;
+}
