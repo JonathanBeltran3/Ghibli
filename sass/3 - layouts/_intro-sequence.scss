@@ -1,3 +1,9 @@
+/*
+ * Indroduction before a sequence 
+ * Quote before a sequence 
+ * 
+ */
+
 .intro-sequence {
     background: black;
     color: #ffebc0;
@@ -22,7 +28,7 @@
     }
     .sequence-quote {
         color:  #dec080;
-        font-size: 1.5em; /* Approximation causée par une substitution de police */
+        font-size: 1.5em; 
         line-height: 2.25em;
         font-style: italic;
         &:before {

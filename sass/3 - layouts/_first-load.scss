@@ -1,7 +1,6 @@
 /*
  * FIRST LOAD
- * 
- * 
+ * Loader page when the phone has been connected
  */
 
 .loader-screen {
@@ -15,10 +14,6 @@
 }
 
 .load-value {
-/*
-    position: absolute;
-    top: 0; right: 0; bottom: 0; left: 0;
-*/
     margin: auto;
     font-family: $serif;
     color:  #cd834b;
@@ -43,7 +38,7 @@
 }
 
 #totoro path {
-fill: #332211;
+    fill: #332211;
 }
 
 #engrenage {

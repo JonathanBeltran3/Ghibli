@@ -1,3 +1,6 @@
+/*
+ * Video Introduction of a film
+ * */
 .home-intro {
     .main-content {
         position: absolute;
@@ -67,13 +70,4 @@
     .film-title {
         @extend .down-disappear;
     }
-}
-
- @-webkit-keyframes cssAnimation {
-from { -webkit-transform: translateY(-3px) }
-to { -webkit-transform: translateY(0px); }
-}
- @keyframes cssAnimation {
-from { -webkit-transform: translateY(-3px) }
-to { -webkit-transform: translateY(0px); }
 }
