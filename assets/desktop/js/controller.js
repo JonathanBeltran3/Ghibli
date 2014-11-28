@@ -187,14 +187,7 @@ Controller.prototype = {
 		var self = this;
 		this.step = 'renderMap';
 		self.view.renderMap(function(){
-			self.model.emitSocket('renderMap', self.room);
-			var zones = document.querySelectorAll('.clickable-zone');
-			for(var i = 0; i < zones.length; i++) {
-				var zone = zones[i];
-				zone.addEventListener('click', function(){
-					self.getDataForIntro(this);
-				}, false);
-			}
+			self.addListenerOnWorldMap();
 		});
 	},
 	getDataForIntro: function(elt){
@@ -225,13 +218,14 @@ Controller.prototype = {
 		self.view.fadeIntro(self.video, function(){
 			self.view.renderHomeVideo(self.json[self.videoNumber], function(){
                 this.step = 'HomeVideo';
-				self.model.emitSocket('renderOnFilm', self.room);
+				self.model.emitSocket('renderOnFilm', {room: self.room, filmName: self.filmName});
 				self.removeHiddenControlsListener();
 				document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
                 document.querySelector('.map-content').addEventListener('click', function(e){
                     e.preventDefault();
-                    console.log('showBackWorldMap')
-                    self.view.showBackWorldMap();
+                    self.view.showBackWorldMap(function(){
+						self.addListenerOnWorldMap();
+					});
                 }, false);
                 self.model.getFilmInfo({room: self.room, filmID: 81}, function(data){
 
@@ -261,7 +255,7 @@ Controller.prototype = {
 	dealSequences: function(){
 		var self = this;
 		this.step = 'onSequence';
-        self.model.emitSocket('renderOnSequence', self.room)
+        self.model.emitSocket('renderOnSequence', {room: self.room, filmName: self.filmName});
 		self.QTESuccess = 0; // creating array for the sequence
 		self.view.renderQuotes(self.json[self.videoNumber], self.videoSequence, function(){
 			self.view.renderVideo(self.json[self.videoNumber], self.videoSequence, function() {
@@ -378,7 +372,17 @@ Controller.prototype = {
 			self.dealSequences();
 		} else {
 			self.view.renderHomeVideo(self.json[self.videoNumber], function(){
+				self.model.emitSocket('renderOnFilm', {room: self.room, filmName: self.filmName});
 				document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
+				document.querySelector('.map-content').addEventListener('click', function(e){
+                    e.preventDefault();
+                    self.view.showBackWorldMap(function(){
+						self.addListenerOnWorldMap();
+					});
+                }, false);
+                self.model.getFilmInfo({room: self.room, filmID: 81}, function(data){
+
+                })
 			});
 		}
 	},
@@ -472,5 +476,16 @@ Controller.prototype = {
             self.view.toggleControls();
             self.hiddenControls = false;
         }
-    }
+    },
+	addListenerOnWorldMap: function() {
+		var self = this;
+		self.model.emitSocket('renderMap', self.room);
+		var zones = document.querySelectorAll('.clickable-zone');
+		for(var i = 0; i < zones.length; i++) {
+			var zone = zones[i];
+			zone.addEventListener('click', function(){
+				self.getDataForIntro(this);
+			}, false);
+		}
+	}
 };

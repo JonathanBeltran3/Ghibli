@@ -12,6 +12,7 @@ Controller.prototype = {
 		this.touch.init(this);
 		this.model.init(socket);
 		this.socketListener();
+		this.loaderOn = 0;
 	},
 	
 	socketListener: function() {
@@ -24,9 +25,9 @@ Controller.prototype = {
 
 		self.socket.on('mobileConnected', function(data){
 			self.json = data;
-			if(self.step === 'init' && self.step === 'loading') {
-				self.view.renderLoader();
-			}
+			self.view.renderLoader(function(){
+				self.loaderOn = 1;
+			});
 		});
 
 		self.socket.on('noMoreSpaces', function() {
@@ -56,24 +57,31 @@ Controller.prototype = {
 		});
 				
 		self.socket.on('mobileActionQTE', function(action){
+			self.view.addActionToScreen(action);
 		});
 
 		self.socket.on('failQTE', function(){
+			self.view.addFailToScreen();
 		});
 
 		self.socket.on('successQTE', function(){
+			self.view.addSuccessToScreen();
 		});
 
 		self.socket.on('loadingInProgress', function(load){
-			self.view.dealwithLoading(load);
+			if(self.loaderOn) self.view.dealwithLoading(load);
 		});
 
-		self.socket.on('renderMap', function(load){
+		self.socket.on('renderMap', function(){
 			self.view.renderMap();
 		});
 
 		self.socket.on('renderOnFilm', function(filmName) {
-			self.view.renderOnFilm();
+			self.view.renderOnFilm(filmName);
+		});
+
+		self.socket.on('renderOnSequence', function(filmName) {
+			self.view.renderOnSequence(filmName);
 		});
 
 	},
@@ -99,6 +107,10 @@ Controller.prototype = {
 			{
 				templatePath: 'mobileOnFilm.handlebars',
 				templateName: 'onFilmTemplate'
+			},
+			{
+				templatePath: 'mobileOnSequence.handlebars',
+				templateName: 'onSequenceTemplate'
 			},
 			{
 				templatePath: 'mobile-gestures/hold.handlebars',

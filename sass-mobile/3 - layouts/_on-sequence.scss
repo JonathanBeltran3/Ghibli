@@ -29,6 +29,7 @@
 	transition: all 3s cubic-bezier(.33,.04,.22,1.14);
 	&.done {
 		width: 100%;
+		transition: none;
 	}
 }
 

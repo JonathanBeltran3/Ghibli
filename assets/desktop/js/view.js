@@ -209,9 +209,10 @@ View.prototype = {
     toggleControls: function(){
         document.querySelector('body').classList.toggle('hide-controls');
     },
-    showBackWorldMap: function(){
+    showBackWorldMap: function(callback){
         document.querySelector('.main').classList.add('hide-screen');
         document.querySelector('.video-container').classList.add('hide-screen');
+		callback.call(this)
     },
     renderSynopsis: function(datas){
 		var data      = datas;

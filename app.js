@@ -120,8 +120,12 @@ App.prototype = {
 				self.io.to(room).emit('renderMap');
 			});
 
-			socket.on('renderOnFilm', function(room){
-				self.io.to(room).emit('renderOnFilm');
+			socket.on('renderOnFilm', function(datas){
+				self.io.to(datas.room).emit('renderOnFilm', datas.filmName);
+			});
+
+			socket.on('renderOnSequence', function(datas){
+				self.io.to(datas.room).emit('renderOnSequence', datas.filmName);
 			});
 
 			socket.on('disconnect', function(){
@@ -133,7 +137,6 @@ App.prototype = {
 
             socket.on('askFilm', function(datas){
                 self.MovieDB.movieInfo({id: 81}, function(err, res){
-                    console.log(res);
                     self.io.to(datas.room).emit('responseFilm', res);
                 });
             });
@@ -142,8 +145,7 @@ App.prototype = {
 	},
     getFilmInfo: function(idFilm){
         this.MovieDB.movieInfo({id: 81}, function(err, res){
-            console.log(res);
-          return res;
+			return res;
         });
     }
 }
