@@ -31,6 +31,7 @@ Controller.prototype = {
 
 		self.socket.on('noMoreSpaces', function() {
 			alert('No more spaces !');
+			self.touch.setListenTouch(0);
 		});
 
 		self.socket.on('resStep', function(step) {

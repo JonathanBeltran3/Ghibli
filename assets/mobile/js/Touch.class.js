@@ -15,6 +15,10 @@ Touch.prototype = {
 		this.yDown = null;   
 		this.touchTime = null;
 		this.singleTap = 200;
+		this.listenTouch = 1;
+	},
+	setListenTouch: function(nb) {
+		this.listenTouch = nb;
 	},
 	handleTouchStart: function(evt) {                                         
 		if (window.navigator.msPointerEnabled) {
@@ -40,16 +44,16 @@ Touch.prototype = {
 		/* Avoid problems with non-linear swipe */
 		if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
 			if ( xDiff > 0 ) {
-				this.controller.emitAction('swipe-left');
+				if(this.listenTouch) this.controller.emitAction('swipe-left');
 			} else {
-				this.controller.emitAction('swipe-right');
+				if(this.listenTouch) this.controller.emitAction('swipe-right');
 			}                       
 		} else {
 			if ( yDiff > 0 ) {
-				this.controller.emitAction('swipe-up');
+				if(this.listenTouch) this.controller.emitAction('swipe-up');
 			} else { 
-				this.controller.emitAction('swipe-down');
-				this.controller.emitSocket('mobilePassIntro', {});
+				if(this.listenTouch) this.controller.emitAction('swipe-down');
+				if(this.listenTouch) this.controller.emitSocket('mobilePassIntro', {});
 			}                                                                 
 		}
 	},
@@ -57,9 +61,9 @@ Touch.prototype = {
 		var actualTime = new Date().getTime();
 		var timeDiff = actualTime-this.touchTime;
 		if(timeDiff < this.singleTap) {
-			this.controller.emitAction('tap');
+			if(this.listenTouch) this.controller.emitAction('tap');
 		} else {
-			this.controller.emitAction('hold');
+			if(this.listenTouch) this.controller.emitAction('hold');
 		}
 	}
 };
