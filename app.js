@@ -12,6 +12,7 @@ App.prototype = {
 		this.listenQTE = 0;
 		this.listenPassIntro = 0;
 		this.rooms = {};
+        this.MovieDB = require('moviedb')('d4a1a9b06621591c22dc52f5bb5c1598');
 
 		this.app.use(this.express.static(this.path.join(__dirname, './assets/desktop/views')));
 		this.app.use(this.express.static(this.path.join(__dirname, './assets/desktop/videos/')));
@@ -121,9 +122,22 @@ App.prototype = {
 				}
 			});
 
+            socket.on('askFilm', function(datas){
+                self.MovieDB.movieInfo({id: 81}, function(err, res){
+                    console.log(res);
+                    self.io.to(datas.room).emit('responseFilm', res);
+                });
+            });
 		});
 		self.server.listen(40000);
-	}
+	},
+    getFilmInfo: function(idFilm){
+        this.MovieDB.movieInfo({id: 81}, function(err, res){
+            console.log(res);
+          return res;
+        });
+    }
 }
 var app = new App();
 app.init();
+

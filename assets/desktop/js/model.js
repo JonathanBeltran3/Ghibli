@@ -80,5 +80,23 @@ Model.prototype = {
 	emitSocket: function(event, datas, callback) {
 		this.socket.emit(event, datas);
 		if(callback) callback.call(this);
-	}
+	},
+    getFilmInfo: function(datas, callback){
+        this.emitSocket('askFilm', datas);
+
+        this.socket.on('responseFilm', function(datas){
+            callback.apply(this, datas);
+        })
+/* exemple
+ * 81 pour Nausicaa
+* 128 Mononoke
+* 129 Spirited Away
+* 8392-tonari-no-totoro pour Totoro
+* 11621-kurenai-no-buta pour Porco Rosso
+* 10515 Laputa
+* 149870-kaze-tachinu The wind rises
+* */
+
+
+    }
 };

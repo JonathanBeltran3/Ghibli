@@ -226,6 +226,9 @@ Controller.prototype = {
                     console.log('showBackWorldMap')
                     self.view.showBackWorldMap();
                 }, false);
+                self.model.getFilmInfo({room: self.room, filmID: 81}, function(data){
+                    console.log(data);
+                })
 			});
 		});
 	},
@@ -243,6 +246,7 @@ Controller.prototype = {
 		self.view.fadeHomeVideo(function(){
 			self.dealSequences();
 			self.view.renderMoviePlaying(self.json[self.videoNumber]);
+
 		});
 
 	},
