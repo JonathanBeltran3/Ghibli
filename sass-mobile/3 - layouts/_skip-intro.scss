@@ -1,0 +1,65 @@
+.skip-intro {
+    background: rgba(0, 0, 0, 0.75);
+    color: #dec080;
+    font-size: 1.5em;
+    line-height: 1.5;
+}
+
+.skip-intro-container {
+    height: 20%;
+}
+
+.film-screen {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-position: center;
+	background-size: cover;
+}
+
+.laputa {
+	background-image: url('../../desktop/img/laputa/background-menu.jpg');
+}
+
+.nausicaa {
+	background-image: url('../../desktop/img/nausicaa/background-menu.jpg');
+}
+
+.mononoke {
+	background-image: url('../../desktop/img/mononoke/background-menu.jpg');
+}
+
+.porco {
+	background-image: url('../../desktop/img/porco/background-menu.jpg');
+}
+
+.spirited {
+	background-image: url('../../desktop/img/spirited/background-menu.jpg');
+}
+
+.totoro {
+	background-image: url('../../desktop/img/totoro/background-menu.jpg');
+}
+
+.windrises {
+	background-image: url('../../desktop/img/windrises/background-menu.jpg');
+}
+
+.arrows {
+    position: absolute;
+    bottom: 10%;
+    left: 0;
+    right: 0;
+}
+
+.arrow {
+    position: relative;
+    width: 1.5em;
+    margin: auto;
+    &:nth-child(2) {
+        opacity: 0.75;
+    }
+    &:nth-child(3) {
+        opacity: 0.5;
+    }
+
+}
