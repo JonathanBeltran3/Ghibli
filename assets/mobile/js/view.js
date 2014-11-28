@@ -33,12 +33,20 @@ View.prototype = {
 		var template  = Handlebars.compile(this.filmScreenTemplate);
 		var html      = template(data);
 		this.mainScreen.innerHTML = html;
-		this.mainScreen.classList.remove('hide-screen');
+		if(this.mainScreen.classList.contains('hide-screen')) this.mainScreen.classList.remove('hide-screen');
 		var data      = {};
 		var template  = Handlebars.compile(this.passIntroTemplate);
 		var html      = template(data);
 		this.introScreen.innerHTML = html;
-		this.introScreen.classList.remove('hide-screen');
+		if(this.introScreen.classList.contains('hide-screen')) this.introScreen.classList.remove('hide-screen');
+	},
+	renderOnFilm: function(){
+		var data      = {};
+		var template  = Handlebars.compile(this.onFilmTemplate);
+		var html      = template(data);
+		this.loadRegionScreen.innerHTML = html;
+		if(!this.introScreen.classList.contains('hide-screen')) this.introScreen.classList.add('hide-screen');
+		if(this.loadRegionScreen.classList.contains('hide-screen')) this.loadRegionScreen.classList.remove('hide-screen');
 	},
 	dealwithLoading: function(load) {
 		document.querySelector('.loading-value').innerHTML = load;

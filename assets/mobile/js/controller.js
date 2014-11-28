@@ -24,7 +24,7 @@ Controller.prototype = {
 
 		self.socket.on('mobileConnected', function(data){
 			self.json = data;
-			if(self.step !== 'renderMap' && self.step !== '') {
+			if(self.step === 'init' && self.step === 'loading') {
 				self.view.renderLoader();
 			}
 		});
@@ -69,6 +69,10 @@ Controller.prototype = {
 			self.view.renderMap();
 		});
 
+		self.socket.on('renderOnFilm', function(filmName) {
+			self.view.renderOnFilm();
+		});
+
 	},
 	
 	loadTemplates: function() {
@@ -88,6 +92,34 @@ Controller.prototype = {
 			{
 				templatePath: 'mobilePassIntro.handlebars',
 				templateName: 'passIntroTemplate'
+			},
+			{
+				templatePath: 'mobileOnFilm.handlebars',
+				templateName: 'onFilmTemplate'
+			},
+			{
+				templatePath: 'gestures/hold.handlebars',
+				templateName: 'hold'
+			},
+			{
+				templatePath: 'gestures/tap.handlebars',
+				templateName: 'tap'
+			},
+			{
+				templatePath: 'gestures/swipe-up.handlebars',
+				templateName: 'swipe-up'
+			},
+			{
+				templatePath: 'gestures/swipe-down.handlebars',
+				templateName: 'swipe-down'
+			},
+			{
+				templatePath: 'gestures/swipe-right.handlebars',
+				templateName: 'swipe-right'
+			},
+			{
+				templatePath: 'gestures/swipe-left.handlebars',
+				templateName: 'swipe-left'
 			}
 		];
 		this.totalLoad = templates.length;

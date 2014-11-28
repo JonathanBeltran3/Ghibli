@@ -107,12 +107,23 @@ App.prototype = {
 				self.io.to(room).emit('failQTE');
 			});
 
+			socket.on('successQTE', function(room) {
+				self.listenQTE = 0;
+				self.io.to(room).emit('successQTE');
+			});
+
 			socket.on('loadingInProgress', function(datas){
 				self.io.to(datas.room).emit('loadingInProgress', datas.load);
 			});
 
 			socket.on('renderMap', function(room){
 				self.io.to(room).emit('renderMap');
+			});
+
+			socket.on('renderOnFilm', function(room){
+				console.log('renderOnFilm');
+				console.log(room);
+				self.io.to(room).emit('renderOnFilm');
 			});
 
 			socket.on('disconnect', function(){
