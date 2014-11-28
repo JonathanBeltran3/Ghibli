@@ -208,6 +208,10 @@ View.prototype = {
     },
     toggleControls: function(){
         document.querySelector('body').classList.toggle('hide-controls');
+    },
+    showBackWorldMap: function(){
+        document.querySelector('.main').classList.add('hide-screen');
+        document.querySelector('.video-container').classList.add('hide-screen');
     }
 };
 

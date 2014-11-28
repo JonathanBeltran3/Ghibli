@@ -221,6 +221,11 @@ Controller.prototype = {
                 this.step = 'HomeVideo';
 				self.removeHiddenControlsListener();
 				document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
+                document.querySelector('.map-content').addEventListener('click', function(e){
+                    e.preventDefault();
+                    console.log('showBackWorldMap')
+                    self.view.showBackWorldMap();
+                }, false);
 			});
 		});
 	},
