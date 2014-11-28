@@ -94,7 +94,7 @@ Controller.prototype = {
 		});
 
 		self.socket.on('responseFilm', function(datas){
-            console.log(datas);
+            self.view.renderSynopsis(datas);
         })
 	},
 	changeRoom: function() {
@@ -121,7 +121,7 @@ Controller.prototype = {
 		this.step = 'loading';
 		self.view.renderLoader(self.load, function(){
 			self.view.hideMain(function(){
-				self.numberOfLoad = 30;
+				self.numberOfLoad = 31;
 				self.launchInitTemplate('video.handlebars', 'videoTemplate');
 				self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
 				self.launchInitTemplate('homeIntro.handlebars', 'homeIntro');
@@ -155,6 +155,8 @@ Controller.prototype = {
 				self.launchInitTemplate('gestures/swipe-left.handlebars', 'swipe-left');
 				self.launchInitTemplate('gestures/hold.handlebars', 'hold');
 				self.launchInitTemplate('gestures/tap.handlebars', 'tap');
+
+				self.launchInitTemplate('modules/infos-movie.handlebars', 'infosMovie');
 			});
 		});
 	},
@@ -232,7 +234,7 @@ Controller.prototype = {
                     self.view.showBackWorldMap();
                 }, false);
                 self.model.getFilmInfo({room: self.room, filmID: 81}, function(data){
-                    console.log(data);
+
                 })
 			});
 		});

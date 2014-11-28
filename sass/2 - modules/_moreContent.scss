@@ -1,0 +1,23 @@
+.more-content {
+    position: absolute;
+    width: 55%;
+    background: rgba(0,0,0,0.75);
+    color: white;
+    padding: 25px;
+    border: 6px solid #010101;
+    border-radius: 10px;
+    box-shadow: 0 0 2px rgba(255, 235, 192, 0.25) inset;
+    left: 30%; top: 20%;
+    visibility: hidden;
+    background-repeat: no-repeat;
+    background-position: top left;
+    padding-top: 500px;
+    line-height: 1.5;
+    &.visible {
+        visibility: visible;
+    }
+}
+
+.nausicaa .more-content {
+    background-image: url('../img/nausicaa/bg-synopsis.png');
+}

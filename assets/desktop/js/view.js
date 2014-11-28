@@ -212,6 +212,13 @@ View.prototype = {
     showBackWorldMap: function(){
         document.querySelector('.main').classList.add('hide-screen');
         document.querySelector('.video-container').classList.add('hide-screen');
+    },
+    renderSynopsis: function(datas){
+		var data      = datas;
+		var template  = Handlebars.compile(this.infosMovie);
+		var html      = template(data);
+		document.querySelector('.more-content').innerHTML = html;
+		document.querySelector('.more-content').classList.add('visible');
     }
 };
 
