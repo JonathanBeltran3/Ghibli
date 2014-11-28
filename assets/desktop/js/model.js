@@ -5,6 +5,11 @@ Model.prototype = {
 	init: function(socket) {
 		this.socket = socket
 	},
+	/**
+	 * Generate a token
+	 * @param int stringLength Size of the token
+	 * @returns stinf Token made with letters & numbers + uppercases
+	 */
 	randomString: function(stringLength) {
 		var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 		var randomString = '';
@@ -14,11 +19,17 @@ Model.prototype = {
 		}
 		return randomString;
 	},
+	/**
+	 * Create a room for server
+	 */
 	createRoom: function(callback) {
 		var string = this.randomString(6);
 		this.socket.emit('subscribe', string);
 		callback.call(this, string);
 	},
+	/**
+	 * Get the root url because we have 2 domain name
+	 */
 	getRootUrl: function(callback){
 		// Create
 		var rootUrl = document.location.protocol+'//'+(document.location.hostname||document.location.host);
@@ -30,6 +41,9 @@ Model.prototype = {
 		// Return
 		callback.call(this, rootUrl);
 	},
+	/**
+	 * Load the localStorage to find back last save
+	 */
 	getSave: function(callback){
 		var datas = {};
 		if(localStorage.save)
@@ -39,6 +53,13 @@ Model.prototype = {
 		this.save = datas;
 		callback.call(this, this.save);
 	},
+	/**
+	 * On each QTE update the save
+	 * @param string filmName Name of the film
+	 * @param int sequence Index of the sequence
+	 * @param int i Index of the QTE inside a sequence
+	 * @param bool success If the user did correctly the QTE or not
+	 */
 	saveQTE: function(filmName, sequence, i, success, callback){
 		if(this.save[filmName] === undefined) this.save[filmName] = [];
 		if(this.save[filmName][sequence] === undefined) this.save[filmName][sequence] = [];
@@ -80,16 +101,20 @@ Model.prototype = {
 		this.socket.emit(event, datas);
 		if(callback) callback.call(this);
 	},
+    /**
+     * Get Film Info using TMDb API
+     * @param object datas Object with the token room + film ID
+     */
     getFilmInfo: function(datas, callback){
         this.emitSocket('askFilm', datas);
-/* exemple
- * 81 pour Nausicaa
-* 128 Mononoke
-* 129 Spirited Away
-* 8392-tonari-no-totoro pour Totoro
-* 11621-kurenai-no-buta pour Porco Rosso
-* 10515 Laputa
-* 149870-kaze-tachinu The wind rises
-* */
+        /* exemple
+         * 81 pour Nausicaa
+        * 128 Mononoke
+        * 129 Spirited Away
+        * 8392-tonari-no-totoro pour Totoro
+        * 11621-kurenai-no-buta pour Porco Rosso
+        * 10515 Laputa
+        * 149870-kaze-tachinu The wind rises
+        * */
     }
 };
