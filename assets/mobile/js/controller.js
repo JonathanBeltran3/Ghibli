@@ -61,6 +61,12 @@ Controller.prototype = {
 		self.socket.on('mobileActionQTE', function(action){
 		});
 
+		self.socket.on('failQTE', function(){
+		});
+
+		self.socket.on('successQTE', function(action){
+		});
+
 		self.socket.on('loadingInProgress', function(load){
 			self.view.dealwithLoading(load);
 		});
@@ -120,6 +126,14 @@ Controller.prototype = {
 			{
 				templatePath: 'gestures/swipe-left.handlebars',
 				templateName: 'swipe-left'
+			},
+			{
+				templatePath: 'modules/baddGesture.handlebars',
+				templateName: 'qteFail'
+			},
+			{
+				templatePath: 'modules/goodGesture.handlebars',
+				templateName: 'qteSuccess'
 			}
 		];
 		this.totalLoad = templates.length;
