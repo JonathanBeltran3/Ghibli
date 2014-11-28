@@ -65,9 +65,9 @@ Controller.prototype = {
 
         }, false);
 	},
-    /*
+    /**
      * List of the different socket listeners
-     * */
+     */
 	socketListener: function() {
 		var self = this;
 		var changeRoom = 0;
@@ -111,10 +111,10 @@ Controller.prototype = {
             self.view.renderSynopsis(datas);
         })
 	},
-    /*
+    /**
      * Creation of the room to play
      * just between desktop & mobile
-     * */
+     */
 	changeRoom: function() {
 		var self = this;
 		var changeRoom = 0;
@@ -133,7 +133,9 @@ Controller.prototype = {
 			}
 		});
 	},
-    /* Loading the list of templates */
+	/**
+	 * Loading the list of templates
+	 */
 	loadVideoTemplates: function(){
 		var self = this;
 		self.load = 0;
@@ -183,7 +185,12 @@ Controller.prototype = {
 			});
 		});
 	},
-    /* Load Handlebars template form server */
+
+	/**
+	 * Load Handlebars templates form server
+	 * @param string templatePath Path of the template on server
+	 * @param string templateName Name to use the template later
+	 */
 	launchInitTemplate: function(templatePath, templateName){
 		var self = this;
 		self.model.ajaxLoadTemplate(templatePath, function(template) {
@@ -192,7 +199,11 @@ Controller.prototype = {
 			});
 		});
 	},
-    /* Load Handlebars partial form server */
+	/**
+	 * Load Handlebars partials form server
+	 * @param string partielPath Path of the partial on server
+	 * @param string partialName Name to use the partial later
+	 */
 	launchInitPartials: function(partielPath, partialName){
 		var self = this;
 		self.model.ajaxLoadTemplate(partielPath, function(template) {
@@ -200,7 +211,9 @@ Controller.prototype = {
 			self.dealWithLoading();
 		});
 	},
-    /* Increase the connection counter */
+	/**
+	 * Increase the connection counter
+	 */
 	dealWithLoading: function(){
 		var self = this;
 		self.load += 100/self.numberOfLoad;
@@ -209,9 +222,10 @@ Controller.prototype = {
 		if(document.querySelector('.value')) self.view.updateLoader(Math.round(self.load));
 
 	},
-    /* When every template thing is loaded
-     * we render the map
-     * */
+    /**
+     * When every template is loaded
+     * we render the map of the world
+     */
 	renderMap: function() {
 		var self = this;
 		this.step = 'renderMap';
@@ -219,11 +233,24 @@ Controller.prototype = {
 			self.addListenerOnWorldMap();
 		});
 	},
+	/**
+	 * Each zone on map has a data attribut that
+	 * we will use to change the information
+	 * to start a new film, and launch the
+	 * introduction
+	 * @param elt clicked element
+	 */
 	getDataForIntro: function(elt){
 		this.videoNumber = parseInt(elt.getAttribute('data-film'));
 		this.filmName = this.json[this.videoNumber].filmName;
 		this.rollIntro();
 	},
+	/**
+	 * Launch the film video introduction
+	 * Add the information screen hover
+	 * You can pass the intro with your smartphone
+	 * Or wait for the end of the video
+	 */
 	rollIntro: function() {
 		var self = this;
 		this.step = 'renderIntro';
@@ -240,6 +267,9 @@ Controller.prototype = {
 			self.addIntroListener();
 		});
 	},
+	/**
+	 * Display the menu / home of a film
+	 */
 	passIntro: function() {
 		var self = this;
 
@@ -258,7 +288,7 @@ Controller.prototype = {
                 }, false);
                 self.model.getFilmInfo({room: self.room, filmID: 81}, function(data){
 
-                })
+                }); /* get information for a treasure, should be done only if the user wants to click on this treasure, and don't forget to change filmID */
 			});
 		});
 	},
