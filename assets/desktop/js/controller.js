@@ -142,44 +142,149 @@ Controller.prototype = {
 		this.step = 'loading';
 		self.view.renderLoader(self.load, function(){
 			self.view.hideMain(function(){
-				self.numberOfLoad = 31;
-				self.launchInitTemplate('video.handlebars', 'videoTemplate');
-				self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
-				self.launchInitTemplate('homeIntro.handlebars', 'homeIntro');
-				self.launchInitTemplate('movieHome.handlebars', 'movieHomeTemplate');
-				self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
-				self.launchInitTemplate('modules/badge-content.handlebars', 'badgeContent');
-				self.launchInitTemplate('map.handlebars', 'mapTemplate');
-                self.launchInitTemplate('modules/infos-movie.handlebars', 'infosMovie');
+				var templates = [
+					{
+						templatePath: 'video.handlebars',
+						templateName: 'videoTemplate'
+					},
+					{
+						templatePath: 'quote.handlebars',
+						templateName: 'quoteTemplate'
+					},
+					{
+						templatePath: 'homeIntro.handlebars',
+						templateName: 'homeIntro'
+					},
+					{
+						templatePath: 'movieHome.handlebars',
+						templateName: 'movieHomeTemplate'
+					},
+					{
+						templatePath: 'moviePlaying.handlebars',
+						templateName: 'moviePlaying'
+					},
+					{
+						templatePath: 'modules/badge-content.handlebars',
+						templateName: 'badgeContent'
+					},
+					{
+						templatePath: 'map.handlebars',
+						templateName: 'mapTemplate'
+					},
+					{
+						templatePath: 'modules/infos-movie.handlebars',
+						templateName: 'infosMovie'
+					},
+					{
+						templatePath: 'gestures/swipe-up.handlebars',
+						templateName: 'swipe-up'
+					},
+					{
+						templatePath: 'gestures/swipe-down.handlebars',
+						templateName: 'swipe-down'
+					},
+					{
+						templatePath: 'gestures/swipe-right.handlebars',
+						templateName: 'swipe-right'
+					},
+					{
+						templatePath: 'gestures/swipe-left.handlebars',
+						templateName: 'swipe-left'
+					},
+					{
+						templatePath: 'gestures/hold.handlebars',
+						templateName: 'hold'
+					},
+					{
+						templatePath: 'gestures/tap.handlebars',
+						templateName: 'tap'
+					}
+				];
+				self.numberOfLoad = templates.length;
+
 
                 /* Repetition here could be avoided with a variable pass to the partial
                  * instead of loading 2 similar partials
                  * */
-				self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
-				self.launchInitPartials('logos/nausicaa-intro.handlebars', 'nausicaaLogo-intro');
-				self.launchInitPartials('logos/mononoke.handlebars', 'mononokeLogo');
-				self.launchInitPartials('logos/mononoke-intro.handlebars', 'mononokeLogo-intro');
-				self.launchInitPartials('logos/totoro.handlebars', 'totoroLogo');
-				self.launchInitPartials('logos/totoro-intro.handlebars', 'totoroLogo-intro');
-				self.launchInitPartials('logos/laputa.handlebars', 'laputaLogo');
-				self.launchInitPartials('logos/laputa-intro.handlebars', 'laputaLogo-intro');
-				self.launchInitPartials('logos/porco.handlebars', 'porcoLogo');
-				self.launchInitPartials('logos/porco-intro.handlebars', 'porcoLogo-intro');
-				self.launchInitPartials('logos/spirited.handlebars', 'spiritedLogo');
-				self.launchInitPartials('logos/spirited-intro.handlebars', 'spiritedLogo-intro');
-				self.launchInitPartials('logos/windrises.handlebars', 'windrisesLogo');
-				self.launchInitPartials('logos/windrises-intro.handlebars', 'windrisesLogo-intro');
-				self.launchInitPartials('modules/sound.handlebars', 'sound');
-				self.launchInitPartials('modules/credits.handlebars', 'credits');
-				self.launchInitPartials('modules/world-map.handlebars', 'worldMap');
+				var partials = [
+					{
+						partialPath: 'logos/nausicaa.handlebars',
+						partialName: 'nausicaaLogo'
+					},
+					{
+						partialPath: 'logos/nausicaa-intro.handlebars',
+						partialName: 'nausicaaLogo-intro'
+					},
+					{
+						partialPath: 'logos/mononoke.handlebars',
+						partialName: 'mononokeLogo'
+					},
+					{
+						partialPath: 'logos/mononoke-intro.handlebars',
+						partialName: 'mononokeLogo-intro'
+					},
+					{
+						partialPath: 'logos/totoro.handlebars',
+						partialName: 'totoroLogo'
+					},
+					{
+						partialPath: 'logos/totoro-intro.handlebars',
+						partialName: 'totoroLogo-intro'
+					},
+					{
+						partialPath: 'logos/laputa.handlebars',
+						partialName: 'laputaLogo'
+					},
+					{
+						partialPath: 'logos/laputa-intro.handlebars',
+						partialName: 'laputaLogo-intro'
+					},
+					{
+						partialPath: 'logos/porco.handlebars',
+						partialName: 'porcoLogo'
+					},
+					{
+						partialPath: 'logos/porco-intro.handlebars',
+						partialName: 'porcoLogo-intro'
+					},
+					{
+						partialPath: 'logos/spirited.handlebars',
+						partialName: 'spiritedLogo'
+					},
+					{
+						partialPath: 'logos/spirited-intro.handlebars',
+						partialName: 'spiritedLogo-intro'
+					},
+					{
+						partialPath: 'logos/windrises.handlebars',
+						partialName: 'windrisesLogo'
+					},
+					{
+						partialPath: 'logos/windrises-intro.handlebars',
+						partialName: 'windrisesLogo-intro'
+					},
+					{
+						partialPath: 'modules/sound.handlebars',
+						partialName: 'sound'
+					},
+					{
+						partialPath: 'modules/credits.handlebars',
+						partialName: 'credits'
+					},
+					{
+						partialPath: 'modules/world-map.handlebars',
+						partialName: 'worldMap'
+					}
+				];
 
-				/* gestures */
-				self.launchInitTemplate('gestures/swipe-up.handlebars', 'swipe-up');
-				self.launchInitTemplate('gestures/swipe-down.handlebars', 'swipe-down');
-				self.launchInitTemplate('gestures/swipe-right.handlebars', 'swipe-right');
-				self.launchInitTemplate('gestures/swipe-left.handlebars', 'swipe-left');
-				self.launchInitTemplate('gestures/hold.handlebars', 'hold');
-				self.launchInitTemplate('gestures/tap.handlebars', 'tap');
+				self.numberOfLoad += partials.length;
+
+				for(var i = 0; i < templates.length; i++) {
+					self.launchInitTemplate(templates[i].templatePath, templates[i].templateName);
+				}
+			   for(var i = 0; i < partials.length; i++) {
+					self.launchInitPartials(partials[i].partialPath, partials[i].partialName);
+				}
 
 
 			});
@@ -562,6 +667,7 @@ Controller.prototype = {
 		self.removeHiddenControlsListener();
 		document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
 		document.querySelector('.select-sequence').addEventListener('click', self.openSequence.bind(self), false);
+		document.querySelector('.treasure-won').addEventListener('click', self.openTreasures.bind(self), false);
 		document.querySelector('.map-content').addEventListener('click', function(e){
 			e.preventDefault();
 			self.view.showBackWorldMap(function(){
@@ -585,4 +691,10 @@ Controller.prototype = {
 		e.preventDefault();
 		self.view.showSecondLevelMenu('.sequences-choices');
 	},
+
+	openTreasures: function(e) {
+		var self = this;
+		e.preventDefault();
+		self.view.showSecondLevelMenu('.treasures-choices');
+	}
 };
