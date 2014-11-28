@@ -61,7 +61,7 @@ Controller.prototype = {
 		self.socket.on('failQTE', function(){
 		});
 
-		self.socket.on('successQTE', function(action){
+		self.socket.on('successQTE', function(){
 		});
 
 		self.socket.on('loadingInProgress', function(load){

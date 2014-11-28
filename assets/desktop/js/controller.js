@@ -261,6 +261,7 @@ Controller.prototype = {
 	dealSequences: function(){
 		var self = this;
 		this.step = 'onSequence';
+        self.model.emitSocket('renderOnSequence', self.room)
 		self.QTESuccess = 0; // creating array for the sequence
 		self.view.renderQuotes(self.json[self.videoNumber], self.videoSequence, function(){
 			self.view.renderVideo(self.json[self.videoNumber], self.videoSequence, function() {
