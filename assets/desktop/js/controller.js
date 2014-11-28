@@ -240,7 +240,6 @@ Controller.prototype = {
 		var self = this;
 		e.preventDefault();
 		self.videoSequence = 0;
-		self.QTESuccess = []; // init QTESuccess with an empty array
 		self.view.fadeHomeVideo(function(){
 			self.dealSequences();
 			self.view.renderMoviePlaying(self.json[self.videoNumber]);
@@ -251,7 +250,7 @@ Controller.prototype = {
 	dealSequences: function(){
 		var self = this;
 		this.step = 'onSequence';
-		self.QTESuccess[self.videoSequence] = []; // creating array for the sequence
+		self.QTESuccess = 0; // creating array for the sequence
 		self.view.renderQuotes(self.json[self.videoNumber], self.videoSequence, function(){
 			self.view.renderVideo(self.json[self.videoNumber], self.videoSequence, function() {
 				self.video = document.querySelector('.video');
@@ -336,9 +335,11 @@ Controller.prototype = {
 	
 	addQTEListener: function(sequence, interval, timeout, action, i) {
 		var self = this;
+		var QTEDone = false;
 		self.socket.once('QTEDone', function(actionMobile) {
 			if(action === actionMobile) {
-				self.QTESuccess[self.videoSequence].push(i); // adding the QTE to the success array
+				self.QTESuccess++;
+				QTEDone = true;
                 self.view.addSuccessQTE(self.videoSequence, i);
 			} else {
 				self.model.emitSocket('failQTE', self.room);
@@ -346,7 +347,11 @@ Controller.prototype = {
             clearTimeout(timeout);
 			self.view.toggleQteMode(self.videoSequence, i);
             if (i === sequence.qte.length-1) self.endQTEs(interval);
+			console.log(QTEDone);
+			self.saveQTE(i, QTEDone);
 		});
+
+
 	},
 	finishVideo: function() {
 		var self = this;
@@ -367,21 +372,22 @@ Controller.prototype = {
     endQTEs: function (interval) {
         var self = this;
 		clearInterval(interval);
-		self.saveSequence(function(QTEStatus){
+		self.testSequence(function(QTEStatus){
             self.view.addStatusSeq(self.videoSequence, QTEStatus);
             self.view.showBadge(self.json[self.videoNumber].filmName, self.videoSequence, QTEStatus);
         });
     },
-	saveSequence: function(callback){
+	saveQTE: function(i, success){
+		var self = this;
+		self.model.saveQTE(self.filmName, self.videoSequence, i, success, function(){
+			self.getSave();
+		});
+	},
+	testSequence: function(callback){
 		var self = this;
 		var QTEDone = false;
 		var sequence = self.json[self.videoNumber].sequences[self.videoSequence];
-		if(sequence.qte.length === self.QTESuccess.length) QTEDone = true; // checking if there if the right number of QTESuccess
-        console.log(self.QTESuccess);
-		console.log('self.filmName = ' + self.filmName);
-		self.model.saveSequence(self.filmName, self.videoSequence, QTEDone, function(){
-			self.getSave();
-		});
+		if(sequence.qte.length === self.QTESuccess) QTEDone = true; // checking if there if the right number of QTESuccess
         callback.call(this, QTEDone);
 	},
     toggleSound: function(e){
