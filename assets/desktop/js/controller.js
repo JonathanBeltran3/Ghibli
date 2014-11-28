@@ -142,44 +142,149 @@ Controller.prototype = {
 		this.step = 'loading';
 		self.view.renderLoader(self.load, function(){
 			self.view.hideMain(function(){
-				self.numberOfLoad = 31;
-				self.launchInitTemplate('video.handlebars', 'videoTemplate');
-				self.launchInitTemplate('quote.handlebars', 'quoteTemplate');
-				self.launchInitTemplate('homeIntro.handlebars', 'homeIntro');
-				self.launchInitTemplate('movieHome.handlebars', 'movieHomeTemplate');
-				self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
-				self.launchInitTemplate('modules/badge-content.handlebars', 'badgeContent');
-				self.launchInitTemplate('map.handlebars', 'mapTemplate');
-                self.launchInitTemplate('modules/infos-movie.handlebars', 'infosMovie');
+				var templates = [
+					{
+						templatePath: 'video.handlebars',
+						templateName: 'videoTemplate'
+					},
+					{
+						templatePath: 'quote.handlebars',
+						templateName: 'quoteTemplate'
+					},
+					{
+						templatePath: 'homeIntro.handlebars',
+						templateName: 'homeIntro'
+					},
+					{
+						templatePath: 'movieHome.handlebars',
+						templateName: 'movieHomeTemplate'
+					},
+					{
+						templatePath: 'moviePlaying.handlebars',
+						templateName: 'moviePlaying'
+					},
+					{
+						templatePath: 'modules/badge-content.handlebars',
+						templateName: 'badgeContent'
+					},
+					{
+						templatePath: 'map.handlebars',
+						templateName: 'mapTemplate'
+					},
+					{
+						templatePath: 'modules/infos-movie.handlebars',
+						templateName: 'infosMovie'
+					},
+					{
+						templatePath: 'gestures/swipe-up.handlebars',
+						templateName: 'swipe-up'
+					},
+					{
+						templatePath: 'gestures/swipe-down.handlebars',
+						templateName: 'swipe-down'
+					},
+					{
+						templatePath: 'gestures/swipe-right.handlebars',
+						templateName: 'swipe-right'
+					},
+					{
+						templatePath: 'gestures/swipe-left.handlebars',
+						templateName: 'swipe-left'
+					},
+					{
+						templatePath: 'gestures/hold.handlebars',
+						templateName: 'hold'
+					},
+					{
+						templatePath: 'gestures/tap.handlebars',
+						templateName: 'tap'
+					}
+				];
+				self.numberOfLoad = templates.length;
+
 
                 /* Repetition here could be avoided with a variable pass to the partial
                  * instead of loading 2 similar partials
                  * */
-				self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
-				self.launchInitPartials('logos/nausicaa-intro.handlebars', 'nausicaaLogo-intro');
-				self.launchInitPartials('logos/mononoke.handlebars', 'mononokeLogo');
-				self.launchInitPartials('logos/mononoke-intro.handlebars', 'mononokeLogo-intro');
-				self.launchInitPartials('logos/totoro.handlebars', 'totoroLogo');
-				self.launchInitPartials('logos/totoro-intro.handlebars', 'totoroLogo-intro');
-				self.launchInitPartials('logos/laputa.handlebars', 'laputaLogo');
-				self.launchInitPartials('logos/laputa-intro.handlebars', 'laputaLogo-intro');
-				self.launchInitPartials('logos/porco.handlebars', 'porcoLogo');
-				self.launchInitPartials('logos/porco-intro.handlebars', 'porcoLogo-intro');
-				self.launchInitPartials('logos/spirited.handlebars', 'spiritedLogo');
-				self.launchInitPartials('logos/spirited-intro.handlebars', 'spiritedLogo-intro');
-				self.launchInitPartials('logos/windrises.handlebars', 'windrisesLogo');
-				self.launchInitPartials('logos/windrises-intro.handlebars', 'windrisesLogo-intro');
-				self.launchInitPartials('modules/sound.handlebars', 'sound');
-				self.launchInitPartials('modules/credits.handlebars', 'credits');
-				self.launchInitPartials('modules/world-map.handlebars', 'worldMap');
+				var partials = [
+					{
+						partialPath: 'logos/nausicaa.handlebars',
+						partialName: 'nausicaaLogo'
+					},
+					{
+						partialPath: 'logos/nausicaa-intro.handlebars',
+						partialName: 'nausicaaLogo-intro'
+					},
+					{
+						partialPath: 'logos/mononoke.handlebars',
+						partialName: 'mononokeLogo'
+					},
+					{
+						partialPath: 'logos/mononoke-intro.handlebars',
+						partialName: 'mononokeLogo-intro'
+					},
+					{
+						partialPath: 'logos/totoro.handlebars',
+						partialName: 'totoroLogo'
+					},
+					{
+						partialPath: 'logos/totoro-intro.handlebars',
+						partialName: 'totoroLogo-intro'
+					},
+					{
+						partialPath: 'logos/laputa.handlebars',
+						partialName: 'laputaLogo'
+					},
+					{
+						partialPath: 'logos/laputa-intro.handlebars',
+						partialName: 'laputaLogo-intro'
+					},
+					{
+						partialPath: 'logos/porco.handlebars',
+						partialName: 'porcoLogo'
+					},
+					{
+						partialPath: 'logos/porco-intro.handlebars',
+						partialName: 'porcoLogo-intro'
+					},
+					{
+						partialPath: 'logos/spirited.handlebars',
+						partialName: 'spiritedLogo'
+					},
+					{
+						partialPath: 'logos/spirited-intro.handlebars',
+						partialName: 'spiritedLogo-intro'
+					},
+					{
+						partialPath: 'logos/windrises.handlebars',
+						partialName: 'windrisesLogo'
+					},
+					{
+						partialPath: 'logos/windrises-intro.handlebars',
+						partialName: 'windrisesLogo-intro'
+					},
+					{
+						partialPath: 'modules/sound.handlebars',
+						partialName: 'sound'
+					},
+					{
+						partialPath: 'modules/credits.handlebars',
+						partialName: 'credits'
+					},
+					{
+						partialPath: 'modules/world-map.handlebars',
+						partialName: 'worldMap'
+					}
+				];
 
-				/* gestures */
-				self.launchInitTemplate('gestures/swipe-up.handlebars', 'swipe-up');
-				self.launchInitTemplate('gestures/swipe-down.handlebars', 'swipe-down');
-				self.launchInitTemplate('gestures/swipe-right.handlebars', 'swipe-right');
-				self.launchInitTemplate('gestures/swipe-left.handlebars', 'swipe-left');
-				self.launchInitTemplate('gestures/hold.handlebars', 'hold');
-				self.launchInitTemplate('gestures/tap.handlebars', 'tap');
+				self.numberOfLoad += partials.length;
+
+				for(var i = 0; i < templates.length; i++) {
+					self.launchInitTemplate(templates[i].templatePath, templates[i].templateName);
+				}
+			   for(var i = 0; i < partials.length; i++) {
+					self.launchInitPartials(partials[i].partialPath, partials[i].partialName);
+				}
 
 
 			});
@@ -280,6 +385,10 @@ Controller.prototype = {
 			});
 		});
 	},
+
+	/**
+	 * Add the listener to passIntro via the mobile
+	 */
 	addIntroListener: function() {
 		var self = this;
 		self.socket.once('mobilePassIntro', function(){
@@ -332,6 +441,9 @@ Controller.prototype = {
 		}
 	},
 
+	/**
+	 * Deal with the sequences (show the quotes and prepare the video + uses the model to send message to the mobile)
+	 */
 	dealSequences: function(){
 		var self = this;
 		this.step = 'onSequence';
@@ -347,7 +459,9 @@ Controller.prototype = {
 		
 	},
 	
-
+	/**
+	 * Control the views that will fade the quotes and launch the videos + control the timeout for the hide controls
+	 */
 	fadeQuotesAndLaunchVideo: function(){
 		var self = this;
 		setTimeout(function(){
@@ -366,7 +480,9 @@ Controller.prototype = {
 		},6000);
 		
 	},
-	
+	/**
+	 * Add the listener on the video and deals with the QTE
+	 */
 	addVideoListener: function() {
 		var self = this;
 		var i = 0;
@@ -393,6 +509,11 @@ Controller.prototype = {
         });
 		self.video.onended = function(e) { self.finishVideo(interval) };
 	},
+
+    /**
+     * Toggle the play/pause
+     * @param {[[Element]]} e Video
+     */
     playPauseVideo: function(e) {
         e.preventDefault();
         if (this.video.paused)
@@ -400,6 +521,15 @@ Controller.prototype = {
         else
             this.video.pause();
     },
+
+	/**
+	 * Deals with the QTE (sends the fail and launch the function that will listen to the mobile)
+	 * @param {Object}   sequence Sequence and all its informations
+	 * @param {[[Type]]} interval Interval that is used to look every second ( timeupdate too speed)
+	 * @param {[[Type]]} wait     How long we wait before sending failQTE
+	 * @param {[[Type]]} action   Action we must do
+	 * @param {[[Type]]} i        number of the QTE (we save every QTE)
+	 */
 	dealQTEAction: function(sequence, interval, wait, action, i) {
 		var self = this;
 		self.view.displayQTEInformations(action, self.videoSequence, i, function() {
@@ -418,6 +548,14 @@ Controller.prototype = {
 		
 	},
 	
+	/**
+	 * Listen to the mobile event and deals with success or fail of the QTE
+	 * @param {Object}   sequence Sequence and all its informations
+	 * @param {[[Type]]} interval Interval that is used to look every second ( timeupdate too speed)
+	 * @param {[[Type]]} wait     How long we wait before sending failQTE
+	 * @param {[[Type]]} action   Action we must do
+	 * @param {[[Type]]} i        number of the QTE (we save every QTE)
+	 */
 	addQTEListener: function(sequence, interval, timeout, action, i) {
 		var self = this;
 		var QTEDone = false;
@@ -438,6 +576,10 @@ Controller.prototype = {
 
 
 	},
+
+	/**
+	 * Deals with the end of the video (if there is another sequence or not)
+	 */
 	finishVideo: function() {
 		var self = this;
         self.removeHiddenControlsListener();
@@ -454,6 +596,10 @@ Controller.prototype = {
 			});
 		}
 	},
+    /**
+     * Deals with the end of all QTEs of the sequence
+     * @param {[[Type]]} interval interval that listens to the video (every 1 sec, timeupdate too speed)
+     */
     endQTEs: function (interval) {
         var self = this;
 		clearInterval(interval);
@@ -462,6 +608,12 @@ Controller.prototype = {
             self.view.showBadge(self.json[self.videoNumber].filmName, self.videoSequence, QTEStatus);
         });
     },
+
+	/**
+	 * Save the QTE
+	 * @param {[[Type]]} i       [[Description]]
+	 * @param {[[Type]]} success [[Description]]
+	 */
 	saveQTE: function(i, success){
 		var self = this;
 		self.model.saveQTE(self.filmName, self.videoSequence, i, success, function(){
@@ -562,6 +714,7 @@ Controller.prototype = {
 		self.removeHiddenControlsListener();
 		document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
 		document.querySelector('.select-sequence').addEventListener('click', self.openSequence.bind(self), false);
+		document.querySelector('.treasure-won').addEventListener('click', self.openTreasures.bind(self), false);
 		document.querySelector('.map-content').addEventListener('click', function(e){
 			e.preventDefault();
 			self.view.showBackWorldMap(function(){
@@ -585,4 +738,10 @@ Controller.prototype = {
 		e.preventDefault();
 		self.view.showSecondLevelMenu('.sequences-choices');
 	},
+
+	openTreasures: function(e) {
+		var self = this;
+		e.preventDefault();
+		self.view.showSecondLevelMenu('.treasures-choices');
+	}
 };
