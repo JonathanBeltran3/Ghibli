@@ -24,7 +24,9 @@ Controller.prototype = {
 
 		self.socket.on('mobileConnected', function(data){
 			self.json = data;
-			self.view.renderLoader();
+			if(self.step !== 'renderMap' && self.step !== '') {
+				self.view.renderLoader();
+			}
 		});
 
 		self.socket.on('noMoreSpaces', function() {
@@ -32,7 +34,23 @@ Controller.prototype = {
 		});
 
 		self.socket.on('resStep', function(step) {
-			console.log(step);
+			self.step = step;
+
+			switch(self.step) {
+				case 'renderMap':
+					self.view.renderMap();
+					break;
+				case 'renderIntro':
+					self.model.emitSocket('askFilmName', {}, function(){
+						self.socket.on('resFilmName', function(filmName) {
+							self.view.renderPassIntro(filmName);
+						});
+					});
+					break;
+				default:
+					self.view.renderLoader();
+					break;
+			}
 		});
 
 		self.socket.on('passIntro', function(filmName){

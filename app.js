@@ -61,12 +61,19 @@ App.prototype = {
 				self.io.to(datas.room).emit('resStep', datas.step);
 			});
 
+			socket.on('askFilmName', function(datas){
+				self.io.to(datas.room).emit('askFilmName');
+			});
+
+			socket.on('resFilmName', function(datas) {
+				self.io.to(datas.room).emit('resFilmName', datas.filmName);
+			});
+
 			socket.on('mobileConnection', function(datas){
 				self.io.to(datas.room).emit('mobileConnected', self.json);
 			});
 
 			socket.on('passIntro', function(datas){
-				console.log(datas);
 				self.io.to(datas.room).emit('passIntro', datas.filmName);
 				self.listenPassIntro = 1;
 			});
