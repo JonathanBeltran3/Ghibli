@@ -1,0 +1,48 @@
+@import '0 - plugins/plugins-dir';
+@import '1 - base/base-dir';
+@import '2 - modules/modules-dir';
+@import '3 - layouts/layouts-dir';
+
+.screen {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+}
+
+.middle-screen-container {
+
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    margin: auto;
+}
+
+.world-map {
+    font-size: 1.5em;
+    line-height: 1.5;
+    color: #332211;
+}
+
+.world-map-container {
+    height:  15%;
+}
+
+.circle {
+    width: 2.6em;
+    height: 2.6em;
+    margin: auto;
+    margin-top: 5em;
+    border-radius: 50%;
+    border: 5px solid #cd834b;
+    position: relative;
+    &:after {
+        content: "";
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        box-shadow: 0 0 0 5px rgba(205, 131, 75, 0.2);
+        border-radius: 50%;
+        top: -50%;
+        left: -50%;
+    }
+
+
+}
