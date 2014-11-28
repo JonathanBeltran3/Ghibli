@@ -114,6 +114,12 @@ App.prototype = {
 				self.io.to(room).emit('renderMap');
 			});
 
+			socket.on('renderOnFilm', function(room){
+				console.log('renderOnFilm');
+				console.log(room);
+				self.io.to(room).emit('renderOnFilm');
+			});
+
 			socket.on('disconnect', function(){
 				for(var i in self.rooms) {
 					var room = self.rooms[i].clients;
