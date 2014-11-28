@@ -143,6 +143,7 @@ App.prototype = {
 		});
 		self.server.listen(40000);
 	},
+    /* https://github.com/danzajdband/moviedb/ */
     getFilmInfo: function(idFilm){
         this.MovieDB.movieInfo({id: 81}, function(err, res){
 			return res;
