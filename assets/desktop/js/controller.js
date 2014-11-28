@@ -88,6 +88,10 @@ Controller.prototype = {
 		self.socket.on('askStep', function(){
 			self.model.emitSocket('resStep', {step: self.step, room: self.room});
 		});
+
+		self.socket.on('askFilmName', function(){
+			self.model.emitSocket('resFilmName', {filmName: self.filmName, room: self.room});
+		});
 	},
 	changeRoom: function() {
 		var self = this;
