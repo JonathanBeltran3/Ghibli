@@ -56,7 +56,7 @@ View.prototype = {
 		callback.call(this, video);
 	},
 	renderHomeVideo: function(movie, callback) {
-		var data      = {filmName: movie.filmName, logo: movie.logo};
+		var data      = {filmName: movie.filmName, logo: movie.logo, sequences: movie.sequences};
 		var template  = Handlebars.compile(this.movieHomeTemplate);
 		var html      = template(data);
 		template  = Handlebars.compile(html);
@@ -221,7 +221,10 @@ View.prototype = {
 		var html      = template(data);
 		document.querySelector('.more-content').innerHTML = html;
 		document.querySelector('.more-content').classList.add('visible');
-    }
+    },
+	showSecondLevelMenu: function(element) {
+		document.querySelector(element).classList.toggle('open');
+	}
 };
 
 var Sound = {

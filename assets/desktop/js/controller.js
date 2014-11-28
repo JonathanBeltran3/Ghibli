@@ -48,7 +48,7 @@ Controller.prototype = {
                 self.view.renderHomeVideo(self.json[self.videoNumber], function(){
                     document.querySelector('.back-film').classList.remove('visible');
                     self.video.pause();
-                    document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
+                    self.addListenerHomeVideo();
                 });
 
             });
@@ -93,9 +93,9 @@ Controller.prototype = {
 			self.model.emitSocket('resFilmName', {filmName: self.filmName, room: self.room});
 		});
 
-		self.socket.on('responseFilm', function(datas){
+		/*self.socket.on('responseFilm', function(datas){
             self.view.renderSynopsis(datas);
-        })
+        });*/
 	},
 	changeRoom: function() {
 		var self = this;
@@ -217,19 +217,7 @@ Controller.prototype = {
 		self.model.emitSocket('introPassed', self.room);
 		self.view.fadeIntro(self.video, function(){
 			self.view.renderHomeVideo(self.json[self.videoNumber], function(){
-                this.step = 'HomeVideo';
-				self.model.emitSocket('renderOnFilm', {room: self.room, filmName: self.filmName});
-				self.removeHiddenControlsListener();
-				document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
-                document.querySelector('.map-content').addEventListener('click', function(e){
-                    e.preventDefault();
-                    self.view.showBackWorldMap(function(){
-						self.addListenerOnWorldMap();
-					});
-                }, false);
-                self.model.getFilmInfo({room: self.room, filmID: 81}, function(data){
-
-                })
+                self.addListenerHomeVideo();
 			});
 		});
 	},
@@ -252,6 +240,22 @@ Controller.prototype = {
 
 	},
 	
+	choiceSequence: function(e) {
+		var self = this;
+		var index = parseInt(e.getAttribute('data-index'));
+		console.log(index);
+		console.log(self.save[self.filmName]);
+		if(index === 0 || self.save[self.filmName][index-1] !== undefined) {
+			self.videoSequence = index;
+			self.view.fadeHomeVideo(function(){
+				self.dealSequences();
+				self.view.renderMoviePlaying(self.json[self.videoNumber]);
+			});
+		} else {
+			console.log('Not possible');
+		}
+	},
+
 	dealSequences: function(){
 		var self = this;
 		this.step = 'onSequence';
@@ -267,6 +271,7 @@ Controller.prototype = {
 		
 	},
 	
+
 	fadeQuotesAndLaunchVideo: function(){
 		var self = this;
 		setTimeout(function(){
@@ -277,7 +282,6 @@ Controller.prototype = {
             self.timeoutControls;
             self.addHideControls();
 
-            console.log('Fin d\'une citation, passage à la vidéo');
 
             self.tempSelfPlayPause = self.playPauseVideo.bind(self);
             document.querySelector('.qte-mode').addEventListener('click', self.tempSelfPlayPause, true);
@@ -326,7 +330,6 @@ Controller.prototype = {
 			var datas = {'action': action, 'room': self.room};
 			self.model.emitSocket('actionQTE', datas, function() {
 				var timeout = setTimeout(function(){
-					console.log('failQTE');
 					self.model.emitSocket('failQTE', self.room);
                     self.view.toggleQteMode(self.videoSequence, i);
                     self.socket.removeAllListeners('QTEDone');
@@ -354,7 +357,6 @@ Controller.prototype = {
             clearTimeout(timeout);
 			self.view.toggleQteMode(self.videoSequence, i);
             if (i === sequence.qte.length-1) self.endQTEs(interval);
-			console.log(QTEDone);
 			self.saveQTE(i, QTEDone);
 		});
 
@@ -372,17 +374,7 @@ Controller.prototype = {
 			self.dealSequences();
 		} else {
 			self.view.renderHomeVideo(self.json[self.videoNumber], function(){
-				self.model.emitSocket('renderOnFilm', {room: self.room, filmName: self.filmName});
-				document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
-				document.querySelector('.map-content').addEventListener('click', function(e){
-                    e.preventDefault();
-                    self.view.showBackWorldMap(function(){
-						self.addListenerOnWorldMap();
-					});
-                }, false);
-                self.model.getFilmInfo({room: self.room, filmID: 81}, function(data){
-
-                })
+				self.addListenerHomeVideo();
 			});
 		}
 	},
@@ -434,7 +426,6 @@ Controller.prototype = {
      */
     addHideControls: function(){
         var self = this;
-        console.log('addHideControls');
         self.tempSelfHiddenControls = self.dealHiddenControls.bind(self); /* prevent error with bind and removeEventListener*/
         document.addEventListener('mousemove', self.tempSelfHiddenControls, false);
 
@@ -481,12 +472,35 @@ Controller.prototype = {
 		var self = this;
 		self.model.emitSocket('renderMap', self.room);
 		var zones = document.querySelectorAll('.body-map .clickable-zone');
-		console.log(zones);
 		for(var i = 0; i < zones.length; i++) {
 			var zone = zones[i];
 			zone.addEventListener('click', function(){
 				self.getDataForIntro(this);
 			}, false);
 		}
-	}
+	},
+	addListenerHomeVideo: function() {
+		var self = this;
+		self.step = 'HomeVideo';
+		self.model.emitSocket('renderOnFilm', {room: self.room, filmName: self.filmName});
+		self.removeHiddenControlsListener();
+		document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
+		document.querySelector('.select-sequence').addEventListener('click', self.openSequence.bind(self), false);
+		document.querySelector('.map-content').addEventListener('click', function(e){
+			e.preventDefault();
+			self.view.showBackWorldMap(function(){
+				self.addListenerOnWorldMap();
+			});
+		}, false);
+		document.querySelector('.choice-sequence').addEventListener('click', function(e){ e.preventDefault(); self.choiceSequence(this); }, false);
+		self.model.getFilmInfo({room: self.room, filmID: 81}, function(data){
+
+		})
+	},
+
+	openSequence: function(e) {
+		var self = this;
+		e.preventDefault();
+		self.view.showSecondLevelMenu('.sequences-choices');
+	},
 };
