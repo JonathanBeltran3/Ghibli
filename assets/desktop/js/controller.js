@@ -385,6 +385,10 @@ Controller.prototype = {
 			});
 		});
 	},
+
+	/**
+	 * Add the listener to passIntro via the mobile
+	 */
 	addIntroListener: function() {
 		var self = this;
 		self.socket.once('mobilePassIntro', function(){
@@ -437,6 +441,9 @@ Controller.prototype = {
 		}
 	},
 
+	/**
+	 * Deal with the sequences (show the quotes and prepare the video + uses the model to send message to the mobile)
+	 */
 	dealSequences: function(){
 		var self = this;
 		this.step = 'onSequence';
@@ -452,7 +459,9 @@ Controller.prototype = {
 		
 	},
 	
-
+	/**
+	 * Control the views that will fade the quotes and launch the videos + control the timeout for the hide controls
+	 */
 	fadeQuotesAndLaunchVideo: function(){
 		var self = this;
 		setTimeout(function(){
@@ -471,7 +480,9 @@ Controller.prototype = {
 		},6000);
 		
 	},
-	
+	/**
+	 * Add the listener on the video and deals with the QTE
+	 */
 	addVideoListener: function() {
 		var self = this;
 		var i = 0;
@@ -498,6 +509,11 @@ Controller.prototype = {
         });
 		self.video.onended = function(e) { self.finishVideo(interval) };
 	},
+
+    /**
+     * Toggle the play/pause
+     * @param {[[Element]]} e Video
+     */
     playPauseVideo: function(e) {
         e.preventDefault();
         if (this.video.paused)
@@ -505,6 +521,15 @@ Controller.prototype = {
         else
             this.video.pause();
     },
+
+	/**
+	 * Deals with the QTE (sends the fail and launch the function that will listen to the mobile)
+	 * @param {Object}   sequence Sequence and all its informations
+	 * @param {[[Type]]} interval Interval that is used to look every second ( timeupdate too speed)
+	 * @param {[[Type]]} wait     How long we wait before sending failQTE
+	 * @param {[[Type]]} action   Action we must do
+	 * @param {[[Type]]} i        number of the QTE (we save every QTE)
+	 */
 	dealQTEAction: function(sequence, interval, wait, action, i) {
 		var self = this;
 		self.view.displayQTEInformations(action, self.videoSequence, i, function() {
@@ -523,6 +548,14 @@ Controller.prototype = {
 		
 	},
 	
+	/**
+	 * Listen to the mobile event and deals with success or fail of the QTE
+	 * @param {Object}   sequence Sequence and all its informations
+	 * @param {[[Type]]} interval Interval that is used to look every second ( timeupdate too speed)
+	 * @param {[[Type]]} wait     How long we wait before sending failQTE
+	 * @param {[[Type]]} action   Action we must do
+	 * @param {[[Type]]} i        number of the QTE (we save every QTE)
+	 */
 	addQTEListener: function(sequence, interval, timeout, action, i) {
 		var self = this;
 		var QTEDone = false;
@@ -543,6 +576,10 @@ Controller.prototype = {
 
 
 	},
+
+	/**
+	 * Deals with the end of the video (if there is another sequence or not)
+	 */
 	finishVideo: function() {
 		var self = this;
         self.removeHiddenControlsListener();
@@ -559,6 +596,10 @@ Controller.prototype = {
 			});
 		}
 	},
+    /**
+     * Deals with the end of all QTEs of the sequence
+     * @param {[[Type]]} interval interval that listens to the video (every 1 sec, timeupdate too speed)
+     */
     endQTEs: function (interval) {
         var self = this;
 		clearInterval(interval);
@@ -567,6 +608,12 @@ Controller.prototype = {
             self.view.showBadge(self.json[self.videoNumber].filmName, self.videoSequence, QTEStatus);
         });
     },
+
+	/**
+	 * Save the QTE
+	 * @param {[[Type]]} i       [[Description]]
+	 * @param {[[Type]]} success [[Description]]
+	 */
 	saveQTE: function(i, success){
 		var self = this;
 		self.model.saveQTE(self.filmName, self.videoSequence, i, success, function(){
