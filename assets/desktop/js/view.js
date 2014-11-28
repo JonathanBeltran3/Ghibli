@@ -224,6 +224,9 @@ View.prototype = {
     },
 	showSecondLevelMenu: function(element) {
 		document.querySelector(element).classList.toggle('open');
+	},
+	addPossible: function(element) {
+		element.classList.add('possible-sequence');
 	}
 };
 

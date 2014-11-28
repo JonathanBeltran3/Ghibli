@@ -118,3 +118,10 @@ nav {
 .menu-second-level.open {
     max-height: 10em;
 }
+
+.choice-sequence {
+	opacity: 0.5;
+	&.possible-sequence {
+		opacity: 1;
+	}
+}
