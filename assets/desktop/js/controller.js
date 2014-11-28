@@ -21,12 +21,21 @@ Controller.prototype = {
         this.tempSelfHiddenControls; // here to be able to remove evt listener
         this.tempSelfPlayPause;
 	},
+
+	/**
+	 * Load save for the precedent films
+	 * and QTEs
+	 */
 	getSave: function() {
 		var self = this;
 		self.model.getSave(function(datas){
 			self.save = datas;
 		});
 	},
+	/**
+	 * Adding eventListener for switching the sound
+	 * And going back to the film menu
+	 */
 	eventListener: function(){
 		var self= this;
 		//document.querySelector('.fullscreen-toggle').addEventListener('click', self.view.toggleFullscreen, false);
@@ -56,9 +65,14 @@ Controller.prototype = {
 
         }, false);
 	},
+    /**
+     * List of the different socket listeners
+     */
 	socketListener: function() {
 		var self = this;
 		var changeRoom = 0;
+
+        /* Initialisation */
 		self.socket.on('connect', function() {
 			self.model.ajaxLoadTemplate('links.handlebars',function(template){
 				self.view.initTemplates('linksTemplate', template, function(){
@@ -97,6 +111,10 @@ Controller.prototype = {
             self.view.renderSynopsis(datas);
         });*/
 	},
+    /**
+     * Creation of the room to play
+     * just between desktop & mobile
+     */
 	changeRoom: function() {
 		var self = this;
 		var changeRoom = 0;
@@ -115,6 +133,9 @@ Controller.prototype = {
 			}
 		});
 	},
+	/**
+	 * Loading the list of templates
+	 */
 	loadVideoTemplates: function(){
 		var self = this;
 		self.load = 0;
@@ -129,7 +150,11 @@ Controller.prototype = {
 				self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
 				self.launchInitTemplate('modules/badge-content.handlebars', 'badgeContent');
 				self.launchInitTemplate('map.handlebars', 'mapTemplate');
+                self.launchInitTemplate('modules/infos-movie.handlebars', 'infosMovie');
 
+                /* Repetition here could be avoided with a variable pass to the partial
+                 * instead of loading 2 similar partials
+                 * */
 				self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
 				self.launchInitPartials('logos/nausicaa-intro.handlebars', 'nausicaaLogo-intro');
 				self.launchInitPartials('logos/mononoke.handlebars', 'mononokeLogo');
@@ -156,10 +181,16 @@ Controller.prototype = {
 				self.launchInitTemplate('gestures/hold.handlebars', 'hold');
 				self.launchInitTemplate('gestures/tap.handlebars', 'tap');
 
-				self.launchInitTemplate('modules/infos-movie.handlebars', 'infosMovie');
+
 			});
 		});
 	},
+
+	/**
+	 * Load Handlebars templates form server
+	 * @param string templatePath Path of the template on server
+	 * @param string templateName Name to use the template later
+	 */
 	launchInitTemplate: function(templatePath, templateName){
 		var self = this;
 		self.model.ajaxLoadTemplate(templatePath, function(template) {
@@ -168,6 +199,11 @@ Controller.prototype = {
 			});
 		});
 	},
+	/**
+	 * Load Handlebars partials form server
+	 * @param string partielPath Path of the partial on server
+	 * @param string partialName Name to use the partial later
+	 */
 	launchInitPartials: function(partielPath, partialName){
 		var self = this;
 		self.model.ajaxLoadTemplate(partielPath, function(template) {
@@ -175,6 +211,9 @@ Controller.prototype = {
 			self.dealWithLoading();
 		});
 	},
+	/**
+	 * Increase the connection counter
+	 */
 	dealWithLoading: function(){
 		var self = this;
 		self.load += 100/self.numberOfLoad;
@@ -183,6 +222,10 @@ Controller.prototype = {
 		if(document.querySelector('.value')) self.view.updateLoader(Math.round(self.load));
 
 	},
+    /**
+     * When every template is loaded
+     * we render the map of the world
+     */
 	renderMap: function() {
 		var self = this;
 		this.step = 'renderMap';
@@ -190,11 +233,24 @@ Controller.prototype = {
 			self.addListenerOnWorldMap();
 		});
 	},
+	/**
+	 * Each zone on map has a data attribut that
+	 * we will use to change the information
+	 * to start a new film, and launch the
+	 * introduction
+	 * @param elt clicked element
+	 */
 	getDataForIntro: function(elt){
 		this.videoNumber = parseInt(elt.getAttribute('data-film'));
 		this.filmName = this.json[this.videoNumber].filmName;
 		this.rollIntro();
 	},
+	/**
+	 * Launch the film video introduction
+	 * Add the information screen hover
+	 * You can pass the intro with your smartphone
+	 * Or wait for the end of the video
+	 */
 	rollIntro: function() {
 		var self = this;
 		this.step = 'renderIntro';
@@ -211,6 +267,9 @@ Controller.prototype = {
 			self.addIntroListener();
 		});
 	},
+	/**
+	 * Display the menu / home of a film
+	 */
 	passIntro: function() {
 		var self = this;
 
@@ -495,7 +554,7 @@ Controller.prototype = {
 		document.querySelector('.choice-sequence').addEventListener('click', function(e){ e.preventDefault(); self.choiceSequence(this); }, false);
 		self.model.getFilmInfo({room: self.room, filmID: 81}, function(data){
 
-		})
+		});  /* get information for a treasure, should be done only if the user wants to click on this treasure, and don't forget to change filmID */
 	},
 
 	openSequence: function(e) {
