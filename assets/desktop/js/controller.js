@@ -10,7 +10,7 @@ Controller.prototype = {
 		this.model.init(this.socket);
 		this.videoNumber = 0;
 		this.room = 0;
-		this.QTESuccess = 0;
+		this.QTESuccess = [];
 		this.main = document.querySelector('.main');
 		this.getSave();
 		this.eventListener();
@@ -235,6 +235,7 @@ Controller.prototype = {
 		var self = this;
 		e.preventDefault();
 		self.videoSequence = 0;
+		self.QTESuccess = []; // init QTESuccess with an empty array
 		self.view.fadeHomeVideo(function(){
 			self.dealSequences();
 			self.view.renderMoviePlaying(self.json[self.videoNumber]);
@@ -245,7 +246,7 @@ Controller.prototype = {
 	dealSequences: function(){
 		var self = this;
 		this.step = 'onSequence';
-		self.QTESuccess = 0;
+		self.QTESuccess[self.videoSequence] = []; // creating array for the sequence
 		self.view.renderQuotes(self.json[self.videoNumber], self.videoSequence, function(){
 			self.view.renderVideo(self.json[self.videoNumber], self.videoSequence, function() {
 				self.video = document.querySelector('.video');
@@ -332,7 +333,7 @@ Controller.prototype = {
 		var self = this;
 		self.socket.once('QTEDone', function(actionMobile) {
 			if(action === actionMobile) {
-				self.QTESuccess++;
+				self.QTESuccess[self.videoSequence].push(i); // adding the QTE to the success array
                 self.view.addSuccessQTE(self.videoSequence, i);
 			} else {
 				self.model.emitSocket('failQTE', self.room);
@@ -370,7 +371,8 @@ Controller.prototype = {
 		var self = this;
 		var QTEDone = false;
 		var sequence = self.json[self.videoNumber].sequences[self.videoSequence];
-		if(sequence.qte.length === self.QTESuccess) QTEDone = true;
+		if(sequence.qte.length === self.QTESuccess.length) QTEDone = true; // checking if there if the right number of QTESuccess
+        console.log(self.QTESuccess);
 		console.log('self.filmName = ' + self.filmName);
 		self.model.saveSequence(self.filmName, self.videoSequence, QTEDone, function(){
 			self.getSave();
