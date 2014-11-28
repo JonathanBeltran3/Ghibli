@@ -67,6 +67,10 @@ View.prototype = {
 		var video = document.querySelector('.video');
 		callback.call(this, video);
 	},
+	/**
+	 * Render menu / home of a film
+	 * @param {Object}   movie    Object containing movie json information
+	 */
 	renderHomeVideo: function(movie, callback) {
 		var data      = {filmName: movie.filmName, logo: movie.logo, sequences: movie.sequences};
 		var template  = Handlebars.compile(this.movieHomeTemplate);
@@ -86,6 +90,11 @@ View.prototype = {
 		},150);
 		callback.call(this);
 	},
+	/**
+	 * Render a video in the layout
+	 * @param {Object}   movie    Object containing movie json information
+	 * @param int sequence Index of the sequence
+	 */
 	renderVideo: function(movie, sequence, callback) {
 		var data      = {movieLink: movie.sequences[sequence].videoLink};
 		var template  = Handlebars.compile(this.videoTemplate);
@@ -93,6 +102,10 @@ View.prototype = {
 		this.videoContainer.innerHTML = html;
 		callback.call(this);
 	},
+	/**
+	 * RenderMap
+	 * Render the Map for the world
+	 */
 	renderMap: function(callback) {
 		var data      = {};
 		var template  = Handlebars.compile(this.mapTemplate);
@@ -101,12 +114,18 @@ View.prototype = {
 		this.hideLoader();
 		callback.call(this);
 	},
+	/**
+	 * Render template while movie is playing
+	 */
 	renderMoviePlaying: function(movie) {
 		var data = { sequences: movie.sequences };
 		var template  = Handlebars.compile(this.moviePlaying);
 		var html      = template(data);
 		this.main.innerHTML = html;
 	},
+	/**
+	 * Render introduction screen before a sequence
+	 */
 	renderQuotes: function(movie, sequence, callback){
 		var data = {movieQuote: movie.sequences[sequence].quote, movieSequence: sequence+1};
 		var template  = Handlebars.compile(this.quoteTemplate);
