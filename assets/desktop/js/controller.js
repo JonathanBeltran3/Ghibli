@@ -18,6 +18,7 @@ Controller.prototype = {
         this.allowSound = true;
         this.togglingSound = false;
 		this.step = 'init';
+        this.tempSelfHiddenControls; // here to be able to remove evt listener
 	},
 	getSave: function() {
 		var self = this;
@@ -40,7 +41,6 @@ Controller.prototype = {
 
                 self.view.renderHomeVideo(self.json[self.videoNumber], function(){
                     self.video.pause();
-                    self.removeHiddenControlsListener();
                     document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
                 });
 
@@ -254,6 +254,12 @@ Controller.prototype = {
 		setTimeout(function(){
             self.view.hideLoader();
 			self.view.launchVideo(self.video);
+            /* hide controls after 5 secondes without doing anyting */
+            self.hiddenControls = false;
+            self.timeoutControls;
+
+            self.addHideControls();
+
             document.querySelector('.qte-mode').addEventListener('click', self.playPauseVideo.bind(self), true);
             /* Toujours en test, sera bien mis après #backFilm */
             document.querySelector('.back-film').classList.add('visible');
@@ -279,11 +285,7 @@ Controller.prototype = {
             }, 10 * 1000);
         }
 
-//        /* hide controls after 5 secondes without doing anyting */
-//        self.hiddenControls = false;
-//        self.timeoutControls;
-//
-//        self.addHideControls();
+
 
 		self.video.addEventListener('timeupdate', function(){
             var progress = self.video.currentTime / self.video.duration * 100;
@@ -291,18 +293,6 @@ Controller.prototype = {
         });
 		self.video.onended = function(e) { self.finishVideo(interval) };
 	},
-	dealHiddenControls : function(){
-        var self = this;
-        clearTimeout(self.timeoutControls);
-        if (self.hiddenControls === true) {
-            self.view.toggleControls();
-            self.hiddenControls = false;
-        }
-        self.timeoutControls = setTimeout(function(){
-            self.view.toggleControls();
-            self.hiddenControls = true;
-        }, 2000);
-    },
     playPauseVideo: function(e) {
         e.preventDefault();
         if (this.video.paused)
@@ -345,7 +335,8 @@ Controller.prototype = {
 	},
 	removeHiddenControlsListener: function(){
         var self = this;
-        document.removeEventListener('mousemove', self.dealHiddenControls.bind(self), false);
+        document.querySelector('body').removeEventListener('mousemove', self.tempSelfHiddenControls, false);
+
         clearTimeout(self.timeoutControls);
         if (self.hiddenControls === true) {
             console.log('Controls were hidden');
@@ -410,10 +401,17 @@ Controller.prototype = {
         }
         return false;
     },
+
+    /**
+     * Add an event listener on mouse move and
+     * trigger a mouse move in case user would not move his mouse
+     */
     addHideControls: function(){
         console.log('Ajout de addHideControls');
         var self = this;
-        document.addEventListener('mousemove', self.dealHiddenControls.bind(self), false);
+        self.tempSelfHiddenControls = self.dealHiddenControls.bind(self); /* prevent error with bind and removeEventListener*/
+        document.querySelector('body').addEventListener('mousemove', self.tempSelfHiddenControls, false);
+
         if( document.createEvent ) {
             var evObj = document.createEvent('MouseEvents');
             evObj.initEvent( 'mousemove', true, false );
@@ -421,5 +419,21 @@ Controller.prototype = {
         } else if( document.createEventObject ) {
             document.fireEvent('mousemove');
         }
+    },
+	/**
+	 * If the user doesn't move his mouse during 2 sec
+	 * Controls will disapper to let him enjoy video
+	 */
+	dealHiddenControls : function(){
+        var self = this;
+        clearTimeout(self.timeoutControls);
+        if (self.hiddenControls === true) {
+            self.view.toggleControls();
+            self.hiddenControls = false;
+        }
+        self.timeoutControls = setTimeout(function(){
+            self.view.toggleControls();
+            self.hiddenControls = true;
+        }, 2000);
     }
 };
