@@ -19,6 +19,7 @@ Controller.prototype = {
         this.togglingSound = false;
 		this.step = 'init';
         this.tempSelfHiddenControls; // here to be able to remove evt listener
+        this.tempSelfPlayPause;
 	},
 	getSave: function() {
 		var self = this;
@@ -29,23 +30,29 @@ Controller.prototype = {
 	eventListener: function(){
 		var self= this;
 		//document.querySelector('.fullscreen-toggle').addEventListener('click', self.view.toggleFullscreen, false);
+
+
 		document.querySelector('.sound').addEventListener('click', self.toggleSound.bind(self), false);
+
+
 		document.querySelector('.back-film').addEventListener('click', function(e){
             e.preventDefault();
             self.removeHiddenControlsListener();
-            document.querySelector('.qte-mode').removeEventListener('click', self.playPauseVideo.bind(self));
+
+            document.querySelector('.qte-mode').removeEventListener('click', self.tempSelfPlayPause); //#baka
 
             Sound.cutSound(self.video, function(){
                 self.allowSound = false;
                 self.togglingSound = false;
 
                 self.view.renderHomeVideo(self.json[self.videoNumber], function(){
+                    document.querySelector('.back-film').classList.remove('visible');
                     self.video.pause();
                     document.querySelector('.new-game').addEventListener('click', self.newGame.bind(self), false);
                 });
 
             });
-            this.classList.remove('visible');
+
 
         }, false);
 	},
@@ -253,10 +260,12 @@ Controller.prototype = {
             /* hide controls after 5 secondes without doing anyting */
             self.hiddenControls = false;
             self.timeoutControls;
-
             self.addHideControls();
 
-            document.querySelector('.qte-mode').addEventListener('click', self.playPauseVideo.bind(self), true);
+            console.log('Fin d\'une citation, passage à la vidéo');
+
+            self.tempSelfPlayPause = self.playPauseVideo.bind(self);
+            document.querySelector('.qte-mode').addEventListener('click', self.tempSelfPlayPause, true);
             /* Toujours en test, sera bien mis après #backFilm */
             document.querySelector('.back-film').classList.add('visible');
 		},6000);
@@ -266,7 +275,7 @@ Controller.prototype = {
 	addVideoListener: function() {
 		var self = this;
 		var i = 0;
-		self.video.addEventListener('canplaythrough', function(){self.fadeQuotesAndLaunchVideo();} , false);
+		self.video.addEventListener('canplaythrough', function(){ self.fadeQuotesAndLaunchVideo();} , false);
 		var sequence = self.json[self.videoNumber].sequences[self.videoSequence];
 		if(sequence.qte.length) {
 			var interval = setInterval(function(){
@@ -329,22 +338,10 @@ Controller.prototype = {
             if (i === sequence.qte.length-1) self.endQTEs(interval);
 		});
 	},
-	removeHiddenControlsListener: function(){
-        var self = this;
-        document.querySelector('body').removeEventListener('mousemove', self.tempSelfHiddenControls, false);
-
-        clearTimeout(self.timeoutControls);
-        if (self.hiddenControls === true) {
-            console.log('Controls were hidden');
-            self.view.toggleControls();
-            self.hiddenControls = false;
-        }
-        console.log('Remove evt listener');
-    },
 	finishVideo: function() {
 		var self = this;
         self.removeHiddenControlsListener();
-        document.querySelector('.qte-mode').removeEventListener('click', self.playPauseVideo.bind(self));
+        document.querySelector('.qte-mode').removeEventListener('click', self.tempSelfPlayPause); // #baka
         /* Toujours en test, sera bien mis après #backFilm */
         document.querySelector('.back-film').classList.remove('visible');
 		Sound.hideSound();
@@ -370,14 +367,13 @@ Controller.prototype = {
 		var QTEDone = false;
 		var sequence = self.json[self.videoNumber].sequences[self.videoSequence];
 		if(sequence.qte.length === self.QTESuccess) QTEDone = true;
-		console.log(self.filmName);
+		console.log('self.filmName = ' + self.filmName);
 		self.model.saveSequence(self.filmName, self.videoSequence, QTEDone, function(){
 			self.getSave();
 		});
         callback.call(this, QTEDone);
 	},
     toggleSound: function(e){
-        console.log(e);
         e.preventDefault();
         var self = this;
         if (!self.video) return;
@@ -403,10 +399,10 @@ Controller.prototype = {
      * trigger a mouse move in case user would not move his mouse
      */
     addHideControls: function(){
-        console.log('Ajout de addHideControls');
         var self = this;
+        console.log('addHideControls');
         self.tempSelfHiddenControls = self.dealHiddenControls.bind(self); /* prevent error with bind and removeEventListener*/
-        document.querySelector('body').addEventListener('mousemove', self.tempSelfHiddenControls, false);
+        document.addEventListener('mousemove', self.tempSelfHiddenControls, false);
 
         if( document.createEvent ) {
             var evObj = document.createEvent('MouseEvents');
@@ -418,9 +414,10 @@ Controller.prototype = {
     },
 	/**
 	 * If the user doesn't move his mouse during 2 sec
-	 * Controls will disapper to let him enjoy video
+	 * Controls will disappear to let him enjoy video
 	 */
 	dealHiddenControls : function(){
+        /* Not working, mouse move trigger each second */
         var self = this;
         clearTimeout(self.timeoutControls);
         if (self.hiddenControls === true) {
@@ -431,5 +428,19 @@ Controller.prototype = {
             self.view.toggleControls();
             self.hiddenControls = true;
         }, 2000);
+    },
+	/**
+	 * Remove the event listener on mouse move and
+	 * show back the controls
+	 */
+	removeHiddenControlsListener: function(){
+        var self = this;
+        document.removeEventListener('mousemove', self.tempSelfHiddenControls, false);
+
+        clearTimeout(self.timeoutControls);
+        if (self.hiddenControls === true) {
+            self.view.toggleControls();
+            self.hiddenControls = false;
+        }
     }
 };
