@@ -14,9 +14,9 @@ App.prototype = {
 		this.rooms = {};
         this.MovieDB = require('moviedb')('d4a1a9b06621591c22dc52f5bb5c1598');
 
+		this.app.use(this.express.static(this.path.join(__dirname, './assets/mobile/views/')));
 		this.app.use(this.express.static(this.path.join(__dirname, './assets/desktop/views')));
 		this.app.use(this.express.static(this.path.join(__dirname, './assets/desktop/videos/')));
-		this.app.use(this.express.static(this.path.join(__dirname, './assets/mobile/views/')));
 		this.app.use(this.express.static(this.path.join(__dirname, './assets/')));
 		this.getRoutes();
 		this.socketListener();
@@ -121,8 +121,6 @@ App.prototype = {
 			});
 
 			socket.on('renderOnFilm', function(room){
-				console.log('renderOnFilm');
-				console.log(room);
 				self.io.to(room).emit('renderOnFilm');
 			});
 

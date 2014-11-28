@@ -21,7 +21,6 @@ Model.prototype = {
 	},
 	ajaxLoadTemplate: function(template, callback) {
 		var xmlhttp;
-
 		if (window.XMLHttpRequest) {
 			// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp = new XMLHttpRequest();

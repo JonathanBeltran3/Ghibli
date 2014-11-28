@@ -92,6 +92,10 @@ Controller.prototype = {
 		self.socket.on('askFilmName', function(){
 			self.model.emitSocket('resFilmName', {filmName: self.filmName, room: self.room});
 		});
+
+		self.socket.on('responseFilm', function(datas){
+            console.log(datas);
+        })
 	},
 	changeRoom: function() {
 		var self = this;

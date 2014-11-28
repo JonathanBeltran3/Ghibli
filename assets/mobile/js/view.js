@@ -14,6 +14,7 @@ View.prototype = {
 	},
 	renderLoader: function() {
 		var data      = {};
+		console.log(this.loaderTemplate);
 		var template  = Handlebars.compile(this.loaderTemplate);
 		var html      = template(data);
 		this.mainScreen.innerHTML = html;

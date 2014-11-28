@@ -48,9 +48,6 @@ Controller.prototype = {
 						});
 					});
 					break;
-				default:
-					self.view.renderLoader();
-					break;
 			}
 		});
 
@@ -104,31 +101,31 @@ Controller.prototype = {
 				templateName: 'onFilmTemplate'
 			},
 			{
-				templatePath: 'gestures/hold.handlebars',
+				templatePath: 'mobile-gestures/hold.handlebars',
 				templateName: 'hold'
 			},
 			{
-				templatePath: 'gestures/tap.handlebars',
+				templatePath: 'mobile-gestures/tap.handlebars',
 				templateName: 'tap'
 			},
 			{
-				templatePath: 'gestures/swipe-up.handlebars',
+				templatePath: 'mobile-gestures/swipe-up.handlebars',
 				templateName: 'swipe-up'
 			},
 			{
-				templatePath: 'gestures/swipe-down.handlebars',
+				templatePath: 'mobile-gestures/swipe-down.handlebars',
 				templateName: 'swipe-down'
 			},
 			{
-				templatePath: 'gestures/swipe-right.handlebars',
+				templatePath: 'mobile-gestures/swipe-right.handlebars',
 				templateName: 'swipe-right'
 			},
 			{
-				templatePath: 'gestures/swipe-left.handlebars',
+				templatePath: 'mobile-gestures/swipe-left.handlebars',
 				templateName: 'swipe-left'
 			},
 			{
-				templatePath: 'modules/baddGesture.handlebars',
+				templatePath: 'modules/badGesture.handlebars',
 				templateName: 'qteFail'
 			},
 			{

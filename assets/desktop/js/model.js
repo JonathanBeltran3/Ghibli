@@ -51,7 +51,6 @@ Model.prototype = {
 	},
 	ajaxLoadTemplate: function(template, callback) {
 		var xmlhttp;
-
 		if (window.XMLHttpRequest) {
 			// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp = new XMLHttpRequest();
@@ -83,10 +82,6 @@ Model.prototype = {
 	},
     getFilmInfo: function(datas, callback){
         this.emitSocket('askFilm', datas);
-
-        this.socket.on('responseFilm', function(datas){
-            callback.apply(this, datas);
-        })
 /* exemple
  * 81 pour Nausicaa
 * 128 Mononoke
@@ -96,7 +91,5 @@ Model.prototype = {
 * 10515 Laputa
 * 149870-kaze-tachinu The wind rises
 * */
-
-
     }
 };
