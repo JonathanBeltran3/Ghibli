@@ -21,12 +21,21 @@ Controller.prototype = {
         this.tempSelfHiddenControls; // here to be able to remove evt listener
         this.tempSelfPlayPause;
 	},
+
+	/**
+	 * Load save for the precedent films
+	 * and QTEs
+	 */
 	getSave: function() {
 		var self = this;
 		self.model.getSave(function(datas){
 			self.save = datas;
 		});
 	},
+	/**
+	 * Adding eventListener for switching the sound
+	 * And going back to the film menu
+	 */
 	eventListener: function(){
 		var self= this;
 		//document.querySelector('.fullscreen-toggle').addEventListener('click', self.view.toggleFullscreen, false);
@@ -56,9 +65,14 @@ Controller.prototype = {
 
         }, false);
 	},
+    /*
+     * List of the different socket listeners
+     * */
 	socketListener: function() {
 		var self = this;
 		var changeRoom = 0;
+
+        /* Initialisation */
 		self.socket.on('connect', function() {
 			self.model.ajaxLoadTemplate('links.handlebars',function(template){
 				self.view.initTemplates('linksTemplate', template, function(){
@@ -97,6 +111,10 @@ Controller.prototype = {
             self.view.renderSynopsis(datas);
         })
 	},
+    /*
+     * Creation of the room to play
+     * just between desktop & mobile
+     * */
 	changeRoom: function() {
 		var self = this;
 		var changeRoom = 0;
@@ -115,6 +133,7 @@ Controller.prototype = {
 			}
 		});
 	},
+    /* Loading the list of templates */
 	loadVideoTemplates: function(){
 		var self = this;
 		self.load = 0;
@@ -129,7 +148,11 @@ Controller.prototype = {
 				self.launchInitTemplate('moviePlaying.handlebars', 'moviePlaying');
 				self.launchInitTemplate('modules/badge-content.handlebars', 'badgeContent');
 				self.launchInitTemplate('map.handlebars', 'mapTemplate');
+                self.launchInitTemplate('modules/infos-movie.handlebars', 'infosMovie');
 
+                /* Repetition here could be avoided with a variable pass to the partial
+                 * instead of loading 2 similar partials
+                 * */
 				self.launchInitPartials('logos/nausicaa.handlebars', 'nausicaaLogo');
 				self.launchInitPartials('logos/nausicaa-intro.handlebars', 'nausicaaLogo-intro');
 				self.launchInitPartials('logos/mononoke.handlebars', 'mononokeLogo');
@@ -156,10 +179,11 @@ Controller.prototype = {
 				self.launchInitTemplate('gestures/hold.handlebars', 'hold');
 				self.launchInitTemplate('gestures/tap.handlebars', 'tap');
 
-				self.launchInitTemplate('modules/infos-movie.handlebars', 'infosMovie');
+
 			});
 		});
 	},
+    /* Load Handlebars template form server */
 	launchInitTemplate: function(templatePath, templateName){
 		var self = this;
 		self.model.ajaxLoadTemplate(templatePath, function(template) {
@@ -168,6 +192,7 @@ Controller.prototype = {
 			});
 		});
 	},
+    /* Load Handlebars partial form server */
 	launchInitPartials: function(partielPath, partialName){
 		var self = this;
 		self.model.ajaxLoadTemplate(partielPath, function(template) {
@@ -175,6 +200,7 @@ Controller.prototype = {
 			self.dealWithLoading();
 		});
 	},
+    /* Increase the connection counter */
 	dealWithLoading: function(){
 		var self = this;
 		self.load += 100/self.numberOfLoad;
@@ -183,6 +209,9 @@ Controller.prototype = {
 		if(document.querySelector('.value')) self.view.updateLoader(Math.round(self.load));
 
 	},
+    /* When every template thing is loaded
+     * we render the map
+     * */
 	renderMap: function() {
 		var self = this;
 		this.step = 'renderMap';
