@@ -39,11 +39,11 @@ Model.prototype = {
 		this.save = datas;
 		callback.call(this, this.save);
 	},
-	saveSequence: function(filmName, sequence, success, callback){
+	saveQTE: function(filmName, sequence, i, success, callback){
 		if(this.save[filmName] === undefined) this.save[filmName] = [];
-		if(!this.save[filmName][sequence] || this.save[filmName][sequence].qte !== true) {
-			this.save[filmName][sequence] = {qte: success};
-			console.log('SAVING');
+		if(this.save[filmName][sequence] === undefined) this.save[filmName][sequence] = [];
+		if(!this.save[filmName][sequence][i] || this.save[filmName][sequence][i].qte !== true) {
+			this.save[filmName][sequence][i] = {qte: success};
 			console.log(this.save);
 		}
 		localStorage.save = JSON.stringify(this.save);
